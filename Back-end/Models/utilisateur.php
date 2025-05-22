@@ -34,5 +34,28 @@ class Utilisateur {
 
         return false;
     }
+
+    public function login() {
+        $query = "SELECT * FROM " . $this->table . " WHERE email = :email LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+         // Vérification du mot de passe
+            if (password_verify($this->mot_passe, $row['mot_passe'])) {
+               return [
+                  "idutilisateur" => $row["idutilisateur"],
+                   "nom" => $row["nom"],
+                   "prenom" => $row["prenom"],
+                   "email" => $row["email"],
+                   "role" => $row["role"]
+                ];
+            }
+        }
+       return false;
+    
+    }    
 }
 ?>

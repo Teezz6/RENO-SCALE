@@ -34,5 +34,30 @@ if (
 } else {
     http_response_code(400);
     echo json_encode(["message" => "Champs manquants"]);
+
+    // LOGIN
+if (
+    isset($data->email) &&
+    isset($data->mot_passe) &&
+    empty($data->nom) // Cela permet de distinguer connexion et inscription
+) {
+    $utilisateur = new Utilisateur($conn);
+    $utilisateur->email = htmlspecialchars(strip_tags($data->email));
+    $utilisateur->mot_passe = $data->mot_passe;
+
+    $loggedUser = $utilisateur->login();
+
+    if ($loggedUser) {
+        http_response_code(200);
+        echo json_encode([
+            "message" => "Connexion réussie ",
+            "utilisateur" => $loggedUser
+        ]);
+    } else {
+        http_response_code(401);
+        echo json_encode(["message" => "Email ou mot de passe incorrect "]);
+    }
+}
+
 }
 ?>
