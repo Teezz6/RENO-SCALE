@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Connexion - Fashion Chic</title>
   <link rel="stylesheet" href="../styles/pagedeconnexion.css" />
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="background-page"></div>
@@ -18,7 +18,7 @@
 
     <h2 class="login-title">Connexion</h2>
 
-    <form class="login-form">
+    <form id="loginForm" class="login-form">
       <div class="input-group">
         <label for="email"><i class="fa fa-envelope"></i></label>
         <input type="email" id="email" placeholder="Adresse e-mail" required />
@@ -35,6 +35,12 @@
 
       <button type="submit" class="login-btn">Se connecter</button>
     </form>
+
+    <!-- Zone d'affichage du message -->
+    <div id="loginMessage" style="text-align:center;color:red;margin-top:10px;"></div>
   </div>
+
+  <!-- Fichier JS lié -->
+  <script src="../js/login.js"></script>
 </body>
 </html>

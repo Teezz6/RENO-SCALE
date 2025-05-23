@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connexion - Fashion Chic</title>
+  <title>Inscription - Fashion Chic</title>
   <link rel="stylesheet" href="../styles/pagedeconnexion.css" />
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="background-page"></div>
@@ -18,50 +18,45 @@
 
     <h2 class="login-title">Inscription</h2>
 
-    <form class="login-form">
+    <form class="login-form" id="registerForm">
       <div class="input-group">
         <label for="nom"><i class="fa fa-user"></i></label>
-        <input type="nom" id="nom" placeholder="Nom" required />
+        <input type="text" id="nom" name="nom" placeholder="Nom" required />
       </div>
-    </form> 
-    <br>
-    <form class="login-form">
-      <div class="input-group">
-        <label for="prénom"><i class="fa fa-user"></i></label>
-        <input type="prénom" id="prénom" placeholder="Prénom" required />
-      </div>
-    </form>  
-    <br>
-    <form class="login-form">
-      <div class="input-group">
-        <label for="rôle"><i class="fa fa-briefcase"></i></label>
-        <input type="rôle" id="rôle" placeholder="Rôle" required/>
-        <select name="select">
-          <option value="value2" selected>Préparateur de commande</option>
-          <option value="value3">Livreur</option>
-          <option value="value4">Comptable</option>
-          <option value="value5">Responsable de stock</option>
-          <option value="value6">Commercial</option>
-        </select>
 
+      <div class="input-group">
+        <label for="prenom"><i class="fa fa-user"></i></label>
+        <input type="text" id="prenom" name="prenom" placeholder="Prénom" required />
       </div>
-    </form> 
-    <br> 
-    <form class="login-form">
+
+      <div class="input-group">
+        <label for="role"><i class="fa fa-briefcase"></i></label>
+        <select id="role" name="role" required>
+          <option value="préparateur de commande">Préparateur de commande</option>
+          <option value="livreur">Livreur</option>
+          <option value="comptable">Comptable</option>
+          <option value="responsable de stock">Responsable de stock</option>
+          <option value="commercial">Commercial</option>
+        </select>
+      </div>
+
       <div class="input-group">
         <label for="email"><i class="fa fa-envelope"></i></label>
-        <input type="email" id="email" placeholder="Adresse e-mail" required />
+        <input type="email" id="email" name="email" placeholder="Adresse e-mail" required />
       </div>
 
       <div class="input-group">
-        <label for="password"><i class="fa fa-lock"></i></label>
-        <input type="password" id="password" placeholder="Mot de passe" required />
+        <label for="mot_passe"><i class="fa fa-lock"></i></label>
+        <input type="password" id="mot_passe" name="mot_passe" placeholder="Mot de passe" required />
       </div>
-
-      
 
       <button type="submit" class="login-btn">Finaliser l'inscription</button>
     </form>
+
+    <div id="message" style="text-align:center;color:red;margin-top:10px;"></div>
   </div>
+
+  <script src="../js/register.js"></script>
+
 </body>
 </html>
