@@ -1,0 +1,166 @@
+/* suppression des marges/paddings de base */
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Le Corps de la page */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f6f0e8;
+  padding: 20px;
+}
+
+/* Le fond beige clair */
+.background-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f6f0e8;
+  z-index: -1;
+}
+
+/* Carte centrale avec ombre, arrondis, padding */
+.login-card {
+  background-color: #fffaf3;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Logo + titre */
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/*Logo image */
+.logo-img {
+  height: 40px;
+  width: 40px;
+  background-color: #c1a87d;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+/* Nom de l'entreprise*/
+.brand-name {
+  font-weight: 600;
+  font-size: 18px;
+  color: #2e2e2e;
+}
+
+/* Titre principal */
+.login-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #2e2e2e;
+}
+
+/* Formulaire vertical avec espacement */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Boîte des champs (email, mot de passe) */
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 15px;
+}
+
+/* Icônes */
+.input-group label {
+  margin-right: 10px;
+  color: #555;
+}
+
+/* Champs de saisie */
+.input-group input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  background: transparent;
+}
+
+/* Lien mot de passe oublié*/
+.forgot-password {
+  text-align: right;
+  font-size: 13px;
+}
+
+.forgot-password a {
+  color: #555;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* Bouton principal */
+.login-btn {
+  margin-top: 10px;
+  padding: 12px;
+  background-color: #c1a87d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #a98c68;
+}
+/* Responsive pour un écran mobile */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .login-title {
+    font-size: 26px;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+}
+
+
+select {
+  font-size: 0.9rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+
+  display: block;
+  margin: 0 auto;
+}
+
+
+
+
