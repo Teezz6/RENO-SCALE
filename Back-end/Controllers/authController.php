@@ -51,7 +51,13 @@ class AuthController {
                 }
                  
                 //Stocke les infos utilisateur dans la session
-                $_SESSION['user'] = $loggedUser;
+                $_SESSION['utilisateur'] = [
+                 'id' => $loggedUser['id'],
+                 'nom' => $loggedUser['nom'],
+                 'prenom' => $loggedUser['prenom'],
+                 'email' => $loggedUser['email'],
+                 'role' => $loggedUser['role']
+                ];
 
                 return ['status' => 'success', 'utilisateur' => $loggedUser];
             } else {

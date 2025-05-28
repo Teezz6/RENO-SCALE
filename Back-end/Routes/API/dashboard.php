@@ -2,8 +2,10 @@
 session_start();
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: http://web'); // Remplace par le domaine exact de ta page web
+header('Access-Control-Allow-Credentials: true');
 
+// Vérification de la connexion
 if (!isset($_SESSION['utilisateur'])) {
     echo json_encode([
         'status' => 'error',
@@ -15,37 +17,24 @@ if (!isset($_SESSION['utilisateur'])) {
 $utilisateur = $_SESSION['utilisateur'];
 $role = $utilisateur['role'];
 
-$data = [];
+// Association des rôles aux pages correspondantes
+$routes = [
+    'admin' => '../../../Front-end/pages/pageadmin.html',
+    'comptable' => '../pages/comptable.html',
+    'livreur' => '../pages/livreur.html',
+    'préparateur' => '../pages/preparateur.html',
+    'commercial' => '../pages/commercial.html'
+];
 
-switch ($role) {
-    case 'comptable':
-        $data = [
-            'titre' => 'Tableau de bord Comptable',
-            'stats' => ['revenus' => 15000, 'dépenses' => 9000]
-        ];
-        break;
-    case 'livreur':
-        $data = [
-            'titre' => 'Tableau de bord Livreur',
-            'tournées_du_jour' => 12,
-            'commandes_restantes' => 4
-        ];
-        break;
-    case 'préparateur':
-        $data = [
-            'titre' => 'Tableau de bord Préparateur',
-            'commandes_en_attente' => 7
-        ];
-        break;
-    default:
-        $data = ['titre' => 'Dashboard générique'];
-}
+// Page par défaut si le rôle n'existe pas dans la liste
+$page = isset($routes[$role]) ? $routes[$role] : '../pages/pageaccueil.html';
 
+// Réponse JSON
 echo json_encode([
     'status' => 'success',
     'role' => $role,
+    'redirect' => $page,
     'nom' => $utilisateur['nom'],
     'prenom' => $utilisateur['prenom'],
-    'email' => $utilisateur['email'],
-    'dashboard' => $data
+    'email' => $utilisateur['email']
 ]);
