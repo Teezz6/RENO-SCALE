@@ -1,0 +1,16 @@
+[28-May-2025 08:53:41 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[28-May-2025 08:53:41 UTC] PHP Stack trace:
+[28-May-2025 08:53:41 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[28-May-2025 08:53:41 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[28-May-2025 08:54:53 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[28-May-2025 08:54:53 UTC] PHP Stack trace:
+[28-May-2025 08:54:53 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[28-May-2025 08:54:53 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[28-May-2025 08:56:44 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[28-May-2025 08:56:44 UTC] PHP Stack trace:
+[28-May-2025 08:56:44 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[28-May-2025 08:56:44 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[28-May-2025 09:02:43 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[28-May-2025 09:02:43 UTC] PHP Stack trace:
+[28-May-2025 09:02:43 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[28-May-2025 09:02:43 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
