@@ -16,7 +16,7 @@ body {
   width: 200px;
   height: 100vh;
   background-color: #e9e3da;
-  padding: 20px;
+  padding: 10px;
   position: fixed;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
@@ -73,12 +73,27 @@ header input[type="text"] {
   border: 1px solid #ccc;
 }
 
-.profile-icon {
-  width: 35px;
-  height: 35px;
-  background-color: #ccc;
-  border-radius: 50%;
+.icons i {
+  font-size: 18px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
+
+.icons i:hover {
+  transform: scale(1.2);
+}
+
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+
+
 
 /* Overview Cards */
 .overview {
@@ -89,12 +104,29 @@ header input[type="text"] {
 }
 
 .card {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  background-color: rgb(234, 227, 220);
+  padding: 10px;
+  border-radius: 25px;
   flex: 1 1 200px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s ease;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+  background-color: #c1a87d;
+  border-radius: 5px;
+  margin-right: 15px;
 }
 
 .card:hover {

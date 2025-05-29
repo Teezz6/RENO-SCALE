@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestion des stocks - Fashion Chic</title>
+  <link rel="stylesheet" href="../styles/pagestock.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <nav>
+     <div class="sidebar">
+    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+   <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
+    <div class="logo-title">
+      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+      <span class="brand-name">FASHION CHIC</span>
+    </div>
+    <ul class="menu">
+      <li><i class="fas fa-chart-line"></i> Dashboard</li>
+      <li class="active"><i class="fas fa-box"></i> Gestion des stocks</li>
+      <li><i class="fas fa-shopping-cart"></i> Commandes</li>
+      <li><i class="fas fa-truck"></i> Fournisseurs</li>
+      <li><i class="fas fa-calendar-alt"></i> Agenda partagé</li>
+      <li><i class="fas fa-file-alt"></i> Documents</li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <header>
+      <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
+      <h1>Gestion des stocks</h1>
+      <div class="icons">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <div class="filters">
+      <select id="taille-filter">
+        <option value="all">Taille</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+      </select>
+      <select id="couleur-filter">
+        <option value="all">Couleur</option>
+        <option value="Noir">Noir</option>
+        <option value="Blanc">Blanc</option>
+        <option value="Bleu">Bleu</option>
+      </select>
+      <button class="add-article">+ Ajouter un article</button>
+    </div>
+
+    <section class="stock-section">
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>Nom de l'article</th>
+            <th>Quantité</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="stock-body">
+          <!-- Dynamique JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Pop-up ajout/modification -->
+  <div class="popup" id="popup-form">
+    <div class="popup-content">
+      <span class="close-btn" id="close-popup">&times;</span>
+      <h2>Ajouter / Modifier un article</h2>
+      <form id="article-form">
+        <input type="text" id="article-name" placeholder="Nom de l'article" required>
+        <input type="number" id="article-qty" placeholder="Quantité" required>
+        <select id="article-taille">
+          <option value="">Taille</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+        </select>
+        <select id="article-couleur">
+          <option value="">Couleur</option>
+          <option value="Noir">Noir</option>
+          <option value="Blanc">Blanc</option>
+          <option value="Bleu">Bleu</option>
+        </select>
+        <button type="submit">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../JS/stock.js"></script>
+</body>
+</html>
