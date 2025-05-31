@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commandes - Fashion Chic</title>
+  <link rel="stylesheet" href="../styles/pagecommande.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <nav>
+    <div class="sidebar">
+      <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+        <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
+      </a>
+      <div class="logo-title">
+        <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+        <span class="brand-name">FASHION CHIC</span>
+      </div>
+      <ul class="menu">
+        <li><i class="fas fa-chart-line"></i> Dashboard</li>
+        <li><i class="fas fa-box"></i> Gestion des stocks</li>
+        <li class="active"><i class="fas fa-shopping-cart"></i> Commandes</li>
+        <li><i class="fas fa-truck"></i> Fournisseurs</li>
+        <li><i class="fas fa-calendar-alt"></i> Agenda partagé</li>
+        <li><i class="fas fa-file-alt"></i> Documents</li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="content">
+    <header>
+      <h1>Commandes</h1>
+      <div class="icons">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <section class="orders-section">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>N° de commande</th>
+            <th>Client</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#01236</td>
+            <td>Elizabeth Martin</td>
+            <td><span class="badge reception">Réception</span></td>
+            <td><button class="view-btn">Voir</button></td>
+          </tr>
+          <tr>
+            <td>#01235</td>
+            <td>Antoine Durand</td>
+            <td><span class="badge reception">Réception</span></td>
+            <td><button class="view-btn">Voir</button></td>
+          </tr>
+          <tr>
+            <td>#01234</td>
+            <td>Sarah Bernard</td>
+            <td><span class="badge preparation">Préparation</span></td>
+            <td><button class="view-btn">Voir</button></td>
+          </tr>
+          <tr>
+            <td>#01233</td>
+            <td>François Leblanc</td>
+            <td><span class="badge livraison">Livraison</span></td>
+            <td><button class="view-btn">Voir</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="../JS/commande.js"></script>
+</body>
+</html>

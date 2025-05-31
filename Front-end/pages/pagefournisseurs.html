@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fournisseurs - Fashion Chic</title>
+  <link rel="stylesheet" href="../styles/pagefournisseurs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <nav>
+    <div class="sidebar">
+      <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+        <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
+      </a>
+      <div class="logo-title">
+        <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+        <span class="brand-name">FASHION CHIC</span>
+      </div>
+      <ul class="menu">
+        <li><i class="fas fa-chart-line"></i> Dashboard</li>
+        <li><i class="fas fa-box"></i> Gestion des stocks</li>
+        <li><i class="fas fa-shopping-cart"></i> Commandes</li>
+        <li class="active"><i class="fas fa-truck"></i> Fournisseurs</li>
+        <li><i class="fas fa-calendar-alt"></i> Agenda partagé</li>
+        <li><i class="fas fa-file-alt"></i> Documents</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Contenu principal -->
+  <main class="content">
+    <header class="topbar">
+      <h1>Fournisseurs</h1>
+      <div class="icons">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <div class="filters">
+      <button id="addSupplierBtn" class="add-btn">+ Ajouter un fournisseur</button>
+    </div>
+
+    <section class="supplier-section">
+      <table class="supplier-table">
+        <thead>
+          <tr>
+            <th>Nom de l'entreprise</th>
+            <th>Contact</th>
+            <th>Dernière livraison</th>
+          </tr>
+        </thead>
+        <tbody id="supplier-body">
+          <tr><td>Mode & Style</td><td>Isabelle Martin</td><td>12 avril 2024</td></tr>
+          <tr><td>Élégance Sourcing</td><td>Luc Durand</td><td>23 mars 2024</td></tr>
+          <tr><td>Textile Création</td><td>Sophie Lambert</td><td>15 mars 2024</td></tr>
+          <tr><td>Chic Distribution</td><td>Jean Lefevre</td><td>2 mars 2024</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Pop-up formulaire (à garder) -->
+  <div id="addSupplierForm" class="popup-form">
+    <div class="form-content">
+      <button class="close-btn" id="closeFormBtn">&times;</button>
+      <h2>Ajouter un fournisseur</h2>
+      <form id="supplierForm">
+        <input type="text" id="nom" placeholder="Nom de l'entreprise" required />
+        <input type="text" id="contact" placeholder="Nom du contact" required />
+        <input type="date" id="livraison" required />
+        <button class="submit-btn" type="submit">Ajouter</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../JS/fournisseurs.js"></script>
+</body>
+</html>
