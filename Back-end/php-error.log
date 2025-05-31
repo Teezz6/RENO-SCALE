@@ -14,3 +14,19 @@
 [28-May-2025 09:02:43 UTC] PHP Stack trace:
 [28-May-2025 09:02:43 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
 [28-May-2025 09:02:43 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[31-May-2025 19:56:09 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[31-May-2025 19:56:09 UTC] PHP Stack trace:
+[31-May-2025 19:56:09 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[31-May-2025 19:56:09 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[31-May-2025 20:02:09 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[31-May-2025 20:02:09 UTC] PHP Stack trace:
+[31-May-2025 20:02:09 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[31-May-2025 20:02:09 UTC] PHP   2. AuthController->login($data = ['email' => 'scott@mail.com', 'mot_passe' => '234']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[31-May-2025 20:09:07 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[31-May-2025 20:09:07 UTC] PHP Stack trace:
+[31-May-2025 20:09:07 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[31-May-2025 20:09:07 UTC] PHP   2. AuthController->login($data = ['email' => 'scott@mail.com', 'mot_passe' => '234']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[31-May-2025 20:11:38 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[31-May-2025 20:11:38 UTC] PHP Stack trace:
+[31-May-2025 20:11:38 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[31-May-2025 20:11:38 UTC] PHP   2. AuthController->login($data = ['email' => 'scott@mail.com', 'mot_passe' => '234']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
