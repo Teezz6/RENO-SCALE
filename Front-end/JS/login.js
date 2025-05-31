@@ -53,7 +53,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
           window.location.href = '../pages/preparateur.html';
           break;
         case 'commercial':
-          window.location.href = '../pages/commercial.html';
+          window.location.href = '../pages/pagestock.html';
           break;
         default:
           document.getElementById('message').textContent = "Rôle utilisateur inconnu.";
