@@ -47,12 +47,15 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
           window.location.href = '../pages/comptable.html';
           break;
         case 'livreur':
-          window.location.href = '../pages/livreur.html';
+          window.location.href = '../pages/pagecommande.html';
           break;
         case 'préparateur':
-          window.location.href = '../pages/preparateur.html';
+          window.location.href = '../pages/pagecommande.html';
           break;
         case 'commercial':
+          window.location.href = '../pages/pagefournisseurs.html';
+          break;
+        case 'responsable de stock':
           window.location.href = '../pages/pagestock.html';
           break;
         default:

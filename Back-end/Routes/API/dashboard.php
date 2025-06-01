@@ -22,8 +22,8 @@ $routes = [
     'admin' => '../../../Front-end/pages/pageadmin.html',
     'comptable' => '../pages/comptable.html',
     'livreur' => '../pages/livreur.html',
-    'préparateur' => '../pages/preparateur.html',
-    'commercial' => '../../../Front-end/pages/pagestock.html'
+    'préparateur','admin','livreur','responsable de stock' => '../../../Front-end/pages/pagecommande.html',
+    'commercial','admin','responsable de stock' => '../../../Front-end/pages/pagestock.html'
 ];
 
 // Page par défaut si le rôle n'existe pas dans la liste
