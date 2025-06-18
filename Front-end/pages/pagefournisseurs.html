@@ -9,28 +9,25 @@
 </head>
 
 <body>
-  <nav>
-    <div class="sidebar">
-      <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
-        <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
-      </a>
-      <div class="logo-title">
-        <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
-        <span class="brand-name">FASHION CHIC</span>
-      </div>
-      <ul class="menu">
-        <li><i class="fas fa-chart-line"></i> Dashboard</li>
-        <li><i class="fas fa-box"></i> Gestion des stocks</li>
-        <li><i class="fas fa-shopping-cart"></i> Commandes</li>
-        <li class="active"><i class="fas fa-truck"></i> Fournisseurs</li>
-        <li><i class="fas fa-calendar-alt"></i> Agenda partagé</li>
-        <li><i class="fas fa-file-alt"></i> Documents</li>
-      </ul>
+  <div class="sidebar">
+    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+      <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
+    </a>
+    <div class="logo-title">
+      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+      <span class="brand-name">FASHION CHIC</span>
     </div>
-  </nav>
+    <ul class="menu">
+      <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+      <li><a href="#stock"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+      <li><a href="#commandes"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+      <li><a href="#fournisseurs"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+      <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+      <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
+    </ul>
+  </div>
 
-  <!-- Contenu principal -->
-  <main class="content">
+  <main class="main">
     <header class="topbar">
       <h1>Fournisseurs</h1>
       <div class="icons">
@@ -62,7 +59,6 @@
     </section>
   </main>
 
-  <!-- Pop-up formulaire (à garder) -->
   <div id="addSupplierForm" class="popup-form">
     <div class="form-content">
       <button class="close-btn" id="closeFormBtn">&times;</button>

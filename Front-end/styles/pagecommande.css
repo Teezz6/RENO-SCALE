@@ -1,67 +1,87 @@
+html { 
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: "Arial", sans-serif;
-  background: #fdfaf6;
+  font-family: Arial, sans-serif;
+  background-color: #f4f1ed;
   color: #333;
 }
 
+/* Sidebar */
 .sidebar {
-  width: 220px;
+  width: 200px;
   height: 100vh;
-  background: #f0eae2;
+  background-color: #e9e3da;
   padding: 10px;
   position: fixed;
-  left: 0;
-  top: 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
-.brand {
-  font-size: 20px;
-  margin-bottom: 30px;
-  letter-spacing: 1px;
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+  background-color: #c1a87d;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.brand-name {
+  font-size: 1.2rem;
+}
+
+/* Menu */
 .menu {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
+  width: 100%;
 }
 
 .menu li {
   margin: 20px 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  transition: background 0.3s ease;
 }
 
-.menu li:hover {
-  background: #e2d6c8;
-  border-radius: 6px;
+.menu li i {
+  margin-right: 10px;
+}
+
+.menu li,
+.menu li a {
+  color: #333;
+  text-decoration: none;
   padding: 10px;
+  display: block;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 300;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background 0.3s, color 0.3s;
 }
 
+.menu li:hover,
 .menu li.active {
-  padding: 5px;
-  border-radius: 3px;
+  background-color: #d6bdaa;
+  color: white;
+  font-weight: bold;
 }
 
-.content {
-  margin-left: 240px;
-  padding: 20px;
-}
-
-header {
+/* Le lien 'a' pour la déconnexion, on le stylise ici */
+.login-icon {
+  margin-bottom: 20px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px;
-}
-
-header h1 {
-  font-size: 24px;
-  margin: 0;
+  justify-content: flex-start;
 }
 
 .back-btn {
@@ -69,6 +89,35 @@ header h1 {
   border: none;
   font-size: 18px;
   cursor: pointer;
+  color: #6d4c41;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #d6bdaa;
+  color: white;
+}
+
+/* Main content */
+.content {
+  margin-left: 220px;
+  padding: 20px;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 1.8rem;
 }
 
 .icons i {
@@ -82,91 +131,188 @@ header h1 {
   transform: scale(1.2);
 }
 
-.logo-title {
+
+/* Bouton + pour ajouter commande */
+.add-order-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   margin-bottom: 20px;
-  font-weight: bold;
 }
 
-.logo-img {
-  height: 40px;
-  width: 40px;
-  background-color: #c1a87d;
-  border-radius: 5px;
-  margin-right: 15px;
-}
-
-.filter-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.filter-bar select {
-  padding: 8px 12px;
+.add-order-btn {
+  background-color: #6d4c41;
+  color: white;
+  font-size: 18px;
+  padding: 10px 16px;
+  border: none;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  background: white;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.orders-section {
-  margin-top: 20px;
+.add-order-btn:hover {
+  background-color: #5a3e2f;
 }
 
+/* Table commandes */
 .orders-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  background-color: #fff;
+}
+
+.orders-table thead {
+  background-color: #e9e3da;
 }
 
 .orders-table th,
 .orders-table td {
   padding: 15px;
+  border-bottom: 1px solid #ddd;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  color: #333;
 }
 
 .orders-table th {
-  background: #f9f5f0;
+  font-weight: 600;
 }
 
-.badge {
-  padding: 5px 10px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: bold;
-  color: white;
-}
-
-.badge.reception {
-  background-color: #1e8c42;
-}
-
-.badge.preparation {
-  background-color: #c75a29;
-}
-
-.badge.livraison {
-  background-color: #b89a85;
-}
-
+/* Boutons voir */
 .view-btn {
   padding: 6px 12px;
+  background-color: #6d4c41;
+  color: #fff;
   border: none;
   border-radius: 6px;
-  background: #eee3d5;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.3s;
 }
 
 .view-btn:hover {
-  background: #d6bdaa;
+  background-color: #5a3e2f;
+}
+
+/* Badges statuts */
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: bold;
   color: white;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.badge.reception {
+  background-color: #3498db;
+}
+
+.badge.preparation {
+  background-color: #f39c12;
+}
+
+.badge.livraison {
+  background-color: #2ecc71;
+}
+
+/* Formulaire commande */
+.order-form {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin-top: 30px;
+}
+
+.order-form.hidden {
+  display: none;
+}
+
+.order-form h2 {
+  margin-bottom: 20px;
+  color: #6d4c41;
+}
+
+.order-form label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.order-form input[type="text"],
+.order-form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Lots dans le formulaire */
+.lot-block {
+  background-color: #f4f1ed;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.lot-block label {
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+.lot-block input {
+  margin-top: 5px;
+}
+
+/* Tailles en grille */
+.sizes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.sizes label {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Boutons du formulaire */
+#addLotBtn,
+#submitOrderBtn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #6d4c41;
+  color: white;
+  transition: background 0.3s;
+}
+
+#addLotBtn:hover,
+#submitOrderBtn:hover {
+  background-color: #5a3e2f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 15px;
+  }
 }

@@ -10,21 +10,23 @@
 
 <body>
   <nav>
-     <div class="sidebar">
-    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
-   <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
-    <div class="logo-title">
-      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
-      <span class="brand-name">FASHION CHIC</span>
+    <div class="sidebar">
+      <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+        <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
+      </a>
+      <div class="logo-title">
+        <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+        <span class="brand-name">FASHION CHIC</span>
+      </div>
+      <ul class="menu">
+        <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="#stock"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+        <li><a href="#commandes"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+        <li><a href="#fournisseurs"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+        <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+        <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
+      </ul>
     </div>
-    <ul class="menu">
-      <li><i class="fas fa-chart-line"></i> Dashboard</li>
-      <li class="active"><i class="fas fa-box"></i> Gestion des stocks</li>
-      <li><i class="fas fa-shopping-cart"></i> Commandes</li>
-      <li><i class="fas fa-truck"></i> Fournisseurs</li>
-      <li><i class="fas fa-calendar-alt"></i> Agenda partagé</li>
-      <li><i class="fas fa-file-alt"></i> Documents</li>
-    </ul>
   </nav>
 
   <main class="content">
@@ -74,22 +76,31 @@
   <div class="popup" id="popup-form">
     <div class="popup-content">
       <span class="close-btn" id="close-popup">&times;</span>
-      <h2>Ajouter / Modifier un article</h2>
+      <h2 id="form-title">Ajouter / Modifier un article</h2>
       <form id="article-form">
         <input type="text" id="article-name" placeholder="Nom de l'article" required>
-        <input type="number" id="article-qty" placeholder="Quantité" required>
-        <select id="article-taille">
+        
+        <div class="lot-fields">
+          <input type="number" id="lot-count" placeholder="Nombre de lots" min="1">
+          <input type="number" id="qty-per-lot" placeholder="Quantité par lot" min="1">
+        </div>
+
+        <input type="number" id="article-qty" placeholder="Quantité (si pas de lot)" min="1">
+
+        <select id="article-taille" required>
           <option value="">Taille</option>
           <option value="S">S</option>
           <option value="M">M</option>
           <option value="L">L</option>
         </select>
-        <select id="article-couleur">
+
+        <select id="article-couleur" required>
           <option value="">Couleur</option>
           <option value="Noir">Noir</option>
           <option value="Blanc">Blanc</option>
           <option value="Bleu">Bleu</option>
         </select>
+
         <button type="submit">Enregistrer</button>
       </form>
     </div>
