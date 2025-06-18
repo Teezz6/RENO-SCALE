@@ -27,7 +27,7 @@ try {
 
     if ($data) {
         $auth = new AuthController();
-        $result = $auth->login($data); // ⚠️ Assure-toi que cette méthode existe et fonctionne
+        $result = $auth->login($data); 
 
         if ($result['status'] === 'success') {
             echo json_encode([
