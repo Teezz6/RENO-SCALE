@@ -20,9 +20,15 @@
       </div>
       <ul class="menu">
         <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+<<<<<<< HEAD
         <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
         <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
         <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+=======
+        <li><a href="#stock"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+        <li><a href="#commandes"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+        <li><a href="#fournisseurs"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+>>>>>>> 8efb200593be8e4c0fe0fc6b91d0ca06e76ad1e8
         <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
         <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
       </ul>
@@ -76,22 +82,31 @@
   <div class="popup" id="popup-form">
     <div class="popup-content">
       <span class="close-btn" id="close-popup">&times;</span>
-      <h2>Ajouter / Modifier un article</h2>
+      <h2 id="form-title">Ajouter / Modifier un article</h2>
       <form id="article-form">
         <input type="text" id="article-name" placeholder="Nom de l'article" required>
-        <input type="number" id="article-qty" placeholder="Quantité" required>
-        <select id="article-taille">
+        
+        <div class="lot-fields">
+          <input type="number" id="lot-count" placeholder="Nombre de lots" min="1">
+          <input type="number" id="qty-per-lot" placeholder="Quantité par lot" min="1">
+        </div>
+
+        <input type="number" id="article-qty" placeholder="Quantité (si pas de lot)" min="1">
+
+        <select id="article-taille" required>
           <option value="">Taille</option>
           <option value="S">S</option>
           <option value="M">M</option>
           <option value="L">L</option>
         </select>
-        <select id="article-couleur">
+
+        <select id="article-couleur" required>
           <option value="">Couleur</option>
           <option value="Noir">Noir</option>
           <option value="Blanc">Blanc</option>
           <option value="Bleu">Bleu</option>
         </select>
+
         <button type="submit">Enregistrer</button>
       </form>
     </div>

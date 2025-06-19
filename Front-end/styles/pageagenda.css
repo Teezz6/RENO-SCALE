@@ -1,0 +1,288 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f1ed;
+  color: #333;
+}
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #e9e3da;
+  padding: 10px;
+  position: fixed;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #6d4c41;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  border-radius: 5px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background-color: #d6bdaa;
+  color: white;
+  font-weight: bold;
+}
+
+/* Main content */
+.main {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+header input[type="text"] {
+  padding: 8px 12px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.icons i {
+  font-size: 18px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.icons i:hover {
+  transform: scale(1.2);
+}
+
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Overview Cards */
+.overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: rgb(234, 227, 220);
+  padding: 10px;
+  border-radius: 25px;
+  flex: 1 1 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+  background-color: #c1a87d;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.agenda-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.agenda-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.view-btn, .today-btn, .nav-btn {
+  background-color: #e8dfd8;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.view-btn.active, .today-btn:hover {
+  background-color: #d6c5b5;
+}
+
+.date-navigation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.month-label {
+  font-weight: bold;
+}
+
+.agenda-grid {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefaf5;
+  border: 1px solid #ddd5c7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.grid-header {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  background-color: #f3e9e2;
+}
+
+.empty-cell {
+  background-color: #f3e9e2;
+}
+
+.day-header {
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.grid-body {
+  display: flex;
+}
+
+.time-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-slot {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  color: #7b6c61;
+}
+
+.day-columns {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 60px;
+  flex: 1;
+  position: relative;
+}
+
+.agenda-cell {
+  border: 1px solid #ccc;
+  height: 60px;
+  position: relative;
+  cursor: pointer;
+}
+
+.event {
+  background-color: #ffd6d6;
+  color: #333;
+  font-size: 0.8rem;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; 
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  position: relative;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1010;
+  color: #333;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+}

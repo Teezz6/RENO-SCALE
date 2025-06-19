@@ -23,7 +23,7 @@ function afficherArticles() {
       (taille === "all" || a.taille === taille) &&
       (couleur === "all" || a.couleur === couleur)
     )
-    .forEach(article => {
+    .forEach((article, index) => {
       const tr = document.createElement("tr");
 
       const statut =
@@ -43,7 +43,7 @@ function afficherArticles() {
             ? "stock-low"
             : "stock-out"
         }">${statut}</td>
-        <td><button class="edit-btn">Modifier</button></td>
+        <td><button class="edit-btn" data-index="${index}">Modifier</button></td>
       `;
 
       tbody.appendChild(tr);
@@ -56,6 +56,8 @@ couleurFilter.addEventListener("change", afficherArticles);
 
 // Popup
 addBtn.addEventListener("click", () => {
+  form.reset();
+  form.dataset.editingIndex = "";
   popup.style.display = "flex";
 });
 
@@ -63,16 +65,45 @@ closePopup.addEventListener("click", () => {
   popup.style.display = "none";
 });
 
-// Formulaire ajout article
+// Gérer les clics sur "Modifier"
+tbody.addEventListener("click", e => {
+  if (e.target.classList.contains("edit-btn")) {
+    const index = e.target.dataset.index;
+    const article = articles[index];
+    document.getElementById("article-name").value = article.nom;
+    document.getElementById("article-qty").value = article.quantite;
+    document.getElementById("article-taille").value = article.taille;
+    document.getElementById("article-couleur").value = article.couleur;
+    form.dataset.editingIndex = index;
+    popup.style.display = "flex";
+  }
+});
+
+// Formulaire ajout/modification d'article
 form.addEventListener("submit", e => {
   e.preventDefault();
-  const nom = document.getElementById("article-name").value;
-  const quantite = parseInt(document.getElementById("article-qty").value);
+  const nom = document.getElementById("article-name").value.trim();
   const taille = document.getElementById("article-taille").value;
   const couleur = document.getElementById("article-couleur").value;
 
-  if (nom && !isNaN(quantite) && taille && couleur) {
-    articles.push({ nom, quantite, taille, couleur });
+  const lotCount = parseInt(document.getElementById("lot-count").value);
+  const qtyPerLot = parseInt(document.getElementById("qty-per-lot").value);
+  const quantiteDirect = parseInt(document.getElementById("article-qty").value);
+
+  let quantite = 0;
+  if (!isNaN(lotCount) && !isNaN(qtyPerLot)) {
+    quantite = lotCount * qtyPerLot;
+  } else if (!isNaN(quantiteDirect)) {
+    quantite = quantiteDirect;
+  }
+
+  if (nom && quantite > 0 && taille && couleur) {
+    const editingIndex = form.dataset.editingIndex;
+    if (editingIndex !== "") {
+      articles[editingIndex] = { nom, quantite, taille, couleur };
+    } else {
+      articles.push({ nom, quantite, taille, couleur });
+    }
     afficherArticles();
     form.reset();
     popup.style.display = "none";

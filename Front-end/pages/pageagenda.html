@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agenda - Admin</title>
+<link rel="stylesheet" href="../styles/pageagenda.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav>
+  <div class="sidebar">
+    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+   <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
+    <div class="logo-title">
+      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+      <span class="brand-name">FASHION CHIC</span>
+    </div>
+   <ul class="menu">
+  <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+  <li><a href="#stock"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+  <li><a href="#commandes"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+  <li><a href="#fournisseurs"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+  <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+  <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
+</ul>
+  </nav>
+  
+  </div>
+  <div class="main">
+    <header>
+       <div class="icons">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <section class="tables">
+      <div class="agenda-header">
+  <div class="agenda-controls">
+    <button class="view-btn active">Semaine</button>
+    <button class="view-btn">Mois</button>
+    <button class="today-btn">Aujourd’hui</button>
+  </div>
+  <h2>Agenda partagé</h2>
+  <div class="date-navigation">
+  <button class="nav-btn">&#8249;</button>
+  <span class="month-label">Avril 2024</span>
+  <button class="nav-btn">&#8250;</button>
+</div>
+</div>
+
+<div class="agenda-grid">
+  <div class="grid-header">
+    <div class="empty-cell"></div>
+    <div class="day-header">LUNDI</div>
+    <div class="day-header">MARDI</div>
+    <div class="day-header">MERCREDI</div>
+    <div class="day-header">JEUDI</div>
+    <div class="day-header">VENDREDI</div>
+    <div class="day-header">SAMEDI</div>
+    <div class="day-header">DIMANCHE</div>
+  </div>
+
+  
+  <div class="grid-body">
+    <div class="time-column">
+      <div class="time-slot">08.00</div>
+      <div class="time-slot">09.00</div>
+      <div class="time-slot">10.00</div>
+      <div class="time-slot">11.00</div>
+      <div class="time-slot">12.00</div>
+      <div class="time-slot">13.00</div>
+      <div class="time-slot">14.00</div>
+      <div class="time-slot">15.00</div>
+      <div class="time-slot">16.00</div>
+    </div>
+
+    <div class="day-columns">
+    </div>
+  </div>
+</div>
+
+  <div id="eventModal" class="modal hidden">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h3 id="modalTitle">Ajouter un événement</h3>
+    <form id="eventForm">
+      <label for="eventDate">Date :</label>
+      <input type="date" id="eventDate" required />
+      <label for="eventTime">Heure :</label>
+      <input type="time" id="eventTime" required />
+      <label for="eventDesc">Description :</label>
+      <input type="text" id="eventDesc" required />
+      <button type="submit" class="agenda-btn">Enregistrer</button>
+    </form>
+  </div>
+</div>
+
+  <script src="../JS/agenda.js"></script>
+</body>
+</html>

@@ -38,6 +38,10 @@
       </div>
     </header>
 
+    <div class="add-order-container">
+      <button id="addOrderBtn" class="add-order-btn"><i class="fas fa-plus"></i> </button>
+    </div>
+
     <section class="orders-section">
       <table class="orders-table">
         <thead>
@@ -45,7 +49,7 @@
             <th>N° de commande</th>
             <th>Client</th>
             <th>Statut</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -76,8 +80,23 @@
         </tbody>
       </table>
     </section>
+
+    <!-- Formulaire de commande -->
+    <div id="orderForm" class="order-form hidden">
+      <h2>Nouvelle Commande</h2>
+      <label>Nom du client :
+        <input type="text" id="clientName" placeholder="Ex : Marie Dupont" />
+      </label>
+
+      <div id="lotsContainer"></div>
+
+      <button type="button" id="addLotBtn">Ajouter un lot</button>
+      <button type="button" id="submitOrderBtn">Valider la commande</button>
+    </div>
   </main>
 
   <script src="../JS/commande.js"></script>
 </body>
 </html>
+
+
