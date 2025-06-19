@@ -13,37 +13,45 @@ body {
   height: 100vh;
 }
 
-/* Barre latérale */
+/* Sidebar */
 .sidebar {
-  
-  width: 240px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
+  width: 200px;
+  height: 100vh;
+  background-color: #e9e3da;
+  padding: 10px;
+  position: fixed;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
-
-/* Logo */
-.logo {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 40px;
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #6d4c41;
 }
 
-.logo-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  font-weight: bold;
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.logo-img {
-  height: 40px;
-  width: 40px;
-  background-color: #decdb1;
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
   border-radius: 5px;
-  margin-right: 15px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background-color: #d6bdaa;
+  color: white;
+  font-weight: bold;
 }
 
 /* Menu de navigation */

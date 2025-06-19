@@ -9,37 +9,37 @@
 </head>
 <body>
   <nav>
-  <div class="sidebar">
-    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
-   <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
-    <div class="logo-title">
-      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
-      <span class="brand-name">FASHION CHIC</span>
+    <div class="sidebar">
+      <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+        <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
+      </a>
+      <div class="logo-title">
+        <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+        <span class="brand-name">FASHION CHIC</span>
+      </div>
+      <ul class="menu">
+        <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+        <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+        <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+        <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+        <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
+      </ul>
     </div>
-   <ul class="menu">
-  <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-  <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
-  <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
-  <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
-  <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
-  <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
-</ul>
-
   </nav>
-  
-  </div>
+
   <div class="main">
     <header>
       <div class="search-container">
         <i class="fas fa-search search-icon"></i>
-         <input type="text" id="searchInput" placeholder="Rechercher">
+        <input type="text" id="searchInput" placeholder="Rechercher">
       </div>
       <div class="icons">
         <i class="fas fa-bell"></i>
         <i class="fas fa-user-circle"></i>
       </div>
     </header>
-    
+
     <section id="dashboard" class="overview">
       <div class="card">Stock actuel<br><strong>1.500</strong> articles</div>
       <div class="card">Commandes en livraison<br><strong>12</strong></div>
@@ -48,13 +48,13 @@
     </section>
 
     <section class="graph">
-      <h3>Commandes mensuelles </h3>
-  <canvas id="commandeChart" width="400" height="200"></canvas>
+      <h3>Commandes mensuelles</h3>
+      <canvas id="commandeChart" width="400" height="200"></canvas>
     </section>
 
     <section class="graph">
-  <h3>Répartition des statuts</h3>
-  <canvas id="commandeStatusChart" width="200" height="100"></canvas>
+      <h3>Répartition des statuts</h3>
+      <canvas id="commandeStatusChart" width="200" height="100"></canvas>
     </section>
 
     <section id="stock" class="tables">
@@ -74,7 +74,6 @@
       <div class="table">
         <h3>Commandes</h3>
         <table id="commandesTable">
-        <table>
           <tr><th>Numéro</th><th>Statut</th><th>Date</th></tr>
           <tr><td>1001</td><td>Livrée</td><td>23 Mai 2025</td></tr>
           <tr><td>1002</td><td>En cours de traitement</td><td>22 Mai 2025</td></tr>
@@ -116,6 +115,7 @@
       </div>
     </section>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../JS/script.js"></script>
 </body>
