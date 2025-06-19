@@ -16,7 +16,6 @@ body {
   background-color: #e9e3da;
   padding: 10px;
   position: fixed;
-<<<<<<< HEAD
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -49,12 +48,6 @@ body {
   background-color: #d6bdaa;
   color: white;
   font-weight: bold;
-=======
-  top: 0;
-  left: 0;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
->>>>>>> 8efb200593be8e4c0fe0fc6b91d0ca06e76ad1e8
 }
 
 .sidebar h2 {
