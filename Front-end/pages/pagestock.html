@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestion des stocks - Fashion Chic</title>
   <link rel="stylesheet" href="../styles/pagestock.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
@@ -52,60 +52,59 @@
         <option value="Blanc">Blanc</option>
         <option value="Bleu">Bleu</option>
       </select>
-      <button class="add-article">+ Ajouter un article</button>
+      <!-- Bouton pour afficher le formulaire -->
+      <button id="show-ajouter-produit-form" class="add-article">+ Ajouter un produit</button>
     </div>
 
     <section class="stock-section">
-      <table class="stock-table">
+      <table class="stock-table" id="produit-table">
         <thead>
           <tr>
-            <th>Nom de l'article</th>
-            <th>Quantité</th>
-            <th>Statut</th>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Taille</th>
+            <th>Couleur</th>
+            <th>Matière</th>
+            <th>Quantité en stock</th>
+            <th>Prix unitaire</th>
+            <th>ID Fournisseur</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="stock-body">
-          <!-- Dynamique JS -->
+        <tbody>
+          <!-- Contenu dynamique JS -->
         </tbody>
       </table>
     </section>
-  </main>
 
-  <!-- Pop-up ajout/modification -->
-  <div class="popup" id="popup-form">
-    <div class="popup-content">
-      <span class="close-btn" id="close-popup">&times;</span>
-      <h2 id="form-title">Ajouter / Modifier un article</h2>
-      <form id="article-form">
-        <input type="text" id="article-name" placeholder="Nom de l'article" required>
-        
-        <div class="lot-fields">
-          <input type="number" id="lot-count" placeholder="Nombre de lots" min="1">
-          <input type="number" id="qty-per-lot" placeholder="Quantité par lot" min="1">
-        </div>
-
-        <input type="number" id="article-qty" placeholder="Quantité (si pas de lot)" min="1">
-
-        <select id="article-taille" required>
-          <option value="">Taille</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-        </select>
-
-        <select id="article-couleur" required>
-          <option value="">Couleur</option>
-          <option value="Noir">Noir</option>
-          <option value="Blanc">Blanc</option>
-          <option value="Bleu">Bleu</option>
-        </select>
-
-        <button type="submit">Enregistrer</button>
+    <!-- Formulaire Ajouter Produit (caché par défaut) -->
+    <div id="ajouter-produit-container" style="display:none; margin-top: 20px;">
+      <h2>Ajouter un produit</h2>
+      <form id="ajouter-produit-form">
+        <input type="text" id="nom" placeholder="Nom" required />
+        <input type="text" id="taille" placeholder="Taille" required />
+        <input type="text" id="couleur" placeholder="Couleur" required />
+        <input type="text" id="matiere" placeholder="Matière" required />
+        <input type="number" id="quantite" placeholder="Quantité en stock" min="0" required />
+        <input type="number" id="prix" placeholder="Prix unitaire (€)" step="0.01" min="0" required />
+        <input type="text" id="idfournisseur" placeholder="ID Fournisseur" required />
+        <button type="submit">Ajouter</button>
+        <button type="button" id="cancel-ajout">Annuler</button>
       </form>
     </div>
-  </div>
+  </main>
 
   <script src="../JS/stock.js"></script>
+
+  <script>
+    // Script pour afficher/cacher le formulaire ajout produit
+    document.getElementById('show-ajouter-produit-form').addEventListener('click', () => {
+      document.getElementById('ajouter-produit-container').style.display = 'block';
+    });
+    document.getElementById('cancel-ajout').addEventListener('click', () => {
+      document.getElementById('ajouter-produit-container').style.display = 'none';
+      document.getElementById('ajouter-produit-form').reset();
+    });
+  </script>
 </body>
 </html>

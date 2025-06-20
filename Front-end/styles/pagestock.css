@@ -108,6 +108,12 @@ body {
   border-radius: 3px;
 }
 
+.stock-faible {
+    color: red;
+    font-weight: bold;
+}
+
+
 .content {
   margin-left: 240px;
   padding: 20px;
