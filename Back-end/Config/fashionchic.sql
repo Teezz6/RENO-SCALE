@@ -22,6 +22,23 @@ CREATE TABLE Produit (
     FOREIGN KEY (idfournisseur) REFERENCES Fournisseur(idfournisseur)
 );
 
+CREATE TABLE Lot (
+    idlot INT AUTO_INCREMENT PRIMARY KEY,
+    nom_lot VARCHAR(100) NOT NULL,
+    description TEXT,
+    date_creation DATE NOT NULL
+)
+
+CREATE TABLE Lot_Produit (
+    id_lot_produit INT AUTO_INCREMENT PRIMARY KEY,
+    idlot INT,
+    idproduit INT,
+    quantite_lot INT NOT NULL,
+    FOREIGN KEY (idlot) REFERENCES Lot(idlot),
+    FOREIGN KEY (idproduit) REFERENCES Produit(idproduit)
+);
+
+
 CREATE TABLE Client (
     idclient INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
@@ -39,13 +56,13 @@ CREATE TABLE Commande (
     FOREIGN KEY (idclient) REFERENCES Client(idclient)
 );
 
-CREATE TABLE Commande_Produit (
+CREATE TABLE Commande_Lot (
     id INT AUTO_INCREMENT PRIMARY KEY,
     quantite_commande INT NOT NULL,
     idcommande INT,
-    idproduit INT,
+    idlot INT,
     FOREIGN KEY (idcommande) REFERENCES Commande(idcommande),
-    FOREIGN KEY (idproduit) REFERENCES Produit(idproduit)
+    FOREIGN KEY (idlot) REFERENCES Lot(idlot)
 );
 
 CREATE TABLE Livraison (
