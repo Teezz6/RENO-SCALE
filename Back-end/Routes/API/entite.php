@@ -31,7 +31,11 @@ $modelsMap = [
     'Commande'    => ['file' => 'commande.php', 'class' => 'OrderModel'],
     'Fournisseur' => ['file' => 'fournisseur.php', 'class' => 'SupplierModel'],
     'Livraison'   => ['file' => 'livraison.php', 'class' => 'DeliveryModel'],
+    'Lot'         => ['file' => 'lot.php', 'class' => 'LotModel'],
+    'Lot_Produit' => ['file' => 'lot_produit.php', 'class' => 'LotProduitModel'],
+    'Commande_Lot' => ['file' => 'commande_lot.php', 'class' => 'CommandeLotModel'],
 ];
+
 
 // Vérification de l'entité demandée
 if (!isset($modelsMap[$entity])) {

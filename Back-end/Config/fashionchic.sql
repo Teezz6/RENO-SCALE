@@ -49,6 +49,7 @@ CREATE TABLE Client (
 
 CREATE TABLE Commande (
     idcommande INT AUTO_INCREMENT PRIMARY KEY,
+    contenu VARCHAR(400),
     date_envoi DATE NOT NULL,
     statut ENUM('En attente','Validé','Annulé'),
     idclient INT,
@@ -59,6 +60,7 @@ CREATE TABLE Commande (
 CREATE TABLE Commande_Lot (
     id INT AUTO_INCREMENT PRIMARY KEY,
     quantite_commande INT NOT NULL,
+    contenu TEXT,
     idcommande INT,
     idlot INT,
     FOREIGN KEY (idcommande) REFERENCES Commande(idcommande),
