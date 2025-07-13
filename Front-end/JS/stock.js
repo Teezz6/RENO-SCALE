@@ -1,114 +1,133 @@
-// Données d'exemple
-const articles = [
-  { nom: "Robe en soie", quantite: 23, taille: "M", couleur: "Noir" },
-  { nom: "Blouse à volants", quantite: 10, taille: "S", couleur: "Blanc" },
-  { nom: "Jean taille haute", quantite: 0, taille: "L", couleur: "Bleu" }
-];
+// Sélecteurs généraux
+const btnAddArticle = document.getElementById("btn-add-article");
+const btnCreateLot = document.getElementById("btn-create-lot");
+const popupForm = document.getElementById("popup-form");
+const popupLot = document.getElementById("popup-lot");
+const closePopupBtn = document.getElementById("close-popup");
+const closeLotBtn = document.getElementById("close-lot-popup");
 
-const tbody = document.getElementById("stock-body");
-const tailleFilter = document.getElementById("taille-filter");
-const couleurFilter = document.getElementById("couleur-filter");
-const popup = document.getElementById("popup-form");
-const closePopup = document.getElementById("close-popup");
-const addBtn = document.querySelector(".add-article");
-const form = document.getElementById("article-form");
+// Formulaires
+const articleForm = document.getElementById("article-form");
+const lotForm = document.getElementById("lot-form");
 
-function afficherArticles() {
-  tbody.innerHTML = "";
-  const taille = tailleFilter.value;
-  const couleur = couleurFilter.value;
+// Zones d'insertion
+const stockBody = document.getElementById("stock-body");
+const lotBody = document.getElementById("lot-body");
+const lotProductsList = document.getElementById("lot-products-list");
 
-  articles
-    .filter(a =>
-      (taille === "all" || a.taille === taille) &&
-      (couleur === "all" || a.couleur === couleur)
-    )
-    .forEach((article, index) => {
-      const tr = document.createElement("tr");
+// Champs article
+const articleName = document.getElementById("article-name");
+const articleQty = document.getElementById("article-qty");
+const articleTaille = document.getElementById("article-taille");
+const articleCouleur = document.getElementById("article-couleur");
 
-      const statut =
-        article.quantite === 0
-          ? "Rupture"
-          : article.quantite < 15
-          ? "Stock faible"
-          : "En stock";
+// Champs lot
+const lotName = document.getElementById("lot-name");
+const lotDescription = document.getElementById("lot-description");
+const addToLotBtn = document.getElementById("add-to-lot");
 
-      tr.innerHTML = `
-        <td>${article.nom}</td>
-        <td>${article.quantite}</td>
-        <td class="${
-          statut === "En stock"
-            ? "stock-ok"
-            : statut === "Stock faible"
-            ? "stock-low"
-            : "stock-out"
-        }">${statut}</td>
-        <td><button class="edit-btn" data-index="${index}">Modifier</button></td>
-      `;
-
-      tbody.appendChild(tr);
-    });
-}
-
-// Filtres dynamiques
-tailleFilter.addEventListener("change", afficherArticles);
-couleurFilter.addEventListener("change", afficherArticles);
-
-// Popup
-addBtn.addEventListener("click", () => {
-  form.reset();
-  form.dataset.editingIndex = "";
-  popup.style.display = "flex";
+// -----------------------
+// GESTION ARTICLES
+// -----------------------
+btnAddArticle.addEventListener("click", () => {
+  popupForm.style.display = "flex";
 });
 
-closePopup.addEventListener("click", () => {
-  popup.style.display = "none";
+closePopupBtn.addEventListener("click", () => {
+  popupForm.style.display = "none";
+  articleForm.reset();
 });
 
-// Gérer les clics sur "Modifier"
-tbody.addEventListener("click", e => {
-  if (e.target.classList.contains("edit-btn")) {
-    const index = e.target.dataset.index;
-    const article = articles[index];
-    document.getElementById("article-name").value = article.nom;
-    document.getElementById("article-qty").value = article.quantite;
-    document.getElementById("article-taille").value = article.taille;
-    document.getElementById("article-couleur").value = article.couleur;
-    form.dataset.editingIndex = index;
-    popup.style.display = "flex";
-  }
-});
-
-// Formulaire ajout/modification d'article
-form.addEventListener("submit", e => {
+articleForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const nom = document.getElementById("article-name").value.trim();
-  const taille = document.getElementById("article-taille").value;
-  const couleur = document.getElementById("article-couleur").value;
 
-  const lotCount = parseInt(document.getElementById("lot-count").value);
-  const qtyPerLot = parseInt(document.getElementById("qty-per-lot").value);
-  const quantiteDirect = parseInt(document.getElementById("article-qty").value);
+  const name = articleName.value;
+  const qty = articleQty.value || "1";
+  const taille = articleTaille.value;
+  const couleur = articleCouleur.value;
 
-  let quantite = 0;
-  if (!isNaN(lotCount) && !isNaN(qtyPerLot)) {
-    quantite = lotCount * qtyPerLot;
-  } else if (!isNaN(quantiteDirect)) {
-    quantite = quantiteDirect;
-  }
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${name}</td>
+    <td>${qty}</td>
+    <td>${taille}</td>
+    <td>${couleur}</td>
+    <td>En stock</td>
+    <td><button class="delete-btn">Supprimer</button></td>
+  `;
 
-  if (nom && quantite > 0 && taille && couleur) {
-    const editingIndex = form.dataset.editingIndex;
-    if (editingIndex !== "") {
-      articles[editingIndex] = { nom, quantite, taille, couleur };
-    } else {
-      articles.push({ nom, quantite, taille, couleur });
-    }
-    afficherArticles();
-    form.reset();
-    popup.style.display = "none";
-  }
+  stockBody.appendChild(row);
+  popupForm.style.display = "none";
+  articleForm.reset();
 });
 
-// Initialisation
-afficherArticles();
+// -----------------------
+// GESTION LOTS
+// -----------------------
+btnCreateLot.addEventListener("click", () => {
+  popupLot.style.display = "flex";
+});
+
+closeLotBtn.addEventListener("click", () => {
+  popupLot.style.display = "none";
+  lotForm.reset();
+  lotProductsList.innerHTML = "";
+});
+
+// Ajout de produit au lot temporaire
+addToLotBtn.addEventListener("click", () => {
+  const ref = document.querySelector(".ref-input").value;
+  const taille = document.querySelector(".taille-input").value;
+  const couleur = document.querySelector(".couleur-input").value;
+  const quantite = document.querySelector(".quantite-input").value;
+  const prix = document.querySelector(".prix-input").value;
+
+  if (!ref || !taille || !couleur || !quantite || !prix) return alert("Tous les champs du lot sont obligatoires");
+
+  const li = document.createElement("li");
+  li.textContent = `${ref} - Taille ${taille} - ${couleur} - Qté ${quantite} - ${prix}€/u`;
+  lotProductsList.appendChild(li);
+
+  // Nettoie les champs pour ajouter un autre produit
+  document.querySelector(".ref-input").value = "";
+  document.querySelector(".taille-input").selectedIndex = 0;
+  document.querySelector(".couleur-input").selectedIndex = 0;
+  document.querySelector(".quantite-input").value = "";
+  document.querySelector(".prix-input").value = "";
+});
+
+// Création du lot
+lotForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const idLot = "LOT-" + Date.now(); // ID unique
+  const nom = lotName.value;
+  const desc = lotDescription.value;
+  const nbArticles = lotProductsList.children.length;
+
+  if (nbArticles === 0) return alert("Ajoutez au moins un produit au lot");
+
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${idLot}</td>
+    <td>${nom}</td>
+    <td>${desc}</td>
+    <td>${nbArticles}</td>
+    <td><button class="delete-btn">Supprimer</button></td>
+  `;
+
+  lotBody.appendChild(row);
+  popupLot.style.display = "none";
+  lotForm.reset();
+  lotProductsList.innerHTML = "";
+});
+
+// -----------------------
+// SUPPRESSION DYNAMIQUE
+// -----------------------
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    const row = e.target.closest("tr");
+    row.remove();
+  }
+});

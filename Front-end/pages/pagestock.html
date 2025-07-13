@@ -19,19 +19,18 @@
         <span class="brand-name">FASHION CHIC</span>
       </div>
       <ul class="menu">
-        <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-        <li><a href="#stock"><i class="fas fa-box"></i> Gestion des stocks</a></li>
-        <li><a href="#commandes"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
-        <li><a href="#fournisseurs"><i class="fas fa-truck"></i> Fournisseurs</a></li>
-        <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
-        <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="pagestock.html" class="active"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+        <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+        <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+        <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+        <li><a href="pagecomptabilite.html"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
       </ul>
     </div>
   </nav>
 
   <main class="content">
     <header>
-      <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
       <h1>Gestion des stocks</h1>
       <div class="icons">
         <i class="fas fa-bell"></i>
@@ -41,18 +40,20 @@
 
     <div class="filters">
       <select id="taille-filter">
-        <option value="all">Taille</option>
+        <option value="all" disabled selected>Taille</option>
         <option value="S">S</option>
         <option value="M">M</option>
         <option value="L">L</option>
       </select>
       <select id="couleur-filter">
-        <option value="all">Couleur</option>
+        <option value="all" disabled selected>Couleur</option>
         <option value="Noir">Noir</option>
         <option value="Blanc">Blanc</option>
         <option value="Bleu">Bleu</option>
       </select>
-      <button class="add-article">+ Ajouter un article</button>
+      <button class="add-article" id="btn-add-article">+ Ajouter un article</button>
+      <button class="add-article" id="btn-create-lot">+ Créer un lot</button>
+
     </div>
 
     <section class="stock-section">
@@ -61,47 +62,104 @@
           <tr>
             <th>Nom de l'article</th>
             <th>Quantité</th>
+            <th>Taille</th>
+            <th>Couleur</th>
             <th>Statut</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="stock-body">
-          <!-- Dynamique JS -->
-        </tbody>
+        <tbody id="stock-body"></tbody>
+      </table>
+    </section>
+
+    <section class="lot-section">
+      <h2>Lots créés</h2>
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>ID Lot</th>
+            <th>Nom du lot</th>
+            <th>Description</th>
+            <th>Quantité</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="lot-body"></tbody>
       </table>
     </section>
   </main>
 
-  <!-- Pop-up ajout/modification -->
+  <!-- Popup article -->
   <div class="popup" id="popup-form">
     <div class="popup-content">
       <span class="close-btn" id="close-popup">&times;</span>
       <h2 id="form-title">Ajouter / Modifier un article</h2>
       <form id="article-form">
-        <input type="text" id="article-name" placeholder="Nom de l'article" required>
-        
-        <div class="lot-fields">
-          <input type="number" id="lot-count" placeholder="Nombre de lots" min="1">
-          <input type="number" id="qty-per-lot" placeholder="Quantité par lot" min="1">
-        </div>
+        <label for="article-name">Nom de l'article</label>
+        <input type="text" id="article-name" required>
 
-        <input type="number" id="article-qty" placeholder="Quantité (si pas de lot)" min="1">
+        <label for="article-qty">Quantité </label>
+        <input type="number" id="article-qty" min="1">
 
+        <label for="article-taille">Taille</label>
         <select id="article-taille" required>
-          <option value="">Taille</option>
+          <option value="" disabled selected>Choisir la taille</option>
           <option value="S">S</option>
           <option value="M">M</option>
           <option value="L">L</option>
+          <option value="L">XL</option>
+          <option value="L">XXL</option>
         </select>
 
+        <label for="article-couleur">Couleur</label>
         <select id="article-couleur" required>
-          <option value="">Couleur</option>
+          <option value="" disabled selected>Choisir la couleur</option>
           <option value="Noir">Noir</option>
           <option value="Blanc">Blanc</option>
           <option value="Bleu">Bleu</option>
         </select>
 
+        <div class="message-zone" id="message-zone"></div>
         <button type="submit">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Popup lot -->
+  <div class="popup" id="popup-lot">
+    <div class="popup-content">
+      <span class="close-btn" id="close-lot-popup">&times;</span>
+      <h2>Créer un lot</h2>
+      <form id="lot-form">
+        <label for="lot-name">Nom du lot</label>
+        <input type="text" id="lot-name" required>
+
+        <label for="lot-description">Description</label>
+        <textarea id="lot-description" required></textarea>
+
+        <div class="lot-product-line">
+          <input type="text" placeholder="Référence (pant, rob...)" class="ref-input">
+          <select class="taille-input">
+            <option value="" disabled selected>Taille</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="L">XL</option>
+            <option value="L">XXL</option>
+          </select>
+          <select class="couleur-input">
+            <option value="" disabled selected>Couleur</option>
+            <option value="Noir">Noir</option>
+            <option value="Blanc">Blanc</option>
+            <option value="Bleu">Bleu</option>
+          </select>
+          <input type="number" placeholder="Quantité" class="quantite-input" min="1">
+          <input type="number" placeholder="Prix unitaire" class="prix-input" min="0" step="0.01">
+          <button type="button" id="add-to-lot">+ Ajouter au lot</button>
+        </div>
+
+        <ul id="lot-products-list"></ul>
+        <button type="submit">Créer le lot</button>
       </form>
     </div>
   </div>

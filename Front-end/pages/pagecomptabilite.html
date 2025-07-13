@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comptabilité - Fashion Chic</title>
+  <link rel="stylesheet" href="../styles/pagecomptabilite.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+ <nav>
+  <div class="sidebar">
+    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+   <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
+    <div class="logo-title">
+      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+      <span class="brand-name">FASHION CHIC</span>
+    </div>
+   <ul class="menu">
+  <li><a href="dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+  <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+  <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+  <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+  <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+  <li><a href="pagecomptabilite.html" class="active"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+   </ul>
+  </nav>
+  </div>
+  <div class="main">
+     <header>
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+         <input type="text" id="searchInput" placeholder="Rechercher">
+      </div>
+      <div class="icons">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <section class="overview">
+      <div class="card">Factures validées<br><strong>36</strong></div>
+      <div class="card">Montant total<br><strong>25 430 €</strong></div>
+      <div class="card">En attente de règlement<br><strong>5</strong></div>
+      <div class="card">Exportés vers SAGE<br><strong>22</strong></div>
+    </section>
+
+    <section class="tables">
+      <div class="table">
+        <h3>Factures disponibles</h3>
+        <table>
+          <tr><th>N° Facture</th><th>Date</th><th>Client</th><th>Montant</th><th>État</th></tr>
+          <tr><td>FC1001</td><td>10 juin 2025</td><td>Mode Paris</td><td>430 €</td><td>Validée</td></tr>
+          <tr><td>FC1002</td><td>12 juin 2025</td><td>Urban Chic</td><td>1 300 €</td><td>En attente</td></tr>
+          <tr><td>FC1003</td><td>14 juin 2025</td><td>LadyStyle</td><td>980 €</td><td>Exportée</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="tables">
+      <div class="table">
+        <h3>Suivi des règlements</h3>
+        <table>
+          <tr><th>Date</th><th>Facture</th><th>Client</th><th>Statut</th><th>Montant</th></tr>
+          <tr><td>15/06/2025</td><td>FC1001</td><td>Mode Paris</td><td>Réglée</td><td>430 €</td></tr>
+          <tr><td>16/06/2025</td><td>FC1002</td><td>Urban Chic</td><td>En attente</td><td>1300 €</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="tables">
+      <div class="table">
+        <h3>Export vers SAGE</h3>
+        <button style="padding:10px 20px; background-color:#6d4c41; color:white; border:none; border-radius:5px; cursor:pointer;">
+          <i class="fas fa-file-export"></i> Exporter les factures vers SAGE
+        </button>
+        <p style="margin-top:10px;">Dernier export effectué le : <strong>18 juin 2025</strong></p>
+      </div>
+    </section>
+  </div>
+
+  <script src="../JS/comptabilite.js"></script>
+</body>
+</html>

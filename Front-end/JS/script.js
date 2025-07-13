@@ -39,18 +39,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
       },
       options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
+    responsive: false, 
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "bottom"
       }
+    }
+  }
     });
   }
 
@@ -77,14 +73,15 @@ document.addEventListener("DOMContentLoaded", function () {
           borderWidth: 1
         }]
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "bottom"
-          }
-        }
+  options: {
+    responsive: false, 
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "bottom"
       }
+    }
+  }
     });
   }
 });

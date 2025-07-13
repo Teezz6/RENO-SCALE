@@ -1,6 +1,4 @@
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -9,29 +7,20 @@ body {
   color: #333;
 }
 
-/* Sidebar */
 .sidebar {
   width: 200px;
   height: 100vh;
   background-color: #e9e3da;
   padding: 10px;
   position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  top: 0; left: 0;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
   z-index: 100;
 }
 
-.sidebar h2 {
-  margin-bottom: 30px;
-  font-size: 1.5rem;
-  color: #6d4c41;
-}
-
 .sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  list-style: none;
+  padding: 0; margin: 0;
 }
 
 .sidebar ul li {
@@ -42,7 +31,8 @@ body {
   color: #333;
   text-decoration: none;
   padding: 10px;
-  display: block;
+  display: flex;
+  align-items: center;
   border-radius: 5px;
   transition: background 0.3s, color 0.3s;
 }
@@ -52,62 +42,6 @@ body {
   background-color: #d6bdaa;
   color: white;
   font-weight: bold;
-}
-
-.menu {
-  list-style: none;
-  padding: 0;
-}
-
-.menu li {
-  margin: 20px 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  transition: background 0.3s ease;
-}
-
-.menu li:hover {
-  background: #e2d6c8;
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.menu li.active {
-  padding: 5px;
-  border-radius: 3px;
-}
-
-.content {
-  margin-left: 240px;
-  padding: 20px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px;
-}
-
-.back-btn {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.icons i {
-  font-size: 18px;
-  margin-left: 20px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.icons i:hover {
-  transform: scale(1.2);
 }
 
 .logo-title {
@@ -126,17 +60,53 @@ header {
   margin-right: 15px;
 }
 
+.brand-name { font-size: 1.2rem; }
+
+.content {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+}
+
+.back-btn,
+.icons i {
+  cursor: pointer;
+}
+
+.icons i:hover { transform: scale(1.2); }
+
 .filters {
   display: flex;
   gap: 20px;
   margin: 20px 0;
 }
 
-.filters select {
-  padding: 8px 12px;
+.filters select,
+.add-article /* et le bouton créer un lot */ {
+  padding: 10px 20px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: none;
+  background-color: #d6bdaa;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
+
+.filters select {
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+}
+
+.add-article:hover { background-color: #b89a85; }
+.filters select:hover { border-color: #a3875f; }
 
 .stock-table {
   width: 100%;
@@ -144,7 +114,7 @@ header {
   background: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .stock-table th,
@@ -154,19 +124,10 @@ header {
   border-bottom: 1px solid #eee;
 }
 
-.stock-table th {
-  background: #f9f5f0;
-}
+.stock-table th { background: #f9f5f0; }
 
-.stock-ok {
-  color: #1e8c42;
-  font-weight: 500;
-}
-
-.stock-low {
-  color: #c75a29;
-  font-weight: 500;
-}
+.stock-ok { color: #1e8c42; font-weight: 500; }
+.stock-low { color: #c75a29; font-weight: 500; }
 
 .edit-btn {
   padding: 6px 12px;
@@ -176,29 +137,23 @@ header {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-
 .edit-btn:hover {
   background: #d6bdaa;
   color: white;
 }
 
-/* Popup */
+/* Popup général (pour article et lot) */
 .popup {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.5);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 999;
 }
-
-.popup.open {
-  display: flex;
-}
+.popup.open { display: flex; }
 
 .popup-content {
   background: white;
@@ -210,48 +165,108 @@ header {
   flex-direction: column;
   gap: 15px;
   position: relative;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 10px; right: 15px;
   font-size: 22px;
   cursor: pointer;
   color: #888;
 }
 
-#article-form input,
-#article-form select {
+.popup-content form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6d4c41;
+}
+
+.popup-content form input,
+.popup-content form select,
+.popup-content form textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
 }
 
-/* Nouveau champ pour lots */
-.lot-fields {
-  display: flex;
-  gap: 10px;
+.popup-content form input:focus,
+.popup-content form select:focus,
+.popup-content form textarea:focus {
+  border-color: #a3875f;
+  outline: none;
 }
 
-.lot-fields input {
-  flex: 1;
-}
-
-#article-form button {
-  padding: 10px;
+.popup-content form button[type="submit"],
+.popup-content form button#add-to-lot {
+  padding: 10px 20px;
   border: none;
-  background: #d6bdaa;
-  color: white;
   border-radius: 6px;
-  cursor: pointer;
+  background-color: #d6bdaa;
+  color: white;
   font-weight: bold;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
+.popup-content form button[type="submit"]:hover,
+.popup-content form button#add-to-lot:hover {
+  background-color: #b89a85;
+}
 
-#article-form button:hover {
-  background: #b89a85;
+/* Ligne produit dans la popup lot */
+.lot-product-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.lot-product-line input,
+.lot-product-line select,
+.lot-product-line button#add-to-lot {
+  flex: 1 1 120px;
+}
+
+/* Liste des produits ajoutés au lot */
+#lot-products-list {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+  background-color: #f9f5f0;
+  font-size: 0.9rem;
+  color: #5b4a35;
+}
+#lot-products-list li {
+  margin-bottom: 6px;
+  border-bottom: 1px solid #d6bdaa;
+  padding-bottom: 4px;
+}
+
+/* Section "Lots créés" titre */
+.lot-section h2 {
+  color: #6d4c41;
+  margin-top: 30px;
+}
+
+/* Ajustements responsive */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+  .content {
+    margin-left: 0;
+    padding: 10px;
+  }
+  .popup-content { width: 90%; }
+  .lot-product-line {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
