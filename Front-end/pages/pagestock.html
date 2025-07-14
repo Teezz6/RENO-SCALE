@@ -39,31 +39,20 @@
     </header>
 
     <div class="filters">
-      <select id="taille-filter">
-        <option value="all" disabled selected>Taille</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-      </select>
-      <select id="couleur-filter">
-        <option value="all" disabled selected>Couleur</option>
-        <option value="Noir">Noir</option>
-        <option value="Blanc">Blanc</option>
-        <option value="Bleu">Bleu</option>
-      </select>
       <button class="add-article" id="btn-add-article">+ Ajouter un article</button>
       <button class="add-article" id="btn-create-lot">+ Créer un lot</button>
-
     </div>
 
     <section class="stock-section">
       <table class="stock-table">
         <thead>
           <tr>
+            <th>Référence</th>
             <th>Nom de l'article</th>
-            <th>Quantité</th>
             <th>Taille</th>
             <th>Couleur</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
             <th>Statut</th>
             <th>Action</th>
           </tr>
@@ -80,7 +69,8 @@
             <th>ID Lot</th>
             <th>Nom du lot</th>
             <th>Description</th>
-            <th>Quantité</th>
+            <th>Quantité totale</th>
+            <th>Prix total</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -89,26 +79,26 @@
     </section>
   </main>
 
-  <!-- Popup article -->
+  <!-- Popup ajout article -->
   <div class="popup" id="popup-form">
     <div class="popup-content">
       <span class="close-btn" id="close-popup">&times;</span>
       <h2 id="form-title">Ajouter / Modifier un article</h2>
       <form id="article-form">
+        <label for="article-ref">Référence</label>
+        <input type="text" id="article-ref" placeholder="pant, rob, etc." required>
+
         <label for="article-name">Nom de l'article</label>
         <input type="text" id="article-name" required>
 
-        <label for="article-qty">Quantité </label>
-        <input type="number" id="article-qty" min="1">
-
-        <label for="article-taille">Taille</label>
+        
         <select id="article-taille" required>
           <option value="" disabled selected>Choisir la taille</option>
           <option value="S">S</option>
           <option value="M">M</option>
           <option value="L">L</option>
-          <option value="L">XL</option>
-          <option value="L">XXL</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
         </select>
 
         <label for="article-couleur">Couleur</label>
@@ -119,13 +109,19 @@
           <option value="Bleu">Bleu</option>
         </select>
 
+        <label for="article-qty">Quantité</label>
+        <input type="number" id="article-qty" min="1" required>
+
+        <label for="article-price">Prix unitaire (€)</label>
+        <input type="number" id="article-price" min="0" step="0.01" required>
+
         <div class="message-zone" id="message-zone"></div>
         <button type="submit">Enregistrer</button>
       </form>
     </div>
   </div>
 
-  <!-- Popup lot -->
+  <!-- Popup création de lot -->
   <div class="popup" id="popup-lot">
     <div class="popup-content">
       <span class="close-btn" id="close-lot-popup">&times;</span>
@@ -138,23 +134,31 @@
         <textarea id="lot-description" required></textarea>
 
         <div class="lot-product-line">
-          <input type="text" placeholder="Référence (pant, rob...)" class="ref-input">
-          <select class="taille-input">
-            <option value="" disabled selected>Taille</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="L">XL</option>
-            <option value="L">XXL</option>
-          </select>
-          <select class="couleur-input">
-            <option value="" disabled selected>Couleur</option>
-            <option value="Noir">Noir</option>
-            <option value="Blanc">Blanc</option>
-            <option value="Bleu">Bleu</option>
-          </select>
-          <input type="number" placeholder="Quantité" class="quantite-input" min="1">
-          <input type="number" placeholder="Prix unitaire" class="prix-input" min="0" step="0.01">
+          <input type="text" id="lot-ref" placeholder="Référence (pant, rob...)" required>
+
+          <div class="checkbox-group">
+            <label>Tailles :</label>
+            <div class="checkboxes tailles-checkboxes">
+              <label><input type="checkbox" value="S" class="taille-checkbox"> S</label>
+              <label><input type="checkbox" value="M" class="taille-checkbox"> M</label>
+              <label><input type="checkbox" value="L" class="taille-checkbox"> L</label>
+              <label><input type="checkbox" value="XL" class="taille-checkbox"> XL</label>
+              <label><input type="checkbox" value="XXL" class="taille-checkbox"> XXL</label>
+            </div>
+          </div>
+
+          <div class="checkbox-group">
+            <label>Couleurs :</label>
+            <div class="checkboxes couleurs-checkboxes">
+              <label><input type="checkbox" value="Noir" class="couleur-checkbox"> Noir</label>
+              <label><input type="checkbox" value="Blanc" class="couleur-checkbox"> Blanc</label>
+              <label><input type="checkbox" value="Bleu" class="couleur-checkbox"> Bleu</label>
+            </div>
+          </div>
+
+          <input type="number" placeholder="Quantité" class="quantite-input" min="1" required>
+          <input type="number" placeholder="Prix unitaire (€)" class="prix-input" min="0" step="0.01" required>
+
           <button type="button" id="add-to-lot">+ Ajouter au lot</button>
         </div>
 

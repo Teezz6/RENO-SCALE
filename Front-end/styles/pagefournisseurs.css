@@ -98,6 +98,113 @@ body {
 }
 
 .back-btn {
+... (93 lines left)
+Collapse
+message.txt
+3 KB
+﻿
+Rosi_ndg
+rosi_ndg
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f1ed;
+  color: #333;
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #e9e3da;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #6d4c41;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  border-radius: 5px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background-color: #d6bdaa;
+  color: white;
+  font-weight: bold;
+}
+
+/* Main content */
+.main {
+  margin-left: 220px;
+  padding: 30px;
+  width: calc(100% - 220px);
+}
+
+/* Header */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+  background-color: #decdb1;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.icons i {
+  font-size: 18px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.icons i:hover {
+  transform: scale(1.2);
+}
+
+.back-btn {
   background: none;
   border: none;
   font-size: 18px;
