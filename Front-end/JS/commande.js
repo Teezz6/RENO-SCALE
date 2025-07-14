@@ -1,148 +1,173 @@
+let clientIdCounter = 1; 
+let clients = [];
+let orderIdCounter = 1;
+
 document.addEventListener('DOMContentLoaded', () => {
-  const tableBody = document.querySelector('.orders-table tbody');
-  const orderForm = document.getElementById('orderForm');
-  const addOrderBtn = document.getElementById('addOrderBtn');
-  const addLotBtn = document.getElementById('addLotBtn');
+  const saveClientBtn = document.getElementById('saveClientBtn');
   const submitOrderBtn = document.getElementById('submitOrderBtn');
+  const ordersTableBody = document.querySelector('#ordersTable tbody');
+  const addOrderBtn = document.getElementById('addOrderBtn');
+  const orderForm = document.getElementById('orderForm');
+  const addLotBtn = document.getElementById('addLotBtn');
   const lotsContainer = document.getElementById('lotsContainer');
 
-  const clientSelect = document.getElementById('clientSelect');
-  const productSelect = document.getElementById('productSelect'); 
+  // ➤ Afficher le formulaire de commande
+  addOrderBtn.addEventListener('click', () => {
+    orderForm.classList.remove('hidden');
+  });
 
-  
-  const clients = ['ZARA France', 'Boutique Chic', 'Style & Co', 'Fashion Express'];
+  // ✅ ➤ Ajout d'un lot
+  if (addLotBtn) {
+    addLotBtn.addEventListener('click', () => {
+      const lotBlock = createLotBlock();
+      lotsContainer.appendChild(lotBlock);
+    });
+  }
 
- 
-  const products = [
-    { ref: 'PNT-001', name: 'Pantalon Classique', category: 'Pantalon', color: 'Noir', material: 'Coton' },
-    { ref: 'JUP-010', name: 'Jupe Plissée', category: 'Jupe', color: 'Beige', material: 'Lin' },
-    { ref: 'RBS-007', name: 'Robe d\'été', category: 'Robe', color: 'Rouge', material: 'Soie' }
-  ];
+  // ✅ ➤ Fonction pour créer dynamiquement un bloc de lot
+  function createLotBlock() {
+    const div = document.createElement('div');
+    div.classList.add('lot-block');
+    div.innerHTML = `
+      <hr>
+      <label>Produit :</label>
+      <select class="product-dropdown">
+        <option value="pant">Pantalon</option>
+        <option value="rob">Robe</option>
+        <option value="tsh">T-shirt</option>
+        <option value="che">Chemise</option>
+      </select>
+      <input type="text" placeholder="Couleur" class="lot-color">
+      <input type="text" placeholder="Matière" class="lot-material">
+      <input type="number" placeholder="XS" class="size-XS" min="0">
+      <input type="number" placeholder="S" class="size-S" min="0">
+      <input type="number" placeholder="M" class="size-M" min="0">
+      <input type="number" placeholder="L" class="size-L" min="0">
+      <input type="number" placeholder="XL" class="size-XL" min="0">
+    `;
+    return div;
+  }
 
-  function populateClientSelect() {
+  // ➤ Ajout d'un client
+  if (saveClientBtn) {
+    saveClientBtn.addEventListener('click', () => {
+      const name = document.getElementById('newClientName').value.trim();
+      const phone = document.getElementById('newClientPhone').value.trim();
+      const email = document.getElementById('newClientEmail').value.trim();
+      const address = document.getElementById('newClientAddress').value.trim();
+
+      if (!name || !phone || !email || !address) {
+        alert("Merci de remplir tous les champs du client.");
+        return;
+      }
+
+      const newClient = {
+        id: clientIdCounter++,
+        name,
+        phone,
+        email,
+        address
+      };
+      clients.push(newClient);
+      updateClientSelect();
+      alert(`Client ajouté : ${newClient.name} (ID : ${newClient.id})`);
+
+      document.getElementById('newClientName').value = '';
+      document.getElementById('newClientPhone').value = '';
+      document.getElementById('newClientEmail').value = '';
+      document.getElementById('newClientAddress').value = '';
+    });
+  }
+
+  // ➤ Met à jour la liste déroulante des clients
+  function updateClientSelect() {
+    const clientSelect = document.getElementById('clientSelect');
+    if (!clientSelect) return;
+
+    clientSelect.innerHTML = `<option value="">-- Sélectionner un client --</option>`;
     clients.forEach(client => {
       const option = document.createElement('option');
-      option.value = client;
+      option.value = client.id;
+      option.textContent = `ID ${client.id} - ${client.name}`;
       clientSelect.appendChild(option);
     });
   }
 
-  function attachViewButtonEvent(button) {
-    button.addEventListener('click', () => {
-      const row = button.closest('tr');
-      const orderId = row.children[0].textContent;
-      const clientName = row.children[1].textContent;
-      const status = row.children[2].textContent.trim();
-      alert(`Détails de la commande\n\nCommande : ${orderId}\nClient : ${clientName}\nStatut : ${status}`);
-    });
-  }
-
-  function attachBadgeEvent(badge) {
-    badge.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      const currentStatus = badge.textContent.trim();
-      let nextStatus;
-
-      switch (currentStatus) {
-        case 'Réception':
-          nextStatus = 'Préparation';
-          badge.className = 'badge preparation';
-          break;
-        case 'Préparation':
-          nextStatus = 'Livraison';
-          badge.className = 'badge livraison';
-          break;
-        case 'Livraison':
-          nextStatus = 'Réception';
-          badge.className = 'badge reception';
-          break;
-        default:
-          nextStatus = 'Réception';
-          badge.className = 'badge reception';
+  // ➤ Soumission de commande
+  if (submitOrderBtn) {
+    submitOrderBtn.addEventListener('click', () => {
+      const selectedClientId = parseInt(document.getElementById('clientSelect').value);
+      const client = clients.find(c => c.id === selectedClientId);
+      if (!client) {
+        alert("Veuillez sélectionner un client.");
+        return;
       }
 
-      badge.textContent = nextStatus;
+      const lots = [];
+      document.querySelectorAll('.lot-block').forEach((lotDiv) => {
+        const productRef = lotDiv.querySelector('.product-dropdown')?.value;
+        const color = lotDiv.querySelector('.lot-color')?.value;
+        const material = lotDiv.querySelector('.lot-material')?.value;
+        const sizes = {};
+        ['XS', 'S', 'M', 'L', 'XL'].forEach(size => {
+          sizes[size] = parseInt(lotDiv.querySelector(`.size-${size}`)?.value) || 0;
+        });
+        lots.push({ productRef, color, material, sizes });
+      });
+
+      if (lots.length === 0) {
+        alert("Ajoutez au moins un lot à la commande.");
+        return;
+      }
+
+      const orderNumber = `#${orderIdCounter++}`;
+      const order = {
+        id: orderNumber,
+        clientName: client.name,
+        status: "En attente de préparation",
+        lots: lots
+      };
+
+      addOrderToTable(order);
+      orderForm.classList.add('hidden');
+      lotsContainer.innerHTML = ''; // on vide les lots après validation
     });
   }
 
-  // Initialisation des événements
-  document.querySelectorAll('.view-btn').forEach(attachViewButtonEvent);
-  document.querySelectorAll('.badge').forEach(attachBadgeEvent);
-
-  addOrderBtn.addEventListener('click', () => {
-    orderForm.classList.toggle('hidden');
-  });
-
-  addLotBtn.addEventListener('click', () => {
-    const lotDiv = document.createElement('div');
-    lotDiv.className = 'lot-block';
-
-    // Ajout d’un bloc lot avec filtre produit
-    lotDiv.innerHTML = `
-      <label>Produit :
-        <select class="product-dropdown">
-          ${products.map(p => `
-            <option value="${p.ref}">${p.ref} - ${p.name}</option>
-          `).join('')}
-        </select>
-      </label>
-      <label>Couleur :
-        <input type="text" class="lot-color" placeholder="Ex : Rouge" />
-      </label>
-      <label>Matière :
-        <input type="text" class="lot-material" placeholder="Ex : Coton" />
-      </label>
-      <label>Détails par taille :</label>
-      <div class="sizes">
-        ${['XS','S','M','L','XL'].map(size => `
-          <label>${size} :
-            <input type="number" min="0" class="size-${size}" value="0" />
-          </label>
-        `).join('')}
-      </div>
+  // ➤ Ajoute la commande au tableau
+  function addOrderToTable(order) {
+    const row = document.createElement('tr');
+    row.setAttribute('data-order-id', order.id);
+    row.innerHTML = `
+      <td>${order.id}</td>
+      <td>${order.clientName}</td>
+      <td><span class="badge en-attente">${order.status}</span></td>
+      <td>
+        <button class="view-btn">Voir</button>
+        <button class="edit-btn">Modifier</button>
+        <button class="delete-btn">Supprimer</button>
+      </td>
     `;
-    lotsContainer.appendChild(lotDiv);
-  });
-
-  submitOrderBtn.addEventListener('click', () => {
-    const clientName = document.getElementById('clientName').value.trim();
-    if (!clientName) {
-      alert("Veuillez sélectionner une entreprise cliente.");
-      return;
+    if (ordersTableBody) {
+      ordersTableBody.appendChild(row);
     }
 
-    const lots = [];
-    document.querySelectorAll('.lot-block').forEach((lotDiv) => {
-      const productRef = lotDiv.querySelector('.product-dropdown').value;
-      const color = lotDiv.querySelector('.lot-color').value;
-      const material = lotDiv.querySelector('.lot-material').value;
-      const sizes = {};
-      ['XS','S','M','L','XL'].forEach(size => {
-        sizes[size] = parseInt(lotDiv.querySelector(`.size-${size}`).value) || 0;
-      });
-      lots.push({ productRef, color, material, sizes });
+    row.querySelector('.delete-btn').addEventListener('click', () => {
+      if (confirm(`Supprimer la commande ${order.id} ?`)) {
+        row.remove();
+      }
     });
 
-    const orderNumber = `#${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${orderNumber}</td>
-      <td>${clientName}</td>
-      <td><span class="badge reception">Réception</span></td>
-      <td><button class="view-btn">Voir</button></td>
-    `;
+    row.querySelector('.edit-btn').addEventListener('click', () => {
+      alert(`Fonction de modification à développer pour ${order.id}`);
+    });
 
-    tableBody.appendChild(row);
-    attachViewButtonEvent(row.querySelector('.view-btn'));
-    attachBadgeEvent(row.querySelector('.badge'));
-
-    orderForm.classList.add('hidden');
-    lotsContainer.innerHTML = '';
-    document.getElementById('clientName').value = '';
-
-    alert(`Commande enregistrée pour ${clientName} avec ${lots.length} lot(s).`);
-    console.log("Nouvelle commande :", { client: clientName, lots });
-  });
-
-  populateClientSelect(); 
+    row.querySelector('.view-btn').addEventListener('click', () => {
+      let details = `Commande ${order.id}\nClient : ${order.clientName}\nStatut : ${order.status}\nLots :\n`;
+      order.lots.forEach((lot, index) => {
+        details += `  Lot ${index + 1} - ${lot.productRef} | ${lot.color} | ${lot.material} | Tailles : ${JSON.stringify(lot.sizes)}\n`;
+      });
+      alert(details);
+    });
+  }
 });

@@ -9,6 +9,7 @@ body {
   color: #333;
 }
 
+/* === Sidebar (nav bar) === */
 .sidebar {
   width: 200px;
   height: 100vh;
@@ -53,37 +54,6 @@ body {
   font-weight: bold;
 }
 
-.sidebar h2 {
-  margin-bottom: 30px;
-  font-size: 1.5rem;
-  color: #6d4c41;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  margin: 20px 0;
-}
-
-.sidebar ul li a {
-  color: #333;
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  border-radius: 5px;
-  transition: background 0.3s, color 0.3s;
-}
-
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
-  background-color: #d6bdaa;
-  color: white;
-  font-weight: bold;
-}
-
 .logo-title {
   display: flex;
   align-items: center;
@@ -91,7 +61,6 @@ body {
   margin-bottom: 20px;
   font-weight: bold;
 }
-
 
 .logo-img {
   height: 40px;
@@ -131,6 +100,7 @@ body {
   border-radius: 3px;
 }
 
+/* === Main content area === */
 .content {
   margin-left: 240px;
   padding: 20px;
@@ -161,24 +131,7 @@ header {
   transform: scale(1.2);
 }
 
-.logo-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.logo-img {
-  height: 40px;
-  width: 40px;
-  background-color: #c1a87d;
-  border-radius: 5px;
-  margin-right: 15px;
-}
-
-
-/* Bouton + pour ajouter commande */
+/* === Bouton + pour ajouter commande === */
 .add-order-container {
   display: flex;
   justify-content: flex-end;
@@ -200,7 +153,7 @@ header {
   background-color: #5a3e2f;
 }
 
-/* Table commandes */
+/* === Table commandes === */
 .orders-table {
   width: 100%;
   border-collapse: collapse;
@@ -226,19 +179,42 @@ header {
   font-weight: 600;
 }
 
-/* Boutons voir */
-.view-btn {
+/* Boutons dans la table */
+.view-btn,
+.edit-btn,
+.delete-btn {
   padding: 6px 12px;
-  background-color: #6d4c41;
-  color: #fff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  color: white;
+  font-weight: 600;
+  margin-right: 5px;
   transition: background 0.3s;
+}
+
+.view-btn {
+  background-color: #6d4c41;
 }
 
 .view-btn:hover {
   background-color: #5a3e2f;
+}
+
+.edit-btn {
+  background-color: #f39c12;
+}
+
+.edit-btn:hover {
+  background-color: #d88e0b;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
 }
 
 /* Badges statuts */
@@ -249,6 +225,10 @@ header {
   color: white;
   font-size: 0.9rem;
   display: inline-block;
+}
+
+.badge.en-attente {
+  background-color: #f39c12;
 }
 
 .badge.reception {
@@ -263,13 +243,13 @@ header {
   background-color: #2ecc71;
 }
 
-/* Formulaire commande */
+/* === Formulaire commande === */
 .order-form {
   background-color: #fff;
   padding: 25px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  max-width: 600px;
+  max-width: 650px;
   margin-top: 30px;
 }
 
@@ -280,46 +260,52 @@ header {
 .order-form h2 {
   margin-bottom: 20px;
   color: #6d4c41;
+  font-weight: 700;
 }
 
 .order-form label {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-weight: 600;
   color: #333;
 }
 
 .order-form input[type="text"],
-.order-form input[type="number"] {
+.order-form input[type="number"],
+.order-form select {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
-/* Lots dans le formulaire */
+/* Lot blocks dans le formulaire */
 .lot-block {
   background-color: #f4f1ed;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
 .lot-block label {
-  font-weight: normal;
+  font-weight: 600;
   margin-top: 10px;
+  display: block;
 }
 
-.lot-block input {
+.lot-block input,
+.lot-block select {
   margin-top: 5px;
 }
 
 /* Tailles en grille */
 .sizes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
   gap: 10px;
   margin-top: 10px;
 }
@@ -327,6 +313,7 @@ header {
 .sizes label {
   font-size: 0.9rem;
   cursor: pointer;
+  user-select: none;
 }
 
 /* Boutons du formulaire */
@@ -341,6 +328,7 @@ header {
   background-color: #6d4c41;
   color: white;
   transition: background 0.3s;
+  display: inline-block;
 }
 
 #addLotBtn:hover,
@@ -360,5 +348,9 @@ header {
   .content {
     margin-left: 0;
     padding: 15px;
+  }
+
+  .order-form {
+    max-width: 100%;
   }
 }
