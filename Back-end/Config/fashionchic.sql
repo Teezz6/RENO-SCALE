@@ -60,7 +60,6 @@ CREATE TABLE Commande (
 CREATE TABLE Commande_Lot (
     id INT AUTO_INCREMENT PRIMARY KEY,
     quantite_commande INT NOT NULL,
-    contenu TEXT,
     idcommande INT,
     idlot INT,
     FOREIGN KEY (idcommande) REFERENCES Commande(idcommande),
@@ -82,5 +81,25 @@ CREATE TABLE Utilisateur (
     email VARCHAR(100) UNIQUE NOT NULL,
     mot_passe VARCHAR(255) NOT NULL,
     role ENUM('admin', 'commercial', 'préparateur de commande', 'livreur', 'comptable', 'responsable de stock', 'support client') DEFAULT 'commercial'
+);
+
+CREATE TABLE Facture (
+  idfacture INT AUTO_INCREMENT PRIMARY KEY,
+  idclient INT,
+  date_facture DATE,
+  total DECIMAL(10,2),
+  statut_facture ENUM('En attente','Payé','Annulée'),
+  FOREIGN KEY (idclient) REFERENCES Client(idclient)
+);
+
+CREATE TABLE Facture_item (
+  idfacture_items INT AUTO_INCREMENT PRIMARY KEY,
+  id_facture INT,
+  idlot
+  lot VARCHAR(100),
+  quantite INT,
+  prix_unit DECIMAL(10,2),
+  FOREIGN KEY (idlot) REFERENCES Lot(idlot)
+  FOREIGN KEY (idfacture) REFERENCES Facture(idfacture)
 );
 
