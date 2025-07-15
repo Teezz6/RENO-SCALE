@@ -9,94 +9,91 @@
 </head>
 
 <body>
-  <nav>
-    <div class="sidebar">
-      <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
-        <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
-      </a>
-      <div class="logo-title">
-        <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
-        <span class="brand-name">FASHION CHIC</span>
-      </div>
-      <ul class="menu">
-        <li><i class="fas fa-chart-line"></i> Dashboard</li>
-        <li><i class="fas fa-box"></i> Gestion des stocks</li>
-        <li class="active"><i class="fas fa-shopping-cart"></i> Commandes</li>
-        <li><i class="fas fa-truck"></i> Fournisseurs</li>
-        <li><i class="fas fa-calendar-alt"></i> Agenda partagé</li>
-        <li><i class="fas fa-file-alt"></i> Documents</li>
-      </ul>
+ <nav>
+  <div class="sidebar">
+    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+      <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
+    <div class="logo-title">
+      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+      <span class="brand-name">FASHION CHIC</span>
     </div>
-  </nav>
+    <ul class="menu">
+      <li><a href="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+      <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+      <li><a href="pagecommande.html" class="active"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+      <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+      <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+      <li><a href="pagecomptabilite.html"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+    </ul>
+  </div>
+ </nav>
 
-  <main class="content">
-    <header>
-      <h1>Commandes</h1>
-      <div class="icons">
-        <i class="fas fa-bell"></i>
-        <i class="fas fa-user-circle"></i>
-      </div>
-    </header>
+ <main class="content">
+   <header>
+     <h1>Commandes</h1>
+     <div class="icons">
+       <i class="fas fa-bell"></i>
+       <i class="fas fa-user-circle"></i>
+     </div>
+   </header>
 
-    <div class="add-order-container">
-      <button id="addOrderBtn" class="add-order-btn"><i class="fas fa-plus"></i> </button>
-    </div>
+   <div class="add-order-container">
+     <button id="addOrderBtn" class="add-order-btn"><i class="fas fa-plus"></i> Nouvelle commande</button>
+   </div>
 
-    <section class="orders-section">
-      <table class="orders-table">
-        <thead>
-          <tr>
-            <th>N° de commande</th>
-            <th>Client</th>
-            <th>Statut</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>#01236</td>
-            <td>Elizabeth Martin</td>
-            <td><span class="badge reception">Réception</span></td>
-            <td><button class="view-btn">Voir</button></td>
-          </tr>
-          <tr>
-            <td>#01235</td>
-            <td>Antoine Durand</td>
-            <td><span class="badge reception">Réception</span></td>
-            <td><button class="view-btn">Voir</button></td>
-          </tr>
-          <tr>
-            <td>#01234</td>
-            <td>Sarah Bernard</td>
-            <td><span class="badge preparation">Préparation</span></td>
-            <td><button class="view-btn">Voir</button></td>
-          </tr>
-          <tr>
-            <td>#01233</td>
-            <td>François Leblanc</td>
-            <td><span class="badge livraison">Livraison</span></td>
-            <td><button class="view-btn">Voir</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+   <section class="orders-section">
+     <table class="orders-table">
+       <thead>
+         <tr>
+           <th>N° de commande</th>
+           <th>Client</th>
+           <th>Statut</th>
+           <th>Actions</th>
+         </tr>
+       </thead>
+       <tbody>
+         <!-- Les commandes s’ajouteront ici dynamiquement -->
+       </tbody>
+     </table>
+   </section>
 
-    <!-- Formulaire de commande -->
-    <div id="orderForm" class="order-form hidden">
-      <h2>Nouvelle Commande</h2>
-      <label>Nom du client :
-        <input type="text" id="clientName" placeholder="Ex : Marie Dupont" />
-      </label>
+   <div id="orderForm" class="order-form hidden">
+     <h2>Nouvelle Commande</h2>
 
-      <div id="lotsContainer"></div>
+     <!-- Ajout Client -->
+     <fieldset>
+       <legend>Ajouter un nouveau client</legend>
+       <label for="newClientName">Nom :</label>
+       <input type="text" id="newClientName" placeholder="Nom du client">
 
-      <button type="button" id="addLotBtn">Ajouter un lot</button>
-      <button type="button" id="submitOrderBtn">Valider la commande</button>
-    </div>
-  </main>
+       <label for="newClientEmail">Email :</label>
+       <input type="email" id="newClientEmail" placeholder="exemple@mail.com">
 
-  <script src="../JS/commande.js"></script>
+       <label for="newClientPhone">Téléphone :</label>
+       <input type="text" id="newClientPhone" placeholder="06...">
+
+       <label for="newClientAddress">Adresse :</label>
+       <input type="text" id="newClientAddress" placeholder="Adresse complète">
+
+       <button id="saveClientBtn" type="button">Enregistrer le client</button>
+     </fieldset>
+
+     <!-- Sélection Client -->
+     <label for="clientSearch">Rechercher un client par ID :</label>
+     <input type="text" id="clientSearch" placeholder="Ex : 00123" autocomplete="off" />
+     <select id="clientSelect" size="5">
+       <!-- Clients ajoutés dynamiquement -->
+     </select>
+
+     <!-- Ajout Lots -->
+     <div id="lotsContainer"></div>
+     <button type="button" id="addLotBtn">Ajouter un lot</button>
+
+     <!-- Soumission Commande -->
+     <button type="button" id="submitOrderBtn">Valider la commande</button>
+   </div>
+ </main>
+
+ <script src="../JS/commande.js"></script>
 </body>
 </html>
-
-

@@ -4,11 +4,10 @@ html {
 
 body {
   margin: 0;
-  font-family: "Arial", sans-serif;
-  background: #fdfaf6;
+  font-family: Arial, sans-serif;
+  background-color: #f4f1ed;
   color: #333;
 }
-
 /* Sidebar */
 .sidebar {
   width: 200px;
@@ -50,80 +49,38 @@ body {
   font-weight: bold;
 }
 
-.sidebar h2 {
-  margin-bottom: 30px;
-  font-size: 1.5rem;
-  color: #6d4c41;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  margin: 20px 0;
-}
-
-.sidebar ul li a {
-  color: #333;
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  border-radius: 5px;
-  transition: background 0.3s, color 0.3s;
-}
-
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
-  background-color: #d6bdaa;
-  color: white;
-  font-weight: bold;
-}
-
-.menu {
-  list-style: none;
-  padding: 0;
-}
-
-.menu li {
-  margin: 20px 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  transition: background 0.3s ease;
-}
-
-.menu li:hover {
-  background: #e2d6c8;
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.menu li.active {
-  padding: 5px;
-  border-radius: 3px;
-}
-
-.stock-faible {
-    color: red;
-    font-weight: bold;
-}
-
-
-.content {
-  margin-left: 240px;
+/* Main content */
+.main {
+  margin-left: 220px;
   padding: 20px;
 }
 
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px;
+  margin-bottom: 30px;
+}
+
+header input[type="text"] {
+  padding: 8px 12px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.icons i {
+  font-size: 18px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #966d4f;
+  
+}
+
+.icons i:hover {
+  transform: scale(1.2);
 }
 
 .back-btn {
@@ -133,15 +90,35 @@ header {
   cursor: pointer;
 }
 
-.icons i {
-  font-size: 18px;
-  margin-left: 20px;
-  cursor: pointer;
-  transition: transform 0.2s;
+/* Contenu principal */
+.content {
+  margin-left: 240px;
+  padding: 25px;
+  transition: margin-left 0.3s ease;
 }
 
-.icons i:hover {
-  transform: scale(1.2);
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+/* Overview Cards */
+.overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: rgb(234, 227, 220);
+  padding: 10px;
+  border-radius: 25px;
+  flex: 1 1 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
 }
 
 .logo-title {
@@ -152,6 +129,7 @@ header {
   font-weight: bold;
 }
 
+
 .logo-img {
   height: 40px;
   width: 40px;
@@ -160,22 +138,52 @@ header {
   margin-right: 15px;
 }
 
+.card:hover {
+  transform: translateY(-4px);
+}
+
+
+
+/* Filtres & Boutons */
 .filters {
   display: flex;
-  gap: 20px;
-  margin: 20px 0;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 25px 0;
 }
 
-.filters select {
-  padding: 8px 12px;
+.filters select,
+.add-article {
+  padding: 10px 18px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  background-color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
 }
 
+.filters select:hover,
+.filters select:focus {
+  border-color: #a3875f;
+}
+
+.add-article {
+  background-color: #d6bdaa;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.add-article:hover {
+  background-color: #b89a85;
+}
+
+/* Tableau */
 .stock-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: #fff;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -183,109 +191,180 @@ header {
 
 .stock-table th,
 .stock-table td {
-  padding: 15px;
+  padding: 14px 18px;
   text-align: left;
   border-bottom: 1px solid #eee;
 }
 
 .stock-table th {
   background: #f9f5f0;
+  font-weight: 600;
+  color: #6d4c41;
 }
 
 .stock-ok {
   color: #1e8c42;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .stock-low {
   color: #c75a29;
-  font-weight: 500;
+  font-weight: 600;
 }
 
+/* Bouton modifier */
 .edit-btn {
-  padding: 6px 12px;
+  padding: 6px 14px;
   border: none;
   border-radius: 5px;
   background: #eee3d5;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .edit-btn:hover {
-  background: #d6bdaa;
+  background-color: #d6bdaa;
   color: white;
 }
 
-/* Popup */
+/* Popups */
 .popup {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  top: 0; left: 0;
+  width: 80vw;
+  height: 90vh;
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 999;
 }
-
 .popup.open {
   display: flex;
 }
 
 .popup-content {
-  background: white;
+  background: #fff;
   padding: 30px;
   border-radius: 10px;
-  width: 320px;
-  max-width: 90%;
+  width: 350px;
+  max-width: 95%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  position: relative;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn {
   position: absolute;
-  top: 10px;
+  top: 12px;
   right: 15px;
   font-size: 22px;
   cursor: pointer;
-  color: #888;
+  color: #777;
 }
 
-#article-form input,
-#article-form select {
+.popup-content form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6d4c41;
+}
+
+.popup-content form input,
+.popup-content form select,
+.popup-content form textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
 }
 
-/* Nouveau champ pour lots */
-.lot-fields {
-  display: flex;
-  gap: 10px;
-}
 
-.lot-fields input {
-  flex: 1;
-}
 
-#article-form button {
-  padding: 10px;
+.popup-content form button[type="submit"],
+.popup-content form button#add-to-lot {
+  padding: 10px 20px;
   border: none;
-  background: #d6bdaa;
-  color: white;
   border-radius: 6px;
-  cursor: pointer;
+  background-color: #d6bdaa;
+  color: white;
   font-weight: bold;
+  cursor: pointer;
   transition: background 0.3s ease;
 }
 
-#article-form button:hover {
-  background: #b89a85;
+
+/* Ligne d'ajout produit dans le lot */
+.lot-product-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.lot-product-line input,
+.lot-product-line select,
+.lot-product-line button#add-to-lot {
+  flex: 1 1 120px;
+}
+
+/* Liste produits ajoutés */
+#lot-products-list {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+  background-color: #f9f5f0;
+  font-size: 0.9rem;
+  color: #5b4a35;
+}
+#lot-products-list li {
+  margin-bottom: 6px;
+  border-bottom: 1px solid #d6bdaa;
+  padding-bottom: 4px;
+}
+
+/* Section Lots */
+.lot-section h2 {
+  margin-top: 30px;
+  color: #6d4c41;
+}
+
+/* Stock faible */
+.stock-faible {
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .popup-content {
+    width: 90%;
+  }
+
+  .lot-product-line {
+    flex-direction: column;
+    gap: 12px;
+  }
 }

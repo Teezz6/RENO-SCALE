@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestion des stocks - Fashion Chic</title>
   <link rel="stylesheet" href="../styles/pagestock.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -19,19 +19,18 @@
         <span class="brand-name">FASHION CHIC</span>
       </div>
       <ul class="menu">
-        <li><a href="#dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-        <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="pagestock.html" class="active"><i class="fas fa-box"></i> Gestion des stocks</a></li>
         <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
         <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
-        <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
-        <li><a href="#documents"><i class="fas fa-file-alt"></i> Documents</a></li>
+        <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+        <li><a href="pagecomptabilite.html"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
       </ul>
     </div>
   </nav>
 
   <main class="content">
     <header>
-      <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
       <h1>Gestion des stocks</h1>
       <div class="icons">
         <i class="fas fa-bell"></i>
@@ -40,71 +39,135 @@
     </header>
 
     <div class="filters">
-      <select id="taille-filter">
-        <option value="all">Taille</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-      </select>
-      <select id="couleur-filter">
-        <option value="all">Couleur</option>
-        <option value="Noir">Noir</option>
-        <option value="Blanc">Blanc</option>
-        <option value="Bleu">Bleu</option>
-      </select>
-      <!-- Bouton pour afficher le formulaire -->
-      <button id="show-ajouter-produit-form" class="add-article">+ Ajouter un produit</button>
+      <button class="add-article" id="btn-add-article">+ Ajouter un article</button>
+      <button class="add-article" id="btn-create-lot">+ Créer un lot</button>
     </div>
 
     <section class="stock-section">
-      <table class="stock-table" id="produit-table">
+      <table class="stock-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nom</th>
+            <th>Référence</th>
+            <th>Nom de l'article</th>
             <th>Taille</th>
             <th>Couleur</th>
-            <th>Matière</th>
-            <th>Quantité en stock</th>
+            <th>Quantité</th>
             <th>Prix unitaire</th>
-            <th>ID Fournisseur</th>
+            <th>Statut</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Contenu dynamique JS -->
-        </tbody>
+        <tbody id="stock-body"></tbody>
       </table>
     </section>
 
-    <!-- Formulaire Ajouter Produit (caché par défaut) -->
-    <div id="ajouter-produit-container" style="display:none; margin-top: 20px;">
-      <h2>Ajouter un produit</h2>
-      <form id="ajouter-produit-form">
-        <input type="text" id="nom" placeholder="Nom" required />
-        <input type="text" id="taille" placeholder="Taille" required />
-        <input type="text" id="couleur" placeholder="Couleur" required />
-        <input type="text" id="matiere" placeholder="Matière" required />
-        <input type="number" id="quantite" placeholder="Quantité en stock" min="0" required />
-        <input type="number" id="prix" placeholder="Prix unitaire (€)" step="0.01" min="0" required />
-        <input type="text" id="idfournisseur" placeholder="ID Fournisseur" required />
-        <button type="submit">Ajouter</button>
-        <button type="button" id="cancel-ajout">Annuler</button>
-      </form>
-    </div>
+    <section class="lot-section">
+      <h2>Lots créés</h2>
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>ID Lot</th>
+            <th>Nom du lot</th>
+            <th>Description</th>
+            <th>Quantité totale</th>
+            <th>Prix total</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="lot-body"></tbody>
+      </table>
+    </section>
   </main>
 
-  <script src="../JS/stock.js"></script>
+  <!-- Popup ajout article -->
+  <div class="popup" id="popup-form">
+    <div class="popup-content">
+      <span class="close-btn" id="close-popup">&times;</span>
+      <h2 id="form-title">Ajouter / Modifier un article</h2>
+      <form id="article-form">
+        <label for="article-ref">Référence</label>
+        <input type="text" id="article-ref" placeholder="pant, rob, etc." required>
 
-  <script>
-    // Script pour afficher/cacher le formulaire ajout produit
-    document.getElementById('show-ajouter-produit-form').addEventListener('click', () => {
-      document.getElementById('ajouter-produit-container').style.display = 'block';
-    });
-    document.getElementById('cancel-ajout').addEventListener('click', () => {
-      document.getElementById('ajouter-produit-container').style.display = 'none';
-      document.getElementById('ajouter-produit-form').reset();
-    });
-  </script>
+        <label for="article-name">Nom de l'article</label>
+        <input type="text" id="article-name" required>
+
+        
+        <select id="article-taille" required>
+          <option value="" disabled selected>Choisir la taille</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        </select>
+
+        <label for="article-couleur">Couleur</label>
+        <select id="article-couleur" required>
+          <option value="" disabled selected>Choisir la couleur</option>
+          <option value="Noir">Noir</option>
+          <option value="Blanc">Blanc</option>
+          <option value="Bleu">Bleu</option>
+        </select>
+
+        <label for="article-qty">Quantité</label>
+        <input type="number" id="article-qty" min="1" required>
+
+        <label for="article-price">Prix unitaire (€)</label>
+        <input type="number" id="article-price" min="0" step="0.01" required>
+
+        <div class="message-zone" id="message-zone"></div>
+        <button type="submit">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Popup création de lot -->
+  <div class="popup" id="popup-lot">
+    <div class="popup-content">
+      <span class="close-btn" id="close-lot-popup">&times;</span>
+      <h2>Créer un lot</h2>
+      <form id="lot-form">
+        <label for="lot-name">Nom du lot</label>
+        <input type="text" id="lot-name" required>
+
+        <label for="lot-description">Description</label>
+        <textarea id="lot-description" required></textarea>
+
+        <div class="lot-product-line">
+          <input type="text" id="lot-ref" placeholder="Référence (pant, rob...)" required>
+
+          <div class="checkbox-group">
+            <label>Tailles :</label>
+            <div class="checkboxes tailles-checkboxes">
+              <label><input type="checkbox" value="S" class="taille-checkbox"> S</label>
+              <label><input type="checkbox" value="M" class="taille-checkbox"> M</label>
+              <label><input type="checkbox" value="L" class="taille-checkbox"> L</label>
+              <label><input type="checkbox" value="XL" class="taille-checkbox"> XL</label>
+              <label><input type="checkbox" value="XXL" class="taille-checkbox"> XXL</label>
+            </div>
+          </div>
+
+          <div class="checkbox-group">
+            <label>Couleurs :</label>
+            <div class="checkboxes couleurs-checkboxes">
+              <label><input type="checkbox" value="Noir" class="couleur-checkbox"> Noir</label>
+              <label><input type="checkbox" value="Blanc" class="couleur-checkbox"> Blanc</label>
+              <label><input type="checkbox" value="Bleu" class="couleur-checkbox"> Bleu</label>
+            </div>
+          </div>
+
+          <input type="number" placeholder="Quantité" class="quantite-input" min="1" required>
+          <input type="number" placeholder="Prix unitaire (€)" class="prix-input" min="0" step="0.01" required>
+
+          <button type="button" id="add-to-lot">+ Ajouter au lot</button>
+        </div>
+
+        <ul id="lot-products-list"></ul>
+        <button type="submit">Créer le lot</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../JS/stock.js"></script>
 </body>
 </html>

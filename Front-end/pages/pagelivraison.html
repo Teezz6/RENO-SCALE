@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livraisons - Fashion Chic</title>
+  <link rel="stylesheet" href="../styles/pagelivraison.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+   <nav>
+  <div class="sidebar">
+    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+   <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
+    <div class="logo-title">
+      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+      <span class="brand-name">FASHION CHIC</span>
+    </div>
+   <ul class="menu">
+  <li><a href="dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+  <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+  <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+  <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+  <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+  <li><a href="pagecomptabilite.html" class="active"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+   </ul>
+  </nav>
+  </div>
+
+  <div class="main">
+    <header>
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Rechercher une livraison...">
+      </div>
+      <div class="icons">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <section class="overview">
+      <div class="card">Livraisons totales<br><strong>30</strong></div>
+      <div class="card">Livraisons en cours<br><strong>10</strong></div>
+      <div class="card">Livraisons livrées<br><strong>18</strong></div>
+      <div class="card">En attente<br><strong>2</strong></div>
+    </section>
+
+    <section class="graph">
+      <h3>Répartition des statuts de livraison</h3>
+      <canvas id="livraisonStatusChart" width="250" height="250"></canvas>
+    </section>
+
+    <section class="form-section">
+      <h3>Ajouter une livraison</h3>
+      <form id="formLivraison">
+        <input type="text" placeholder="Numéro de livraison" required />
+        <input type="text" placeholder="Statut" required />
+        <input type="date" required />
+        <button type="submit">Ajouter</button>
+      </form>
+    </section>
+
+    <section class="tables">
+      <div class="table">
+        <h3>Table des livraisons</h3>
+        <table id="tableLivraisons">
+          <thead>
+            <tr><th>Numéro</th><th>Statut</th><th>Date</th></tr>
+          </thead>
+          <tbody>
+            <tr><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../JS/livraison.js"></script>
+</body>
+</html>
