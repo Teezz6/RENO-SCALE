@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/../Config/database.php'; // Inclusion du fichier Database
+require_once __DIR__ . '/../Config/database.php';
 
 class BaseModel {
     protected $pdo;             // Connexion PDO à la base de données
-    protected $table;           // Nom de la table à manipuler
-    protected $primaryKey = 'id'; // Clé primaire (par défaut), peut être surchargée
-
+    protected $table;           
+    protected $primaryKey = 'id'; 
+    
     // Le constructeur reçoit le nom de la table concernée
     public function __construct($table) {
         $this->pdo = (new Database())->getConnection(); // Connexion à la BDD

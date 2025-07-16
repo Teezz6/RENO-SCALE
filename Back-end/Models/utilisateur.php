@@ -1,4 +1,17 @@
 <?php
+
+require_once 'baseModel.php';
+
+class UtilisateurModel extends BaseModel {
+    protected $table = 'Utilisateur';
+    protected $primaryKey = 'idutilisateur';
+
+    public function __construct() {
+        parent::__construct($this->table);
+    }
+}
+
+
 class Utilisateur {
     private $conn;
     private $table = "Utilisateur";

@@ -86,3 +86,7 @@
 [20-Jun-2025 16:01:13 UTC] PHP Stack trace:
 [20-Jun-2025 16:01:13 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
 [20-Jun-2025 16:01:13 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30
+[15-Jul-2025 08:25:33 UTC] PHP Warning:  Undefined array key "id" in C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Controllers\authController.php on line 55
+[15-Jul-2025 08:25:33 UTC] PHP Stack trace:
+[15-Jul-2025 08:25:33 UTC] PHP   1. {main}() C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:0
+[15-Jul-2025 08:25:33 UTC] PHP   2. AuthController->login($data = ['email' => 'math@welcome.fr', 'mot_passe' => '12345']) C:\wamp64\www\Dev_project\RENO-SCALE-1\Back-end\Routes\API\login.php:30

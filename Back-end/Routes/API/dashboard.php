@@ -17,23 +17,45 @@ if (!isset($_SESSION['utilisateur'])) {
 $utilisateur = $_SESSION['utilisateur'];
 $role = $utilisateur['role'];
 
-// Association des rôles aux pages correspondantes
-$routes = [
-    'admin' => '../../../Front-end/pages/pageadmin.html',
-    'comptable' => '../pages/comptable.html',
-    'livreur' => '../pages/livreur.html',
-    'préparateur','admin','livreur','responsable de stock' => '../../../Front-end/pages/pagecommande.html',
-    'commercial','admin','responsable de stock' => '../../../Front-end/pages/pagestock.html'
-];
+// Définir les redirections selon les rôles
+$redirect = '../pages/pageaccueil.html'; // par défaut
 
-// Page par défaut si le rôle n'existe pas dans la liste
-$page = isset($routes[$role]) ? $routes[$role] : '../pages/pageaccueil.html';
+switch ($role) {
+    case 'admin':
+        $redirect = '../../../Front-end/pages/pageadmin.html';
+        break;
+
+    case 'comptable':
+        $redirect = '../pages/comptable.html';
+        break;
+
+    case 'livreur':
+        $redirect = '../pages/livreur.html';
+        break;
+
+    case 'préparateur':
+    case 'livreur':
+    case 'admin':
+    case 'responsable de stock':
+        $redirect = '../../../Front-end/pages/pagecommande.html';
+        break;
+
+    case 'commercial':
+    case 'responsable de stock':
+    case 'admin':
+        $redirect = '../../../Front-end/pages/pagestock.html';
+        break;
+
+    default:
+        $redirect = '../pages/pageaccueil.html';
+        break;
+}
 
 // Réponse JSON
 echo json_encode([
     'status' => 'success',
     'role' => $role,
-    'redirect' => $page,
+    'redirect' => $redirect,
     'nom' => $utilisateur['nom'],
     'prenom' => $utilisateur['prenom'],
     'email' => $utilisateur['email']

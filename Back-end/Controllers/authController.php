@@ -2,6 +2,9 @@
 require_once __DIR__ .'/../Config/database.php';
 require_once __DIR__ .'/../Models/utilisateur.php';
 
+// Ajout de JWT
+require_once __DIR__ .'/../Helpers/JWT.php';
+
 class AuthController {
     private $conn;
 
@@ -44,22 +47,33 @@ class AuthController {
             $loggedUser = $utilisateur->login();
 
             if ($loggedUser) {
-
-                // Démarre la session si elle n'est pas déjà démarrée
+                // Démarre la session
                 if (session_status() == PHP_SESSION_NONE) {
-                session_start();
+                    session_start();
                 }
-                 
-                //Stocke les infos utilisateur dans la session
+
+                // Stocke les infos en session
                 $_SESSION['utilisateur'] = [
-                 'id' => $loggedUser['id'],
-                 'nom' => $loggedUser['nom'],
-                 'prenom' => $loggedUser['prenom'],
-                 'email' => $loggedUser['email'],
-                 'role' => $loggedUser['role']
+                    'id' => $loggedUser['id'],
+                    'nom' => $loggedUser['nom'],
+                    'prenom' => $loggedUser['prenom'],
+                    'email' => $loggedUser['email'],
+                    'role' => $loggedUser['role']
                 ];
 
-                return ['status' => 'success', 'utilisateur' => $loggedUser];
+                // Génère un token JWT
+                $token = JWTHandler::generateToken([
+                    'id' => $loggedUser['id'],
+                    'email' => $loggedUser['email'],
+                    'role' => $loggedUser['role']
+                ]);
+
+                // Retourne les infos + token
+                return [
+                    'status' => 'success',
+                    'utilisateur' => $loggedUser,
+                    'token' => $token
+                ];
             } else {
                 return ['status' => 'error', 'message' => 'Email ou mot de passe incorrect'];
             }
@@ -67,17 +81,15 @@ class AuthController {
             return ['status' => 'error', 'message' => 'Champs manquants'];
         }
     }
-    //retourne les infos de l'utilisateur déjà connecté afin d'afficher après la connexion le tableau de bord personnalisé
-    
+
     public function getProfile() {
-    session_start();
+        session_start();
 
-    if (isset($_SESSION['user'])) {
-        return ['status' => 'success', 'utilisateur' => $_SESSION['user']];
-    } else {
-        return ['status' => 'error', 'message' => 'Utilisateur non connecté'];
+        if (isset($_SESSION['user'])) {
+            return ['status' => 'success', 'utilisateur' => $_SESSION['user']];
+        } else {
+            return ['status' => 'error', 'message' => 'Utilisateur non connecté'];
+        }
     }
-}
-
 }
 ?>
