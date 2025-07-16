@@ -39,14 +39,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }]
       },
       options: {
-    responsive: false, 
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "bottom"
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
       }
-    }
-  }
     });
   }
 
@@ -73,15 +73,50 @@ document.addEventListener("DOMContentLoaded", function () {
           borderWidth: 1
         }]
       },
-  options: {
-    responsive: false, 
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "bottom"
+      options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
       }
-    }
+    });
   }
+
+  // ======= GESTION UPLOAD DOCUMENTS =======
+  const uploadForm = document.getElementById('uploadForm');
+  const fileInput = document.getElementById('fileInput');
+  const documentList = document.getElementById('documentList');
+
+  let documents = [];
+
+  if (uploadForm && fileInput && documentList) {
+    uploadForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const files = fileInput.files;
+      if (files.length === 0) return;
+
+      // Retirer le message "Aucun document"
+      if (documents.length === 0) {
+        documentList.innerHTML = '';
+      }
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        documents.push(file);
+
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.textContent = file.name;
+        link.href = URL.createObjectURL(file);
+        link.download = file.name;
+        li.appendChild(link);
+        documentList.appendChild(li);
+      }
+
+      fileInput.value = '';
     });
   }
 });

@@ -1,180 +1,168 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const lotsTableBody = document.getElementById("lot-body");
-  const popupLot = document.getElementById("popup-lot");
-  const btnCreateLot = document.getElementById("btn-create-lot");
-  const closeLotPopup = document.getElementById("close-lot-popup");
+document.addEventListener("DOMContentLoaded", () => {
+  const stockBody = document.getElementById("stock-body");
+  const lotBody = document.getElementById("lot-body");
+
+  const form = document.getElementById("article-form");
   const lotForm = document.getElementById("lot-form");
 
-  const popupForm = document.getElementById("popup-form");
   const btnAddArticle = document.getElementById("btn-add-article");
-  const closeFormPopup = document.getElementById("close-popup");
-  const articleForm = document.getElementById("article-form");
+  const btnCreateLot = document.getElementById("btn-create-lot");
 
-  // Champs du formulaire "Créer un lot"
-  const lotRefInput = document.getElementById("lot-ref");
-  const tailleCheckboxes = document.querySelectorAll(".taille-checkbox");
-  const couleurCheckboxes = document.querySelectorAll(".couleur-checkbox");
-  const quantiteInput = document.querySelector(".quantite-input");
-  const prixInput = document.querySelector(".prix-input");
+  const popupForm = document.getElementById("popup-form");
+  const popupLot = document.getElementById("popup-lot");
+  const closePopup = document.getElementById("close-popup");
+  const closeLotPopup = document.getElementById("close-lot-popup");
+
   const addToLotBtn = document.getElementById("add-to-lot");
-  const lotProductsList = document.getElementById("lot-products-list");
 
-  // Variables pour stocker les articles ajoutés au lot
-  let lotProduits = [];
+  let produits = [];
+  let lots = [];
+  let currentLotItems = [];
 
-  // Ouvrir / fermer popup création de lot
-  btnCreateLot.addEventListener("click", () => {
-    popupLot.style.display = "flex";
-  });
-  closeLotPopup.addEventListener("click", () => {
-    popupLot.style.display = "none";
-    resetLotForm();
-  });
-
-  // Ouvrir / fermer popup ajout article
+  // -------------------- POPUP HANDLING --------------------
   btnAddArticle.addEventListener("click", () => {
-    popupForm.style.display = "flex";
+    popupForm.style.display = "block";
   });
-  closeFormPopup.addEventListener("click", () => {
+
+  btnCreateLot.addEventListener("click", () => {
+    popupLot.style.display = "block";
+  });
+
+  closePopup.addEventListener("click", () => {
     popupForm.style.display = "none";
   });
 
-  // Fonction utilitaire pour récupérer valeurs cochées
-  function getCheckedValues(nodeList) {
-    return Array.from(nodeList).filter(input => input.checked).map(input => input.value);
-  }
-
-  // Ajouter un article dans le lot depuis la popup "Créer un lot"
-  addToLotBtn.addEventListener("click", () => {
-    const ref = lotRefInput.value.trim();
-    const tailles = getCheckedValues(tailleCheckboxes);
-    const couleurs = getCheckedValues(couleurCheckboxes);
-    const quantite = parseInt(quantiteInput.value, 10);
-    const prix = parseFloat(prixInput.value);
-
-    if (!ref) {
-      alert("Veuillez saisir la référence.");
-      return;
-    }
-    if (tailles.length === 0) {
-      alert("Veuillez sélectionner au moins une taille.");
-      return;
-    }
-    if (couleurs.length === 0) {
-      alert("Veuillez sélectionner au moins une couleur.");
-      return;
-    }
-    if (isNaN(quantite) || quantite <= 0) {
-      alert("Veuillez saisir une quantité valide (>0).");
-      return;
-    }
-    if (isNaN(prix) || prix < 0) {
-      alert("Veuillez saisir un prix valide (>=0).");
-      return;
-    }
-
-    // Ajouter toutes les combinaisons taille/couleur
-    tailles.forEach(taille => {
-      couleurs.forEach(couleur => {
-        lotProduits.push({
-          ref,
-          taille,
-          couleur,
-          quantite,
-          prix,
-        });
-      });
-    });
-
-    renderLotProducts();
-    resetLotProductInputs();
+  closeLotPopup.addEventListener("click", () => {
+    popupLot.style.display = "none";
   });
 
-  // Afficher la liste des articles ajoutés au lot
-  function renderLotProducts() {
-    lotProductsList.innerHTML = "";
+  // -------------------- AJOUT PRODUIT --------------------
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    lotProduits.forEach((item, index) => {
-      const li = document.createElement("li");
-      li.textContent = `${item.ref} - Taille: ${item.taille} - Couleur: ${item.couleur} - Qté: ${item.quantite} - Prix: ${item.prix.toFixed(2)} €`;
+    const produit = {
+      ref: document.getElementById("produit-ref").value.trim(),
+      nom: document.getElementById("produit-nom").value.trim(),
+      taille: document.getElementById("produit-taille").value.trim(),
+      matiere: document.getElementById("produit-matiere").value.trim(),
+      couleur: document.getElementById("produit-couleur").value.trim(),
+      quantite: Number(document.getElementById("produit-quantite").value),
+      prix: Number(document.getElementById("produit-prix").value),
+      statut: "Disponible"
+    };
 
-      // Bouton supprimer article
-      const btnDelete = document.createElement("button");
-      btnDelete.textContent = "Supprimer";
-      btnDelete.style.marginLeft = "10px";
-      btnDelete.addEventListener("click", () => {
-        lotProduits.splice(index, 1);
-        renderLotProducts();
-      });
+    produits.push(produit);
+    afficherProduits();
+    popupForm.style.display = "none";
+    form.reset();
+  });
 
-      li.appendChild(btnDelete);
-      lotProductsList.appendChild(li);
+  function afficherProduits() {
+    stockBody.innerHTML = "";
+    produits.forEach((p, index) => {
+      stockBody.innerHTML += `
+        <tr>
+          <td>${p.ref}</td>
+          <td>${p.nom}</td>
+          <td>${p.taille}</td>
+          <td>${p.matiere}</td>
+          <td>${p.couleur}</td>
+          <td>${p.quantite}</td>
+          <td>${p.prix.toFixed(2)}€</td>
+          <td>${p.statut}</td>
+          <td>
+            <button onclick="voirProduit(${index})">Voir</button>
+            <button onclick="modifierProduit(${index})">Modifier</button>
+            <button onclick="supprimerProduit(${index})">Supprimer</button>
+          </td>
+        </tr>`;
     });
   }
 
-  function resetLotProductInputs() {
-    lotRefInput.value = "";
-    tailleCheckboxes.forEach(cb => (cb.checked = false));
-    couleurCheckboxes.forEach(cb => (cb.checked = false));
-    quantiteInput.value = "";
-    prixInput.value = "";
-  }
+  // -------------------- GESTION LOT --------------------
+  addToLotBtn.addEventListener("click", () => {
+    const ref = document.getElementById("lot-reference").value.trim();
+    const taille = document.getElementById("lot-taille").value.trim();
+    const couleur = document.getElementById("lot-couleur").value.trim();
+    const quantite = Number(document.getElementById("lot-quantite").value);
 
-  // Réinitialiser formulaire lot complet
-  function resetLotForm() {
-    lotForm.reset();
-    resetLotProductInputs();
-    lotProduits = [];
-    renderLotProducts();
-  }
+    if (ref && taille && couleur && quantite > 0) {
+      currentLotItems.push({ ref, taille, couleur, quantite });
+      alert("Article ajouté au lot !");
+    } else {
+      alert("Veuillez remplir tous les champs pour ajouter au lot.");
+    }
+  });
 
-  // Soumission formulaire création lot
   lotForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const nomLot = document.getElementById("lot-name").value.trim();
-    const descLot = document.getElementById("lot-description").value.trim();
+    if (currentLotItems.length === 0) {
+      alert("Ajoutez au moins un article au lot avant de le créer.");
+      return;
+    }
 
+    const lot = {
+      id: "LOT-" + Date.now(),
+      nom: document.getElementById("lot-name").value.trim(),
+      description: document.getElementById("lot-description").value.trim(),
+      articles: [...currentLotItems],
+      quantiteTotale: currentLotItems.reduce((sum, item) => sum + item.quantite, 0)
+    };
 
-
-
-    // Calcul quantité totale et prix total du lot
-    const quantiteTotale = lotProduits.reduce((sum, p) => sum + p.quantite, 0);
-    const prixTotal = lotProduits.reduce((sum, p) => sum + p.quantite * p.prix, 0);
-
-    // Création de la ligne dans le tableau des lots
-    const idLot = Date.now(); // simple id basé sur timestamp
-
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${idLot}</td>
-      <td>${nomLot}</td>
-      <td>${descLot}</td>
-      <td>${quantiteTotale}</td>
-      <td>${prixTotal.toFixed(2)} €</td>
-      <td>
-        <button class="delete-lot-btn" title="Supprimer">🗑️</button>
-      </td>
-    `;
-
-    // Supprimer lot
-    tr.querySelector(".delete-lot-btn").addEventListener("click", () => {
-      if (confirm(`Supprimer le lot "${nomLot}" ?`)) {
-        tr.remove();
-      }
-    });
-
-    lotsTableBody.appendChild(tr);
-
-    // Reset formulaire et fermer popup
-    resetLotForm();
+    lots.push(lot);
+    afficherLots();
     popupLot.style.display = "none";
+    lotForm.reset();
+    currentLotItems = [];
   });
 
-  // Formulaire ajout article (popup-form) - tu peux gérer ici si besoin la création/modification d'articles en stock
-  articleForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  function afficherLots() {
+    lotBody.innerHTML = "";
+    lots.forEach((lot, index) => {
+      lotBody.innerHTML += `
+        <tr>
+          <td>${lot.id}</td>
+          <td>${lot.nom}</td>
+          <td>${lot.description}</td>
+          <td>${lot.quantiteTotale}</td>
+          <td>
+            <button onclick="voirLot(${index})">Voir</button>
+            <button onclick="modifierLot(${index})">Modifier</button>
+            <button onclick="supprimerLot(${index})">Supprimer</button>
+          </td>
+        </tr>`;
+    });
+  }
 
-    popupForm.style.display = "none";
-  });
+  // -------------------- FONCTIONS D'ACTIONS (Placeholder) --------------------
+  window.voirProduit = function(index) {
+    alert(`Produit : ${JSON.stringify(produits[index], null, 2)}`);
+  };
+
+  window.modifierProduit = function(index) {
+    alert("Fonction de modification à implémenter !");
+  };
+
+  window.supprimerProduit = function(index) {
+    if (confirm("Supprimer ce produit ?")) {
+      produits.splice(index, 1);
+      afficherProduits();
+    }
+  };
+
+  window.voirLot = function(index) {
+    alert(`Lot : ${JSON.stringify(lots[index], null, 2)}`);
+  };
+
+  window.modifierLot = function(index) {
+    alert("Fonction de modification à implémenter !");
+  };
+
+  window.supprimerLot = function(index) {
+    if (confirm("Supprimer ce lot ?")) {
+      lots.splice(index, 1);
+      afficherLots();
+    }
+  };
 });

@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Commandes - Fashion Chic</title>
+  <link rel="icon" type="../images/logo.png" href="../images/logo.png">
   <link rel="stylesheet" href="../styles/pagecommande.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -18,13 +19,14 @@
       <span class="brand-name">FASHION CHIC</span>
     </div>
     <ul class="menu">
-      <li><a href="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-      <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
-      <li><a href="pagecommande.html" class="active"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
-      <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
-      <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
-      <li><a href="pagecomptabilite.html"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
-    </ul>
+  <li><a href="dashboard" ><i class="fas fa-chart-line"></i> Dashboard</a></li>
+  <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+  <li><a href="pagecommande.html" class="active"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+  <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+  <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+  <li><a href="pagecomptabilite.html" ><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+  <li><a href="pagelivraison.html"><i class="fas fa-truck"></i> Livraison</a></li>
+   </ul>
   </div>
  </nav>
 
@@ -33,7 +35,9 @@
      <h1>Commandes</h1>
      <div class="icons">
        <i class="fas fa-bell"></i>
-       <i class="fas fa-user-circle"></i>
+       <a href="../pages/pageprofil.html" title="Mon Profil" class="icon-profil">
+       <i class="fa fa-user-circle"></i>
+        </a>
      </div>
    </header>
 
@@ -72,22 +76,27 @@
        <label for="newClientPhone">Téléphone :</label>
        <input type="text" id="newClientPhone" placeholder="06...">
 
-       <label for="newClientAddress">Adresse :</label>
-       <input type="text" id="newClientAddress" placeholder="Adresse complète">
 
        <button id="saveClientBtn" type="button">Enregistrer le client</button>
      </fieldset>
 
-     <!-- Sélection Client -->
+     
      <label for="clientSearch">Rechercher un client par ID :</label>
      <input type="text" id="clientSearch" placeholder="Ex : 00123" autocomplete="off" />
      <select id="clientSelect" size="5">
-       <!-- Clients ajoutés dynamiquement -->
      </select>
 
      <!-- Ajout Lots -->
      <div id="lotsContainer"></div>
      <button type="button" id="addLotBtn">Ajouter un lot</button>
+
+     <label for="orderStatus">Statut de la commande :</label>
+     <select id="orderStatus">
+     <option value="en_attente">En attente</option>
+     <option value="valide">Validé</option>
+     <option value="annule">Annulé</option>
+     </select>
+
 
      <!-- Soumission Commande -->
      <button type="button" id="submitOrderBtn">Valider la commande</button>

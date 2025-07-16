@@ -4,36 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fournisseurs - Fashion Chic</title>
+  <link rel="icon" type="../images/logo.png" href="../images/logo.png">
   <link rel="stylesheet" href="../styles/pagefournisseurs.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
-   <nav>
-  <div class="sidebar">
-    <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
-   <button class="back-btn"><i class="fas fa-chevron-left"></i></button></a>
-    <div class="logo-title">
-      <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
-      <span class="brand-name">FASHION CHIC</span>
+  <nav>
+    <div class="sidebar">
+      <a href="pagedeconnexion.html" class="login-icon" title="Se déconnecter">
+        <button class="back-btn"><i class="fas fa-chevron-left"></i></button>
+      </a>
+      <div class="logo-title">
+        <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
+        <span class="brand-name">FASHION CHIC</span>
+      </div>
+      <ul class="menu">
+        <li><a href="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+        <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+        <li><a href="pagefournisseurs.html" class="active"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+        <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+        <li><a href="pagecomptabilite.html"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+        <li><a href="pagelivraison.html"><i class="fas fa-truck"></i> Livraison</a></li>
+      </ul>
     </div>
-   <ul class="menu">
-  <li><a href="dashboard" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-  <li><a href="pagestock.html"><i class="fas fa-box"></i> Gestion des stocks</a></li>
-  <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
-  <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
-  <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
-  <li><a href="pagecomptabilite.html" class="active"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
-   </ul>
   </nav>
-  </div>
 
   <main class="main">
     <header class="topbar">
       <h1>Fournisseurs</h1>
       <div class="icons">
         <i class="fas fa-bell"></i>
-        <i class="fas fa-user-circle"></i>
+       <a href="../pages/pageprofil.html" title="Mon Profil" class="icon-profil">
+       <i class="fa fa-user-circle"></i>
+        </a>
       </div>
     </header>
 
@@ -47,19 +52,20 @@
           <tr>
             <th>Nom de l'entreprise</th>
             <th>Contact</th>
+            <th>Origine</th>
+            <th>Email</th>
+            <th>Téléphone</th>
             <th>Dernière livraison</th>
           </tr>
         </thead>
         <tbody id="supplier-body">
-          <tr><td>Mode & Style</td><td>Isabelle Martin</td><td>12 avril 2024</td></tr>
-          <tr><td>Élégance Sourcing</td><td>Luc Durand</td><td>23 mars 2024</td></tr>
-          <tr><td>Textile Création</td><td>Sophie Lambert</td><td>15 mars 2024</td></tr>
-          <tr><td>Chic Distribution</td><td>Jean Lefevre</td><td>2 mars 2024</td></tr>
+          <!-- Données dynamiques JS -->
         </tbody>
       </table>
     </section>
   </main>
 
+  <!-- Formulaire d'ajout de fournisseur -->
   <div id="addSupplierForm" class="popup-form">
     <div class="form-content">
       <button class="close-btn" id="closeFormBtn">&times;</button>
@@ -67,7 +73,11 @@
       <form id="supplierForm">
         <input type="text" id="nom" placeholder="Nom de l'entreprise" required />
         <input type="text" id="contact" placeholder="Nom du contact" required />
-        <input type="date" id="livraison" required />
+        <input type="text" id="origine_produit" placeholder="Origine des produits" />
+        <input type="email" id="email" placeholder="Email" />
+        <input type="tel" id="telephone" placeholder="Téléphone" />
+        <label for="livraison">Dernière livraison :</label>
+        <input type="date" id="livraison" />
         <button class="submit-btn" type="submit">Ajouter</button>
       </form>
     </div>

@@ -75,7 +75,7 @@ header input[type="text"] {
   margin-left: 20px;
   cursor: pointer;
   transition: transform 0.2s;
-  color: #966d4f;
+  color: #171717;
   
 }
 
@@ -142,229 +142,203 @@ header {
   transform: translateY(-4px);
 }
 
+/* Reset de base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-
-/* Filtres & Boutons */
+/* BOUTONS */
 .filters {
   display: flex;
-  flex-wrap: wrap;
   gap: 15px;
-  margin: 25px 0;
+  margin-bottom: 20px;
 }
 
-.filters select,
-.add-article {
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-}
-
-.filters select:hover,
-.filters select:focus {
-  border-color: #a3875f;
-}
-
-.add-article {
-  background-color: #d6bdaa;
+.add-produit {
+  background-color: #6d4c41;
   color: white;
   border: none;
-  cursor: pointer;
-}
-
-.add-article:hover {
-  background-color: #b89a85;
-}
-
-/* Tableau */
-.stock-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.stock-table th,
-.stock-table td {
-  padding: 14px 18px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-
-.stock-table th {
-  background: #f9f5f0;
-  font-weight: 600;
-  color: #6d4c41;
-}
-
-.stock-ok {
-  color: #1e8c42;
-  font-weight: 600;
-}
-
-.stock-low {
-  color: #c75a29;
-  font-weight: 600;
-}
-
-/* Bouton modifier */
-.edit-btn {
-  padding: 6px 14px;
-  border: none;
-  border-radius: 5px;
-  background: #eee3d5;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s;
-}
-
-.edit-btn:hover {
-  background-color: #d6bdaa;
-  color: white;
-}
-
-/* Popups */
-.popup {
-  position: fixed;
-  top: 0; left: 0;
-  width: 80vw;
-  height: 90vh;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-.popup.open {
-  display: flex;
-}
-
-.popup-content {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  width: 350px;
-  max-width: 95%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  font-size: 22px;
-  cursor: pointer;
-  color: #777;
-}
-
-.popup-content form label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #6d4c41;
-}
-
-.popup-content form input,
-.popup-content form select,
-.popup-content form textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
-}
-
-
-
-.popup-content form button[type="submit"],
-.popup-content form button#add-to-lot {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  background-color: #d6bdaa;
-  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
+.add-produit:hover {
+  background-color: #6d4c41;
+}
 
-/* Ligne d'ajout produit dans le lot */
-.lot-product-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+/* TABLEAUX */
+.stock-section,
+.lot-section {
+  margin-bottom: 30px;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stock-table th,
+.stock-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.stock-table thead {
+  background-color: #6d4c41;
+  color: #fff;
+}
+
+.stock-table tbody tr:hover {
+  background-color: #f1f4fb;
+}
+
+.stock-table td:last-child {
+  text-align: center;
+}
+
+/* POPUP */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: none;
   align-items: center;
-}
-.lot-product-line input,
-.lot-product-line select,
-.lot-product-line button#add-to-lot {
-  flex: 1 1 120px;
+  justify-content: center;
+  z-index: 1000;
 }
 
-/* Liste produits ajoutés */
-#lot-products-list {
-  list-style: none;
+.popup-content {
+  background-color: #fff;
+  width: 90%;                /* plus petit que 70% pour éviter de trop étirer */
+  max-width: 360px;          /* limite plus étroite */
+  max-height: 90vh;          /* évite les scrolls inutiles */
+  overflow-y: auto;          /* défilement si besoin */
+  padding: 25px;
+  border-radius: 20px;       /* bords bien arrondis */
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Attributs (labels) beige clair */
+.popup-content label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #c8a96a; /* beige doré clair */
+}
+
+
+@keyframes fadeIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #999;
+}
+
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-content label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #333;
+}
+
+.popup-content input,
+.popup-content select {
   padding: 10px;
-  margin: 0;
   border: 1px solid #ccc;
   border-radius: 6px;
-  max-height: 140px;
-  overflow-y: auto;
-  background-color: #f9f5f0;
-  font-size: 0.9rem;
-  color: #5b4a35;
-}
-#lot-products-list li {
-  margin-bottom: 6px;
-  border-bottom: 1px solid #d6bdaa;
-  padding-bottom: 4px;
 }
 
-/* Section Lots */
-.lot-section h2 {
-  margin-top: 30px;
-  color: #6d4c41;
-}
-
-/* Stock faible */
-.stock-faible {
-  color: red;
+.popup-content button {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #6d4c41;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
   font-weight: bold;
+  cursor: pointer;
 }
 
-/* Responsive */
+.popup-content button:hover {
+  background-color: #6d4c41;
+}
+
+.message-zone {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: red;
+}
+
+/* AUTOCOMPLETE SELECT */
+#reference-select {
+  margin-top: 10px;
+  width: 100%;
+  max-height: 120px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow-y: auto;
+  display: none;
+  background-color: #fff;
+  z-index: 10;
+}
+
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    overflow-x: auto;
+    width: 70px;
+  }
+
+  .menu a span {
+    display: none;
+  }
+
+  .brand-name {
+    display: none;
   }
 
   .content {
-    margin-left: 0;
-    padding: 15px;
+    padding: 20px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
   }
 
   .filters {
     flex-direction: column;
   }
 
-  .popup-content {
-    width: 90%;
-  }
-
-  .lot-product-line {
-    flex-direction: column;
-    gap: 12px;
+  .add-produit {
+    width: 100%;
   }
 }
+
+

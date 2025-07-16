@@ -1,7 +1,6 @@
 html {
   scroll-behavior: smooth;
 }
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -55,14 +54,6 @@ body {
   padding: 20px;
 }
 
-/* Header */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
 header input[type="text"] {
   padding: 8px 12px;
   width: 300px;
@@ -70,17 +61,30 @@ header input[type="text"] {
   border: 1px solid #ccc;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.icons {
+  margin-left: auto; 
+  display: flex;
+  gap: 20px; 
+  align-items: center;
+}
+
 .icons i {
-  font-size: 18px;
-  margin-left: 20px;
+  font-size: 24px;
   cursor: pointer;
+  color: #0a0909;
   transition: transform 0.2s;
 }
 
 .icons i:hover {
   transform: scale(1.2);
 }
-
 
 .back-btn {
   background: none;
@@ -113,7 +117,6 @@ header input[type="text"] {
   margin-bottom: 20px;
   font-weight: bold;
 }
-
 
 .logo-img {
   height: 40px;
@@ -237,6 +240,7 @@ header input[type="text"] {
 }
 
 
+/* MODAL AMÉLIORÉ */
 .modal {
   position: fixed;
   top: 0;
@@ -256,23 +260,84 @@ header input[type="text"] {
 
 .modal-content {
   background-color: #fff;
-  padding: 20px;
+  padding: 30px 25px;
   position: relative;
-  border-radius: 10px;
-  width: 350px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 12px;
+  right: 16px;
   font-size: 24px;
   cursor: pointer;
   z-index: 1010;
   color: #333;
+  transition: color 0.2s;
 }
 
+.close:hover {
+  color: #111;
+}
+
+#modalTitle {
+  font-size: 1.3rem;
+  color: #6d4c41;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#eventForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#eventForm label {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+#eventForm input[type="date"],
+#eventForm input[type="time"],
+#eventForm input[type="text"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #f9f7f4;
+}
+
+.agenda-btn {
+  background-color: #6d4c41;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.agenda-btn:hover {
+  background-color: #5a3a30;
+}
 
 /* Responsive */
 @media (max-width: 768px) {

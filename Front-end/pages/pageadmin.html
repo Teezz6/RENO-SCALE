@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin - Fashion Chic</title>
+  <link rel="icon" type="../images/logo.png" href="../images/logo.png">
   <link rel="stylesheet" href="../styles/pageadmin.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -22,17 +23,14 @@
   <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
   <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
   <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
-  <li><a href="pagecomptabilite.html" class="active"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+  <li><a href="pagecomptabilite.html" ><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+  <li><a href="pagelivraison.html"><i class="fas fa-truck"></i> Livraison</a></li>
    </ul>
   </nav>
   
   </div>
   <div class="main">
     <header>
-      <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" id="searchInput" placeholder="Rechercher">
-      </div>
       <div class="icons">
       <i class="fas fa-bell"></i>
       <a href="../pages/pageinscription.html" title="Inscription d'un nouvel employé">
@@ -43,79 +41,41 @@
     </header>
 
     <section id="dashboard" class="overview">
-      <div class="card">Stock actuel<br><strong>1.500</strong> articles</div>
-      <div class="card">Commandes en livraison<br><strong>12</strong></div>
-      <div class="card">Nouvelles commandes<br><strong>8</strong></div>
-      <div class="card">Activité commerciale aujourd'hui<br><strong>6</strong></div>
+      <div class="card">Stock actuel<br><strong></strong> produits</div>
+      <div class="card">Commandes en livraison<br><strong></strong></div>
+      <div class="card">Nouvelles commandes<br><strong></strong></div>
+      <div class="card">Activité commerciale aujourd'hui<br><strong></strong></div>
     </section>
 
     <section class="graph">
       <h3>Commandes mensuelles </h3>
-  <canvas id="commandeChart" width="400" height="200"></canvas>
+  <canvas id="commandeChart" width="500" height="250"></canvas>
     </section>
 
     <section class="graph">
   <h3>Répartition des statuts</h3>
-  <canvas id="commandeStatusChart" width="200" height="100"></canvas>
+  <canvas id="commandeStatusChart" width="400" height="200"></canvas>
     </section>
 
-    <section id="stock" class="tables">
-      <div class="table">
-        <h3>Stock</h3>
-        <table>
-          <tr><th>Référence</th><th>Nom</th><th>Quantité</th><th>Prix</th></tr>
-          <tr><td>BLS-001</td><td>Blouse</td><td>15</td><td>150 €</td></tr>
-          <tr><td>RBL-002</td><td>Robes</td><td>12</td><td>122 €</td></tr>
-          <tr><td>SNK-003</td><td>Pantalons</td><td>20</td><td>858 €</td></tr>
-          <tr><td>BG-004</td><td>Vestes</td><td>86</td><td>456 €</td></tr>
-        </table>
-      </div>
-    </section>
+  <section id="documents" class="tables">
+  <div class="table">
+    <h3>Documents</h3>
+    <form id="uploadForm" class="upload-form">
+      <label for="fileInput" class="upload-label" title="Télécharger un document">
+        <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v8m0 0l-4-4m4 4l4-4M12 4v8" />
+        </svg>
+        <span>Télécharger un document</span>
+      </label>
+      <input type="file" id="fileInput" multiple hidden />
+      <button type="submit" class="upload-btn">Envoyer</button>
+    </form>
+    <ul id="documentList" class="document-list">
+      <li class="empty-list">Aucun document à afficher pour le moment.</li>
+    </ul>
+  </div>
+ </section>
 
-    <section id="commandes" class="tables">
-      <div class="table">
-        <h3>Commandes</h3>
-        <table id="commandesTable">
-          <tr><th>Numéro</th><th>Statut</th><th>Date</th></tr>
-          <tr><td>1001</td><td>Livrée</td><td>23 Mai 2025</td></tr>
-          <tr><td>1002</td><td>En cours de traitement</td><td>22 Mai 2025</td></tr>
-          <tr><td>1003</td><td>...</td><td>...</td></tr>
-          <tr><td>1004</td><td>...</td><td>...</td></tr>
-        </table>
-      </div>
-    </section>
-
-    <section id="fournisseurs" class="tables">
-      <div class="table">
-        <h3>Fournisseurs</h3>
-        <table>
-          <tr><th>Nom</th><th>Contact</th><th>Email</th><th>Téléphone</th></tr>
-          <tr><td>Mode Styles</td><td>Alice Morel</td><td>alice@gmail.com</td><td>0686534357</td></tr>
-          <tr><td>Elegance Paris</td><td>Pierre Marchand</td><td>pierre@gmail.com</td><td>064460788</td></tr>
-          <tr><td>Chic</td><td>Isabelle Lefevre</td><td>isabelle@gmail.com</td><td>0123430789</td></tr>
-        </table>
-      </div>
-    </section>
-
-    <section id="agenda" class="tables">
-      <div class="table">
-        <h3>Agenda</h3>
-        <table>
-          <tr><th>Nom</th><th>Type</th><th>Taille</th><th>Dernière modification</th></tr>
-          <tr><td>Catalogue.pdf</td><td>PDF</td><td>230 Ko</td><td>23 avril 2025</td></tr>
-          <tr><td>Rapport.xlsx</td><td>XLSX</td><td>238 Ko</td><td>24 avril 2025</td></tr>
-          <tr><td>Présentation.ppix</td><td>PPT</td><td>559 Ko</td><td>25 avril 2025</td></tr>
-          <tr><td>Inventaire.docx</td><td>DOCX</td><td>244 Ko</td><td>28 avril 2025</td></tr>
-        </table>
-      </div>
-    </section>
-
-    <section id="documents" class="tables">
-      <div class="table">
-        <h3>Documents</h3>
-        <p>Aucun document à afficher pour le moment.</p>
-      </div>
-    </section>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
