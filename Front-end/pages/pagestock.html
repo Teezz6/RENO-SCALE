@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestion des stocks - Fashion Chic</title>
+  <link rel="icon" type="../images/logo.png" href="../images/logo.png">
   <link rel="stylesheet" href="../styles/pagestock.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -18,14 +19,15 @@
         <img src="../images/logo.png" alt="Logo Fashion Chic" class="logo-img" />
         <span class="brand-name">FASHION CHIC</span>
       </div>
-      <ul class="menu">
-        <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-        <li><a href="pagestock.html" class="active"><i class="fas fa-box"></i> Gestion des stocks</a></li>
-        <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
-        <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
-        <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
-        <li><a href="pagecomptabilite.html"><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
-      </ul>
+   <ul class="menu">
+  <li><a href="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+  <li><a href="pagestock.html" class="active"><i class="fas fa-box"></i> Gestion des stocks</a></li>
+  <li><a href="pagecommande.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+  <li><a href="pagefournisseurs.html"><i class="fas fa-truck"></i> Fournisseurs</a></li>
+  <li><a href="pageagenda.html"><i class="fas fa-calendar-alt"></i> Agenda partagé</a></li>
+  <li><a href="pagecomptabilite.html" ><i class="fas fa-euro-sign"></i> Comptabilité</a></li>
+  <li><a href="pagelivraison.html"><i class="fas fa-truck"></i> Livraison</a></li>
+   </ul>
     </div>
   </nav>
 
@@ -34,13 +36,15 @@
       <h1>Gestion des stocks</h1>
       <div class="icons">
         <i class="fas fa-bell"></i>
-        <i class="fas fa-user-circle"></i>
+        <a href="../pages/pageprofil.html" title="Mon Profil" class="icon-profil">
+        <i class="fa fa-user-circle"></i>
+        </a>
       </div>
     </header>
 
     <div class="filters">
-      <button class="add-article" id="btn-add-article">+ Ajouter un article</button>
-      <button class="add-article" id="btn-create-lot">+ Créer un lot</button>
+      <button class="add-produit" id="btn-add-article">+ Ajouter un produit</button>
+      <button class="add-produit" id="btn-create-lot">+ Créer un lot</button>
     </div>
 
     <section class="stock-section">
@@ -48,13 +52,14 @@
         <thead>
           <tr>
             <th>Référence</th>
-            <th>Nom de l'article</th>
+            <th>Nom du produit</th>
             <th>Taille</th>
+            <th>Matière</th>
             <th>Couleur</th>
             <th>Quantité</th>
             <th>Prix unitaire</th>
             <th>Statut</th>
-            <th>Action</th>
+            <th>Action</th> <!-- Ajouté pour actions sur produits -->
           </tr>
         </thead>
         <tbody id="stock-body"></tbody>
@@ -70,8 +75,8 @@
             <th>Nom du lot</th>
             <th>Description</th>
             <th>Quantité totale</th>
-            <th>Prix total</th>
-            <th>Action</th>
+            <!-- Prix total supprimé -->
+            <th>Action</th> <!-- Actions : Voir, Modifier, Supprimer -->
           </tr>
         </thead>
         <tbody id="lot-body"></tbody>
@@ -79,41 +84,31 @@
     </section>
   </main>
 
-  <!-- Popup ajout article -->
+  <!-- Popup ajout produit -->
   <div class="popup" id="popup-form">
     <div class="popup-content">
       <span class="close-btn" id="close-popup">&times;</span>
-      <h2 id="form-title">Ajouter / Modifier un article</h2>
       <form id="article-form">
-        <label for="article-ref">Référence</label>
-        <input type="text" id="article-ref" placeholder="pant, rob, etc." required>
+        <label for="produit-ref">Référence</label>
+        <input type="text" id="produit-ref" name="produit-ref" placeholder="pant, rob, etc." required>
 
-        <label for="article-name">Nom de l'article</label>
-        <input type="text" id="article-name" required>
+        <label for="produit-name">Nom du produit</label>
+        <input type="text" id="produit-nom" name="produit-nom" required>
 
+        <label for="produit-size">Taille</label>
+        <input type="text" id="produit-taille" name="produit-taille" required>
+
+        <label for="produit-color">Couleur</label>
+        <input type="text" id="produit-couleur" name="produit-couleur" required>
+
+        <label for="produit-matiere">Matière</label>
+        <input type="text" id="produit-matiere" name="produit-matiere" required>
         
-        <select id="article-taille" required>
-          <option value="" disabled selected>Choisir la taille</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        </select>
+        <label for="produit-qty">Quantité</label>
+        <input type="number" id="produit-quantite" name="produit-quantite" min="1" required>
 
-        <label for="article-couleur">Couleur</label>
-        <select id="article-couleur" required>
-          <option value="" disabled selected>Choisir la couleur</option>
-          <option value="Noir">Noir</option>
-          <option value="Blanc">Blanc</option>
-          <option value="Bleu">Bleu</option>
-        </select>
-
-        <label for="article-qty">Quantité</label>
-        <input type="number" id="article-qty" min="1" required>
-
-        <label for="article-price">Prix unitaire (€)</label>
-        <input type="number" id="article-price" min="0" step="0.01" required>
+        <label for="produit-price">Prix unitaire (€)</label>
+        <input type="number" id="produit-prix" name="produit-prix" min="0" step="0.01" required>
 
         <div class="message-zone" id="message-zone"></div>
         <button type="submit">Enregistrer</button>
@@ -125,44 +120,28 @@
   <div class="popup" id="popup-lot">
     <div class="popup-content">
       <span class="close-btn" id="close-lot-popup">&times;</span>
-      <h2>Créer un lot</h2>
+      
       <form id="lot-form">
         <label for="lot-name">Nom du lot</label>
         <input type="text" id="lot-name" required>
 
+        <label for="lot-reference">Référence du produit</label>
+        <input type="text" id="lot-reference" class="ref-input" placeholder="Ex : PANT-00123" autocomplete="off" />
+        <select id="reference-select" size="5"></select>
+
         <label for="lot-description">Description</label>
-        <textarea id="lot-description" required></textarea>
+        <input type="text" id="lot-description" required>
 
-        <div class="lot-product-line">
-          <input type="text" id="lot-ref" placeholder="Référence (pant, rob...)" required>
+        <label for="lot-taille">Taille</label>
+        <input type="text" id="lot-taille" class="taille-input" placeholder="Ex : M" required>
 
-          <div class="checkbox-group">
-            <label>Tailles :</label>
-            <div class="checkboxes tailles-checkboxes">
-              <label><input type="checkbox" value="S" class="taille-checkbox"> S</label>
-              <label><input type="checkbox" value="M" class="taille-checkbox"> M</label>
-              <label><input type="checkbox" value="L" class="taille-checkbox"> L</label>
-              <label><input type="checkbox" value="XL" class="taille-checkbox"> XL</label>
-              <label><input type="checkbox" value="XXL" class="taille-checkbox"> XXL</label>
-            </div>
-          </div>
+        <label for="lot-couleur">Couleur</label>
+        <input type="text" id="lot-couleur" class="couleur-input" placeholder="Ex : Noir" required>
 
-          <div class="checkbox-group">
-            <label>Couleurs :</label>
-            <div class="checkboxes couleurs-checkboxes">
-              <label><input type="checkbox" value="Noir" class="couleur-checkbox"> Noir</label>
-              <label><input type="checkbox" value="Blanc" class="couleur-checkbox"> Blanc</label>
-              <label><input type="checkbox" value="Bleu" class="couleur-checkbox"> Bleu</label>
-            </div>
-          </div>
+        <label for="lot-quantite">Quantité</label>
+        <input type="number" id="lot-quantite" min="1" required>
 
-          <input type="number" placeholder="Quantité" class="quantite-input" min="1" required>
-          <input type="number" placeholder="Prix unitaire (€)" class="prix-input" min="0" step="0.01" required>
-
-          <button type="button" id="add-to-lot">+ Ajouter au lot</button>
-        </div>
-
-        <ul id="lot-products-list"></ul>
+        <button type="button" id="add-to-lot">+ Ajouter au lot</button>
         <button type="submit">Créer le lot</button>
       </form>
     </div>

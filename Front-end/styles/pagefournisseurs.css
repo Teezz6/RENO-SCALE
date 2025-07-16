@@ -1,3 +1,4 @@
+/* Général */
 html {
   scroll-behavior: smooth;
 }
@@ -23,9 +24,23 @@ body {
   z-index: 100;
 }
 
-.sidebar h2 {
+.logo-title {
+  display: flex;
+  align-items: center;
   margin-bottom: 30px;
-  font-size: 1.5rem;
+}
+
+.logo-img {
+  height: 40px;
+  width: 40px;
+  background-color: #decdb1;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-size: 1.2rem;
+  font-weight: bold;
   color: #6d4c41;
 }
 
@@ -36,15 +51,15 @@ body {
 }
 
 .sidebar ul li {
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .sidebar ul li a {
   color: #333;
   text-decoration: none;
-  padding: 10px;
   display: block;
-  border-radius: 5px;
+  padding: 10px;
+  border-radius: 6px;
   transition: background 0.3s, color 0.3s;
 }
 
@@ -53,155 +68,6 @@ body {
   background-color: #d6bdaa;
   color: white;
   font-weight: bold;
-}
-
-/* Main content */
-.main {
-  margin-left: 220px;
-  padding: 30px;
-  width: calc(100% - 220px);
-}
-
-/* Header */
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.logo-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.logo-img {
-  height: 40px;
-  width: 40px;
-  background-color: #decdb1;
-  border-radius: 5px;
-  margin-right: 15px;
-}
-
-.icons i {
-  font-size: 18px;
-  margin-left: 20px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.icons i:hover {
-  transform: scale(1.2);
-}
-
-.back-btn {
-... (93 lines left)
-Collapse
-message.txt
-3 KB
-﻿
-Rosi_ndg
-rosi_ndg
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f4f1ed;
-  color: #333;
-  display: flex;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 200px;
-  height: 100vh;
-  background-color: #e9e3da;
-  padding: 10px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-}
-
-.sidebar h2 {
-  margin-bottom: 30px;
-  font-size: 1.5rem;
-  color: #6d4c41;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  margin: 20px 0;
-}
-
-.sidebar ul li a {
-  color: #333;
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  border-radius: 5px;
-  transition: background 0.3s, color 0.3s;
-}
-
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
-  background-color: #d6bdaa;
-  color: white;
-  font-weight: bold;
-}
-
-/* Main content */
-.main {
-  margin-left: 220px;
-  padding: 30px;
-  width: calc(100% - 220px);
-}
-
-/* Header */
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.logo-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.logo-img {
-  height: 40px;
-  width: 40px;
-  background-color: #decdb1;
-  border-radius: 5px;
-  margin-right: 15px;
-}
-
-.icons i {
-  font-size: 18px;
-  margin-left: 20px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.icons i:hover {
-  transform: scale(1.2);
 }
 
 .back-btn {
@@ -209,27 +75,69 @@ body {
   border: none;
   font-size: 18px;
   cursor: pointer;
-  margin: 10px;
+  margin-bottom: 10px;
 }
 
-/* Bouton d'ajout */
+/* Contenu principal */
+.main {
+  margin-left: 220px;
+  padding: 30px;
+  width: calc(100% - 220px);
+}
+
+/* En-tête */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.topbar h1 {
+  font-size: 1.8rem;
+  color: #6d4c41;
+}
+
+.icons i {
+  font-size: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #080807;
+}
+
+.icons i:hover {
+  transform: scale(1.2);
+}
+
+/* Bouton ajouter */
 .add-btn {
-  background-color: #000;
+  background-color: #6d4c41;
   color: #f0dfd2;
   border: none;
   padding: 10px 15px;
   border-radius: 10px;
   cursor: pointer;
-  margin-bottom: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #5a3a30;
 }
 
 /* Tableau des fournisseurs */
+.supplier-section {
+  margin-top: 20px;
+}
+
 .supplier-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background-color: white;
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .supplier-table th,
@@ -241,6 +149,7 @@ body {
 
 .supplier-table th {
   background-color: #f2eee8;
+  color: #6d4c41;
 }
 
 /* Popup formulaire */
@@ -259,11 +168,23 @@ body {
 
 .form-content {
   background-color: #fff;
-  padding: 30px;
+  padding: 25px 30px;
   border-radius: 10px;
-  width: 300px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  width: 350px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
   position: relative;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .close-btn {
@@ -273,28 +194,54 @@ body {
   background: none;
   border: none;
   font-size: 24px;
+  color: #999;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
-/* Inputs */
+.close-btn:hover {
+  color: #333;
+}
+
+.form-content h2 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #6d4c41;
+}
+
+/* Champs du formulaire */
 input[type="text"],
+input[type="email"],
+input[type="tel"],
 input[type="date"] {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
 }
 
-/* Bouton valider */
+label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Bouton de validation */
 .submit-btn {
-  margin-top: 10px;
   background-color: #e1b596;
-  color: #fff;
+  color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px;
   border-radius: 6px;
-  cursor: pointer;
+  font-weight: bold;
   width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #d6a482;
 }
