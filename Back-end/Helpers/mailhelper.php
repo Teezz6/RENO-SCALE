@@ -10,7 +10,7 @@ function sendWelcomeEmail($toEmail, $resetToken) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host = 'mail.fashionchic.local';
+        $mail->Host = '192.168.1.50';
         $mail->SMTPAuth = true;
         $mail->Username = 'admin@fashionchic.local';
         $mail->Password = 'debian';
