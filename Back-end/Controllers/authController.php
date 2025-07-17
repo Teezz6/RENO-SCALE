@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ .'/../Config/database.php';
 require_once __DIR__ .'/../Models/utilisateur.php';
+require_once __DIR__ . '/../Helpers/MailHelper.php';
+
 
 // Ajout de JWT
 require_once __DIR__ .'/../Helpers/JWT.php';
@@ -14,27 +16,37 @@ class AuthController {
     }
 
     public function register($data) {
-        if (
-            !empty($data['nom']) &&
-            !empty($data['prenom']) &&
-            !empty($data['email']) &&
-            !empty($data['mot_passe']) &&
-            !empty($data['role'])
+       if (
+         !empty($data['nom']) &&
+         !empty($data['prenom']) &&
+         !empty($data['email']) &&
+         !empty($data['mot_passe']) &&
+         !empty($data['role'])
         ) {
-            $utilisateur = new Utilisateur($this->conn);
-            $utilisateur->nom = htmlspecialchars(strip_tags($data['nom']));
-            $utilisateur->prenom = htmlspecialchars(strip_tags($data['prenom']));
-            $utilisateur->email = htmlspecialchars(strip_tags($data['email']));
-            $utilisateur->mot_passe = $data['mot_passe'];
-            $utilisateur->role = $data['role'];
+         $utilisateur = new Utilisateur($this->conn);
+         $utilisateur->nom = htmlspecialchars(strip_tags($data['nom']));
+         $utilisateur->prenom = htmlspecialchars(strip_tags($data['prenom']));
+         $utilisateur->email = htmlspecialchars(strip_tags($data['email']));
+         $utilisateur->mot_passe = $data['mot_passe'];
+         $utilisateur->role = $data['role'];
 
-            if ($utilisateur->register()) {
+         if ($utilisateur->register()) {
+             // Génère un token JWT valable 1 heure
+               $resetToken = JWTHandler::generateToken([
+                 'email' => $utilisateur->email,
+                 'role' => $utilisateur->role
+                ]);
+
+              // Envoie le mail à l'utilisateur avec le token
+               require_once __DIR__ . '/../Helpers/MailHelper.php';
+               sendWelcomeEmail($utilisateur->email, $resetToken);
+
                 return ['status' => 'success'];
             } else {
-                return ['status' => 'error', 'message' => "Échec de l'enregistrement"];
-            }
+                 return ['status' => 'error', 'message' => "Échec de l'enregistrement"];
+                }
         } else {
-            return ['status' => 'error', 'message' => 'Champs manquants'];
+          return ['status' => 'error', 'message' => 'Champs manquants'];
         }
     }
 

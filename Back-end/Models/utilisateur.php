@@ -69,6 +69,13 @@ class Utilisateur {
         }
        return false;
     
-    }    
+    }   
+    
+    public function updatePassword() {
+     $hashedPassword = password_hash($this->mot_passe, PASSWORD_BCRYPT);
+     $stmt = $this->conn->prepare("UPDATE utilisateurs SET mot_passe = ? WHERE email = ?");
+     return $stmt->execute([$hashedPassword, $this->email]);
+    }
+
 }
 ?>
