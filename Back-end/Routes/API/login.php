@@ -1,58 +1,68 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../Config/database.php';
+require_once __DIR__ . '/../../Helpers/JWT.php';
 
-// Autorisation des requêtes CORS
-header("Access-Control-Allow-Origin: http://web");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
-
-// Gestion des erreurs : log dans un fichier
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/../../php-error.log');
-
-// En-tête JSON
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: http://web'); 
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Credentials: true');
+
 
 try {
-    require_once __DIR__ . '/../../Controllers/authController.php';
+    // Connexion à la base de données
+    $database = new Database();
+    $pdo = $database->getConnection();
 
-    $data = json_decode(file_get_contents("php://input"), true);
+    // Récupération des données JSON
+    $data = json_decode(file_get_contents('php://input'), true);
+    $email = $data['email'] ?? '';
+    $mot_passe = $data['mot_passe'] ?? '';
 
-    if ($data) {
-        $auth = new AuthController();
-        $result = $auth->login($data); 
-
-        if ($result['status'] === 'success') {
-            echo json_encode([
-                'status' => 'success',
-                'message' => 'Connexion réussie'
-            ]);
-        } else {
-            http_response_code(400);
-            echo json_encode([
-                'status' => 'error',
-                'message' => $result['message']
-            ]);
-        }
-    } else {
+    // Vérification des champs
+    if (empty($email) || empty($mot_passe)) {
         http_response_code(400);
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Données manquantes'
-        ]);
+        echo json_encode(['status' => 'error', 'message' => 'Email et mot de passe requis']);
+        exit;
     }
-} catch (Throwable $e) {
+
+    // Préparation de la requête
+    $stmt = $pdo->prepare("SELECT idutilisateur, nom, prenom, email, mot_passe, role FROM Utilisateur WHERE email = :email LIMIT 1");
+    $stmt->execute(['email' => $email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user || !password_verify($mot_passe, $user['mot_passe'])) {
+        http_response_code(401);
+        echo json_encode(['status' => 'error', 'message' => 'Email ou mot de passe incorrect']);
+        exit;
+    }
+
+    // Génération du token
+    $token = JWTHandler::generateToken([
+        'id' => $user['idutilisateur'],
+        'email' => $user['email'],
+        'role' => $user['role'],
+        'nom' => $user['nom'],
+        'prenom' => $user['prenom']
+    ]);
+
+    // Réponse
+    echo json_encode([
+        'status' => 'success',
+        'token' => $token,
+        'user' => [
+            'id' => $user['idutilisateur'],
+            'nom' => $user['nom'],
+            'prenom' => $user['prenom'],
+            'email' => $user['email'],
+            'role' => $user['role']
+        ]
+    ]);
+
+} catch (PDOException $e) {
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
         'message' => 'Erreur serveur : ' . $e->getMessage()
     ]);
 }
-?>

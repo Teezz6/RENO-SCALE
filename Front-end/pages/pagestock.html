@@ -58,7 +58,7 @@
             <th>Couleur</th>
             <th>Quantité</th>
             <th>Prix unitaire</th>
-            <th>Statut</th>
+          
             <th>Action</th> <!-- Ajouté pour actions sur produits -->
           </tr>
         </thead>
@@ -71,7 +71,6 @@
       <table class="stock-table">
         <thead>
           <tr>
-            <th>ID Lot</th>
             <th>Nom du lot</th>
             <th>Description</th>
             <th>Quantité totale</th>
@@ -116,6 +115,20 @@
     </div>
   </div>
 
+  <div id="popup-edit-produit" style="display:none; position:fixed; top:20%; left:35%; background:#fff; border:1px solid #ccc; padding:20px; z-index:100;">
+   <h3>Modifier Produit</h3>
+   <input id="edit-ref" placeholder="Référence" disabled /><br/>
+   <input id="edit-nom" placeholder="Nom" /><br/>
+   <input id="edit-taille" placeholder="Taille" /><br/>
+   <input id="edit-matiere" placeholder="Matière" /><br/>
+   <input id="edit-couleur" placeholder="Couleur" /><br/>
+   <input id="edit-quantite" type="number" placeholder="Quantité" /><br/>
+   <input id="edit-prix" type="number" placeholder="Prix unitaire" step="0.01"/><br/>
+   <button id="save-produit">Sauvegarder</button>
+   <button id="close-edit-produit">Fermer</button>
+  </div>
+
+
   <!-- Popup création de lot -->
   <div class="popup" id="popup-lot">
     <div class="popup-content">
@@ -142,7 +155,26 @@
         <input type="number" id="lot-quantite" min="1" required>
 
         <button type="button" id="add-to-lot">+ Ajouter au lot</button>
-        <button type="submit">Créer le lot</button>
+        <button type="submit">Créer un lot</button>
+
+        <!-- Popup modification de lot -->
+      <div class="popup" id="popup-edit-lot" style="display:none;">
+       <div class="popup-content">
+         <span class="close-btn" id="close-edit-lot">&times;</span>
+         <h3>Modifier le lot</h3>
+         <label for="edit-lot-nom">Nom du lot</label>
+         <input type="text" id="edit-lot-nom" />
+
+         <label for="edit-lot-description">Description</label>
+         <input type="text" id="edit-lot-description" />
+
+         <h4>Produits dans le lot</h4>
+         <div id="lot-produits-container"></div>
+
+         <button id="save-lot">Sauvegarder</button>
+        </div>
+      </div>
+
       </form>
     </div>
   </div>

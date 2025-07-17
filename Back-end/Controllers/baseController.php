@@ -1,6 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../Config/database.php';
+require_once __DIR__ . '/../Models/lot_produit.php';
 
 class BaseController {
     protected $model;

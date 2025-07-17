@@ -1,6 +1,7 @@
 <?php
 // En-têtes HTTP pour le CORS
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: http://web");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -17,10 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-require_once __DIR__ . '/../../Middleware/AuthMiddleware.php';
+require_once __DIR__ . '/../../Middlewares/AuthMiddleware.php';
 
 // Vérification de l’authentification (présence d’un token JWT)
-$user = AuthMiddleware::verify();
+$user = AuthMiddleware::verifyRole(['admin', 'commercial', 'responsable de stock', 'préparateur de commande', 'livreur']);
+error_log('Rôle utilisateur: ' . $user->role);
+
 
 // Récupère la méthode HTTP et l'entité
 $method = $_SERVER['REQUEST_METHOD'];
@@ -37,7 +40,7 @@ switch ($role) {
         // Admin a accès total à tout
         break;
 
-    case 'responsable_stock':
+    case 'responsable de stock':
         $autorisations = [
             'Produit' => ['GET', 'POST', 'PUT', 'DELETE'],
             'Lot'     => ['GET'],
@@ -66,7 +69,7 @@ switch ($role) {
         }
         break;
 
-    case 'preparateur':
+    case 'préparateur de commande':
         $autorisations = [
             'Commande' => ['GET', 'POST', 'PUT', 'DELETE'],
             'Commande_Lot' => ['GET', 'POST', 'PUT', 'DELETE'],

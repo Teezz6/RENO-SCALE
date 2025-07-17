@@ -10,27 +10,36 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   };
 
   try {
-    // Étape 1 : tentative de connexion
+    // Envoi des données login
     const response = await fetch('http://web/RENO-SCALE-1/Back-end/Routes/API/login.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data),
-      credentials: 'include'
+      body: JSON.stringify(data)
+      // PAS besoin de credentials ici, car pas de session
     });
 
     const result = await response.json();
+
+    console.log("Token reçu :", result.token);
+
 
     if (!response.ok || result.status !== 'success') {
       document.getElementById('message').textContent = result.message || "Erreur lors de la connexion.";
       return;
     }
 
-    // Étape 2 : récupération du rôle via dashboard.php
+    // Stocker le token JWT (localStorage ou sessionStorage)
+    localStorage.setItem('jwtToken', result.token);
+
+    // Récupérer le rôle via dashboard.php avec le token
+    const token = localStorage.getItem('jwtToken');
     const roleResponse = await fetch('http://web/RENO-SCALE-1/Back-end/Routes/API/dashboard.php', {
       method: 'GET',
-      credentials: 'include'
+      headers: {
+        'Authorization': 'Bearer ' + result.token
+      }
     });
 
     const roleData = await roleResponse.json();
@@ -38,22 +47,20 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     if (roleData.status === 'success') {
       const role = roleData.role;
 
-      // Étape 3 : redirection selon le rôle
       switch (role) {
         case 'admin':
           window.location.href = '../pages/pageadmin.html';
           break;
         case 'comptable':
-          window.location.href = '../pages/comptable.html';
+          window.location.href = '../pages/pagecomptabilite.html';
           break;
         case 'livreur':
-          window.location.href = '../pages/pagecommande.html';
-          break;
-        case 'préparateur':
+          window.location.href = '../pages/pagelivraison.html';
+        case 'préparateur de commande':
           window.location.href = '../pages/pagecommande.html';
           break;
         case 'commercial':
-          window.location.href = '../pages/pagefournisseurs.html';
+          window.location.href = '../pages/pagecommande.html';
           break;
         case 'responsable de stock':
           window.location.href = '../pages/pagestock.html';

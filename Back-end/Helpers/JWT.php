@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 class JWTHandler
 {
-    private static $secret = "em123!";  
+    private static $secret = "jwtToken";  
     public static function generateToken($userData)
     {
         $payload = [

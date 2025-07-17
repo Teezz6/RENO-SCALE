@@ -12,6 +12,7 @@ CREATE TABLE Fournisseur (
 
 CREATE TABLE Produit (
     idproduit INT AUTO_INCREMENT PRIMARY KEY,
+    reference VARCHAR(100),
     nom VARCHAR(100) NOT NULL,
     taille VARCHAR(10),
     couleur VARCHAR(30),
