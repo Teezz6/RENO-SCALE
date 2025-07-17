@@ -1,9 +1,9 @@
 <?php
 class Database {
-    private $host = "192.168.1.20";
+    private $host = "localhost";
     private $db_name = "fashionchic";
-    private $username = "fashion";
-    private $password = "debian";
+    private $username = "root";
+    private $password = "";
     public $conn;
 
     public function getConnection() {
