@@ -48,5 +48,41 @@ class LotModel extends BaseModel {
             throw $e;  // ou retourner false, ou gérer l'erreur
         }
     }
+
+    public function getAllWithProduits() {
+       $sql = "SELECT l.*, lp.idproduit, lp.quantite_lot, p.reference
+            FROM lot l
+            LEFT JOIN lot_produit lp ON l.idlot = lp.idlot
+            LEFT JOIN produit p ON p.idproduit = lp.idproduit";
+
+       $stmt = $this->pdo->query($sql);
+       $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Regrouper les produits par lot
+       $lots = [];
+       foreach ($rows as $row) {
+         $id = $row['idlot'];
+
+          if (!isset($lots[$id])) {
+               $lots[$id] = [
+                 'idlot' => $row['idlot'],
+                 'reference' => $row['reference'],
+                 'description' => $row['description'],
+                 'produits' => []
+                ];
+            }
+
+            if ($row['idproduit']) {
+                $lots[$id]['produits'][] = [
+                    'idproduit' => $row['idproduit'],
+                    'reference' => $row['reference'],
+                    'quantite_lot' => $row['quantite_lot']
+                ];
+            }
+        }
+
+        return array_values($lots);
+    }
+
 }
 ?>

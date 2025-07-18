@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Chargement des lots
   async function loadLots() {
     try {
+      console.log("Produits envoyés :", currentLotItems);
       const response = await fetch(API_BASE + "Lot", { headers: { Authorization: "Bearer " + token } });
       if (!response.ok) throw new Error("Erreur chargement lots");
       lots = await response.json();
@@ -112,12 +113,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Ajouter au lot 
   addToLotBtn.addEventListener("click", () => {
-    const ref = document.getElementById("lot-reference").value.trim();
+    const reference = document.getElementById("lot-reference").value.trim();
     const taille = document.getElementById("lot-taille").value.trim();
     const couleur = document.getElementById("lot-couleur").value.trim();
     const quantite = parseInt(document.getElementById("lot-quantite").value);
 
-    const produit = produits.find(p => p.reference === ref && p.taille === taille && p.couleur === couleur);
+    const produit = produits.find(p => p.reference === reference && p.taille === taille && p.couleur === couleur);
     if (!produit) {
       showToast("Produit non trouvé avec ces caractéristiques", true);
       return;
@@ -202,18 +203,22 @@ document.addEventListener("DOMContentLoaded", () => {
     lotBody.innerHTML = "";
     lots.forEach((lot, index) => {
       // Quantité totale de lot à partir de lot_produit, ici supposée dans lot.quantite_lot ou calculée
-      fetch('http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/lot.php?idlot=1')
-      .then(response => response.json())
-      .then(produits => {
-       // Calcule la somme des quantités
-      const quantiteTotale = produits.reduce((somme, produit) => {
-        return somme + parseInt(produit.quantite_lot);
-      }, 0);
+      lots.forEach((lot) => {
+       fetch(`http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/lot.php?idlot=${lot.idlot}`)
+         .then(response => response.json())
+         .then(produits => {
+         if (!Array.isArray(produits)) {
+           console.warn("Le backend n’a pas renvoyé un tableau :", produits);
+           return;
+          }
 
-    console.log("Quantité totale du lot :", quantiteTotale);
+         const quantiteTotale = produits.reduce((somme, produit) => {
+           return somme + parseInt(produit.quantite_lot);
+          }, 0);
 
-    
-  });
+         console.log(`Quantité totale du lot ${lot.idlot} :`, quantiteTotale);
+        });
+      });
 
       lotBody.innerHTML += `
         <tr>

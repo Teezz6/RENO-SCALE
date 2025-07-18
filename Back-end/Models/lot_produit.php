@@ -24,17 +24,19 @@ class LotProduitModel extends BaseModel {
             JOIN Lot_Produit lp ON l.idlot = lp.idlot
             JOIN Produit p ON lp.idproduit = p.idproduit
             WHERE l.idlot = :idlot";
-    
+
        $stmt = $this->pdo->prepare($sql);
        $stmt->bindParam(':idlot', $idLot, PDO::PARAM_INT);
        $stmt->execute();
-       return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-       var_dump($res);
-       exit;
+       $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+       var_dump($res); // Debug: affiche ce qui est récupéré
+       exit; // stoppe l’exécution ici pour voir le résultat
 
        return $res;
     }
+
 
     public function getQuantiteTotaleParLot($idLot) {
         $sql = "SELECT SUM(lp.quantite_lot) AS quantiteTotale

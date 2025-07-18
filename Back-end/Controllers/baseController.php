@@ -15,10 +15,18 @@ class BaseController {
     }
 
     public function create($data) {
+
+        if (get_class($this->model) === 'LotModel' && isset($data['produits'])) {
+          return $this->model->createWithProduits($data);
+        }
+
         return $this->model->create($data);
     }
 
     public function getAll() {
+        if (get_class($this->model) === 'LotModel' && isset($data['produits'])) {
+          return $this->model->getAllWithProduits();
+        }
         return $this->model->getAll();
     }
 
