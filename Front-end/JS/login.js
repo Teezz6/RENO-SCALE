@@ -17,7 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-      // PAS besoin de credentials ici, car pas de session
+      
     });
 
     const result = await response.json();
