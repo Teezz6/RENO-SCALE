@@ -16,6 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
+register_shutdown_function(function () {
+    $error = error_get_last();
+    if ($error !== null) {
+        http_response_code(500);
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Erreur fatale : ' . $error['message']
+        ]);
+    }
+});
+
 try {
     // Connexion à la base de données
     $database = new Database();
