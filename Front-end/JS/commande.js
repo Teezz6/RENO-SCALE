@@ -174,7 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
        <td>${cmd.client_nom}</td>
        <td>${cmd.statut}</td>
        <td>
-        <!-- boutons d'action -->
+          button onclick="voirLot(${index})">Voir</button>
+          <button onclick="modifierLotPopup(${index})">Modifier</button>
+          <button onclick="supprimerLot(${index})">Supprimer</button>
        </td>
      `;
       commandesTable.appendChild(tr);
