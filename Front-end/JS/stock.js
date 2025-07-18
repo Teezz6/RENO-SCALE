@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const API_BASE = "http://192.168.1.10/var/www/html/Back-end/Routes/API/entite.php?url=";
+  const API_BASE = "http://web.fashionchic.local/Back-end/Routes/API/entite.php?url=";
 
   const stockBody = document.getElementById("stock-body");
   const lotBody = document.getElementById("lot-body");

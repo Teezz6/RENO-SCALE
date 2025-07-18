@@ -11,7 +11,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
   try {
     // Envoi des données login
-    const response = await fetch('http:/localhost/var/www/html/Back-end/Routes/API/login.php', {
+    const response = await fetch('http://web.fashionchic.local/Back-end/Routes/API/login.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
