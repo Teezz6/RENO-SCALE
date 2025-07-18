@@ -5,7 +5,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
   const data = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch('http://localhost/RENO-SCALE-1/Back-end/Routes/API/register.php', {
+    const response = await fetch('${window.location.origin}/RENO-SCALE-1/Back-end/Routes/API/register.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

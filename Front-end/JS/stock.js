@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lots.forEach((lot, index) => {
       // Quantité totale de lot à partir de lot_produit, ici supposée dans lot.quantite_lot ou calculée
       lots.forEach((lot) => {
-       fetch(`http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/lot.php?idlot=${lot.idlot}`)
+       fetch(`${window.location.origin}/Dev_project/RENO-SCALE-1/Back-end/Routes/API/lot.php?idlot=${lot.idlot}`)
          .then(response => response.json())
          .then(produits => {
          if (!Array.isArray(produits)) {
