@@ -19,6 +19,10 @@ class BaseController {
         if (get_class($this->model) === 'LotModel' && isset($data['produits'])) {
           return $this->model->createWithProduits($data);
         }
+        
+        if (get_class($this->model) === 'OrderModel' && isset($data['lots'])) {
+          return $this->model->createWithLots($data);
+        }
 
         return $this->model->create($data);
     }

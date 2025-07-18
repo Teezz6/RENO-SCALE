@@ -1,180 +1,298 @@
-let clientIdCounter = 1;
-let clients = [];
-let orderIdCounter = 1;
-
-// ➤ Récupérer les lots enregistrés dans le localStorage
-function loadAvailableLots() {
-  return JSON.parse(localStorage.getItem('lotsStock')) || [];
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const saveClientBtn = document.getElementById('saveClientBtn');
-  const submitOrderBtn = document.getElementById('submitOrderBtn');
-  const ordersTableBody = document.querySelector('#ordersTable tbody');
-  const addOrderBtn = document.getElementById('addOrderBtn');
-  const orderForm = document.getElementById('orderForm');
-  const lotsContainer = document.getElementById('lotsContainer');
-
-  // ➤ Affiche le formulaire
-  addOrderBtn.addEventListener('click', () => {
-    orderForm.classList.remove('hidden');
-    renderAvailableLots();
-    updateClientSelect();
-  });
-
-  // ➤ Affiche les lots disponibles sous forme de cases à cocher
-  function renderAvailableLots() {
-    const lots = loadAvailableLots();
-    lotsContainer.innerHTML = '';
-    if (lots.length === 0) {
-      lotsContainer.innerHTML = "<p>Aucun lot disponible pour le moment.</p>";
-      return;
-    }
-
-    lots.forEach((lot, index) => {
-      const div = document.createElement('div');
-      div.classList.add('lot-checkbox');
-      div.innerHTML = `
-        <label>
-          <input type="checkbox" value="${index}" class="lot-select-checkbox">
-          ${lot.nom_lot} - ${lot.description} (${lot.couleur}, ${lot.matiere})
-        </label>
-      `;
-      lotsContainer.appendChild(div);
-    });
+document.addEventListener("DOMContentLoaded", () => {
+  const token = localStorage.getItem('jwtToken');
+  if (!token) {
+    alert("Vous n'êtes pas connecté.");
+    window.location.href = "pagedeconnexion.html";
+    return;
   }
 
-  // ➤ Ajoute un client
-  saveClientBtn.addEventListener('click', () => {
-    const name = document.getElementById('newClientName').value.trim();
-    const phone = document.getElementById('newClientPhone').value.trim();
-    const email = document.getElementById('newClientEmail').value.trim();
+  const addOrderBtn = document.getElementById("addOrderBtn");
+  const orderForm = document.getElementById("orderForm");
 
-    if (!name || !phone || !email) {
-      alert("Merci de remplir tous les champs du client.");
-      return;
-    }
+  addOrderBtn.addEventListener("click", () => {
+   // Affiche le formulaire en retirant la classe 'hidden'
+    orderForm.classList.remove("hidden");
 
-    const newClient = {
-      id: clientIdCounter++,
-      name,
-      phone,
-      email
-    };
-    clients.push(newClient);
-    updateClientSelect();
-    alert(`Client ajouté : ${newClient.name} (ID : ${newClient.id})`);
+    // (Optionnel) Réinitialiser les champs du formulaire
+    document.getElementById("newClientName").value = "";
+    document.getElementById("newClientEmail").value = "";
+    document.getElementById("newClientPhone").value = "";
+    document.getElementById("clientSearch").value = "";
+    document.getElementById("clientSelect").innerHTML = "";
+    lotsContainer.innerHTML = "";
+    document.getElementById("orderStatus").value = "En attente";
 
-    // Reset formulaire
-    document.getElementById('newClientName').value = '';
-    document.getElementById('newClientPhone').value = '';
-    document.getElementById('newClientEmail').value = '';
+    // Réinitialiser la sélection du client et les lots
+    selectedClientId = null;
+    lotCount = 0;
   });
 
-  // ➤ Met à jour la liste des clients
-  function updateClientSelect() {
-    const clientSelect = document.getElementById('clientSelect');
-    if (!clientSelect) return;
 
-    clientSelect.innerHTML = `<option value="">-- Sélectionner un client --</option>`;
-    clients.forEach(client => {
-      const option = document.createElement('option');
-      option.value = client.id;
-      option.textContent = `ID ${client.id} - ${client.name}`;
-      clientSelect.appendChild(option);
+  document.getElementById("saveClientBtn").addEventListener("click", async () => {
+   const nom = document.getElementById("newClientName").value.trim();
+   const email = document.getElementById("newClientEmail").value.trim();
+   const telephone = document.getElementById("newClientPhone").value.trim();
+
+   if (!nom || !email || !telephone) {
+     alert("Veuillez remplir tous les champs client.");
+     return;
+   }
+
+   const client = { nom, email, telephone };
+   const token = localStorage.getItem("jwtToken");
+
+   try {
+     const res = await fetch("http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/entite.php?url=Client", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+         "Authorization": "Bearer " + token
+       },
+       body: JSON.stringify(client)
+     });
+
+      const data = await res.json();
+    
+      if (!res.ok) {
+       alert(data.error || "Erreur lors de l’ajout du client.");
+       return;
+      }
+
+      alert("Client ajouté avec succès !");
+    
+     // Optionnel : effacer les champs après ajout
+     document.getElementById("newClientName").value = "";
+     document.getElementById("newClientEmail").value = "";
+     document.getElementById("newClientPhone").value = "";
+
+     // Optionnel : stocker l’ID du client pour préremplir la commande
+     selectedClientId = data.idclient;  // stocke pour l’envoi final
+     console.log("ID client enregistré :", selectedClientId);
+
+    } catch (error) {
+     console.error("Erreur JS :", error);
+     alert("Erreur lors de l’envoi du client.");
+    }
+  });
+
+  const clientSearchInput = document.getElementById("clientSearch");
+  const clientSelect = document.getElementById("clientSelect");
+  let selectedClientId = null;
+
+  clientSearchInput.addEventListener("input", async () => {
+   const searchTerm = clientSearchInput.value.trim();
+
+   if (searchTerm.length < 2) {
+     clientSelect.innerHTML = "";
+     return;
+   }
+
+   const token = localStorage.getItem("jwtToken");
+
+   try {
+     const res = await fetch(`http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/entite.php?url=Client&search=${encodeURIComponent(searchTerm)}`, {
+       method: "GET",
+       headers: {
+         "Authorization": "Bearer " + token
+       }
+     });
+
+     const clients = await res.json();
+
+     clientSelect.innerHTML = "";
+
+     if (clients.length === 0) {
+       const option = document.createElement("option");
+       option.textContent = "Aucun client trouvé";
+       clientSelect.appendChild(option);
+       return;
+     }
+
+     clients.forEach(client => {
+       const option = document.createElement("option");
+       option.value = client.idclient;
+       option.textContent = `${client.nom} (${client.email})`;
+       clientSelect.appendChild(option);
+     });
+
+    } catch (err) {
+     console.error("Erreur de recherche client :", err);
+     clientSelect.innerHTML = "<option>Erreur de recherche</option>";
+    }
+  });
+
+  // Sélection d’un client dans la liste
+  clientSelect.addEventListener("change", () => {
+   selectedClientId = clientSelect.value;
+   console.log("Client sélectionné :", selectedClientId);
+  });
+
+  const addLotBtn = document.getElementById("addLotBtn");
+  const lotsContainer = document.getElementById("lotsContainer");
+  let lotCount = 0;
+
+  // Fonction pour créer un nouveau bloc de lot
+  async function fetchLotsDisponibles() {
+    try {
+      const response = await fetch("http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/entite.php?url=Lot", {
+        method: "GET",
+        headers: {
+         "Content-Type": "application/json",
+         "Authorization": "Bearer " + localStorage.getItem("jwtToken") // ou "token"
+        }
+      });
+
+      if (!response.ok) {
+       throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Données des lots :", data);
+      return data;
+    } catch (error) {
+      console.error("Erreur lors du chargement des lots :", error);
+      return [];
+    }
+  }
+  //Pour récupérer les commandes depuis l'API
+
+  async function fetchCommandes() {
+   const token = localStorage.getItem("jwtToken");
+   const res = await fetch("http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/commande_liste.php", {
+     method: "GET",
+     headers: { "Authorization": "Bearer " + token }
+   });
+   const commandes = await res.json();
+
+   const commandesTable = document.getElementById("commandesTableBody"); // tbody de ton tableau
+   commandesTable.innerHTML = ""; // vider le tableau
+
+   commandes.forEach(cmd => {
+     const tr = document.createElement('tr');
+     tr.innerHTML = `
+       <td>${cmd.idcommande}</td>
+       <td>${cmd.client_nom}</td>
+       <td>${cmd.statut}</td>
+       <td>
+        <!-- boutons d'action -->
+       </td>
+     `;
+      commandesTable.appendChild(tr);
     });
   }
+  fetchCommandes();
 
-  // ➤ Soumission commande
-  submitOrderBtn.addEventListener('click', () => {
-    const selectedClientId = parseInt(document.getElementById('clientSelect').value);
-    const client = clients.find(c => c.id === selectedClientId);
-    if (!client) {
-      alert("Veuillez sélectionner un client.");
-      return;
-    }
 
-    const selectedIndexes = Array.from(document.querySelectorAll('.lot-select-checkbox:checked')).map(cb => parseInt(cb.value));
-    const allLots = loadAvailableLots();
-    const selectedLots = selectedIndexes.map(index => allLots[index]);
 
-    if (selectedLots.length === 0) {
-      alert("Veuillez sélectionner au moins un lot.");
-      return;
-    }
+  // Quand on clique sur "Ajouter un lot", on affiche une ligne avec select des lots et quantité
+  addLotBtn.addEventListener("click", async () => {
+    lotCount++;
+    const lots = await fetchLotsDisponibles();
+    console.log("Réponse fetchLotsDisponibles :", lots);
 
-    const orderNumber = `#${orderIdCounter++}`;
-    const order = {
-      id: orderNumber,
-      clientName: client.name,
-      status: "En attente",
-      lots: selectedLots
-    };
+    const lotDiv = document.createElement("div");
+    lotDiv.className = "lot-item";
+    lotDiv.dataset.lotIndex = lotCount;
 
-    addOrderToTable(order);
-    orderForm.classList.add('hidden');
-    lotsContainer.innerHTML = '';
-  });
+    // Construction options pour le select
+    const optionsHTML = lots.map(lot => 
+     `<option value="${lot.idlot}">${lot.nom_lot}</option>`
+    ).join("");
 
-  // ➤ Ajoute la commande dans le tableau
-  function addOrderToTable(order) {
-    const row = document.createElement('tr');
-    row.setAttribute('data-order-id', order.id);
 
-    row.innerHTML = `
-      <td>${order.id}</td>
-      <td>${order.clientName}</td>
-      <td>
-        <select class="status-dropdown">
-          <option value="En attente" ${order.status === "En attente" ? 'selected' : ''}>En attente</option>
-          <option value="Validé" ${order.status === "Validé" ? 'selected' : ''}>Validé</option>
-          <option value="Annulé" ${order.status === "Annulé" ? 'selected' : ''}>Annulé</option>
-        </select>
-        <span class="badge status-badge ${getStatusClass(order.status)}">${order.status}</span>
-      </td>
-      <td>
-        <button class="view-btn">Voir</button>
-        <button class="edit-btn">Modifier</button>
-        <button class="delete-btn">Supprimer</button>
-      </td>
+    lotDiv.innerHTML = `
+      <h3>Lot n°${lotCount}</h3>
+      <label>Choisir un lot :</label>
+      <select class="lot-select" required>
+        <option value="">-- Sélectionnez un lot --</option>
+        ${optionsHTML}
+      </select>
+
+      <label>Quantité :</label>
+      <input type="number" class="lot-qty" min="1" required />
+
+      <button type="button" class="removeLotBtn">Supprimer ce lot</button>
+      <hr />
     `;
 
-    ordersTableBody.appendChild(row);
+    lotsContainer.appendChild(lotDiv);
+  });
 
-    const badge = row.querySelector('.status-badge');
-    const statusDropdown = row.querySelector('.status-dropdown');
-
-    statusDropdown.addEventListener('change', () => {
-      const newStatus = statusDropdown.value;
-      badge.textContent = newStatus;
-      badge.className = `badge status-badge ${getStatusClass(newStatus)}`;
-    });
-
-    row.querySelector('.view-btn').addEventListener('click', () => {
-      let details = `Commande ${order.id}\nClient : ${order.clientName}\nStatut : ${statusDropdown.value}\nLots :\n`;
-      order.lots.forEach((lot, i) => {
-        details += `  Lot ${i + 1} - ${lot.nom_lot} | ${lot.description} | ${lot.couleur} | ${lot.matiere} | Qté: ${lot.quantite} | Prix: ${lot.prix_unitaire}€\n`;
-      });
-      alert(details);
-    });
-
-    row.querySelector('.edit-btn').addEventListener('click', () => {
-      alert(`Fonctionnalité "Modifier" à implémenter pour la commande ${order.id}`);
-    });
-
-    row.querySelector('.delete-btn').addEventListener('click', () => {
-      if (confirm(`Supprimer la commande ${order.id} ?`)) {
-        row.remove();
-      }
-    });
-  }
-
-  // ➤ Attribue une classe badge selon le statut
-  function getStatusClass(status) {
-    switch (status) {
-      case 'Validé': return 'valide';
-      case 'Annulé': return 'annule';
-      default: return 'en-attente';
+  // Suppression d’un lot
+  lotsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("removeLotBtn")) {
+      const lotDiv = e.target.closest(".lot-item");
+      lotsContainer.removeChild(lotDiv);
     }
-  }
+  });
+
+  document.getElementById("submitOrderBtn").addEventListener("click", async () => {
+    if (!selectedClientId) {
+      alert("Veuillez sélectionner ou ajouter un client pour la commande.");
+      return;
+    }
+
+    const lotDivs = lotsContainer.querySelectorAll(".lot-item");
+    if (lotDivs.length === 0) {
+      alert("Veuillez ajouter au moins un lot à la commande.");
+      return;
+    }
+
+    // Construire tableau lots avec idlot et quantité
+    const lots = [];
+    for (const lotDiv of lotDivs) {
+      const idlot = lotDiv.querySelector(".lot-select").value;
+      const qty = parseInt(lotDiv.querySelector(".lot-qty").value, 10);
+
+      if (!idlot || isNaN(qty) || qty <= 0) {
+        alert("Veuillez sélectionner un lot et saisir une quantité valide.");
+        return;
+      }
+
+      lots.push({ idlot: parseInt(idlot, 10), quantite: qty });
+    }
+
+    const statut = document.getElementById("orderStatus").value;
+
+    const commande = {
+      idclient: selectedClientId,
+      lots,
+      statut
+    };
+
+    try {
+      const res = await fetch("http://localhost/Dev_project/RENO-SCALE-1/Back-end/Routes/API/entite.php?url=Commande", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(commande)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Erreur lors de la création de la commande.");
+        return;
+      }
+      
+      alert("Commande créée avec succès !");
+        // Vider formulaire & liste
+      selectedClientId = null;
+      clientSelect.innerHTML = "";
+      clientSearchInput.value = "";
+      lotsContainer.innerHTML = "";
+      document.getElementById("orderStatus").value = "En attente";
+       // Cacher le formulaire
+      orderForm.classList.add("hidden");
+       // Rafraîchir la liste des commandes
+      fetchCommandes();
+      
+
+    } catch (error) {
+      console.error("Erreur JS :", error);
+      alert("Erreur lors de l’envoi de la commande.");
+    }
+  });
 });

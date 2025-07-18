@@ -73,6 +73,9 @@ switch ($role) {
         $autorisations = [
             'Commande' => ['GET', 'POST', 'PUT', 'DELETE'],
             'Commande_Lot' => ['GET', 'POST', 'PUT', 'DELETE'],
+            'Client'        => ['GET'],
+            'Lot'           => ['GET'],
+            'Lot_Produit'   => ['GET'],
         ];
         if (!isset($autorisations[$entity]) || !in_array($method, $autorisations[$entity])) {
             http_response_code(403);

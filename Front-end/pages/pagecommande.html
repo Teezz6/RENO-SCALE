@@ -55,7 +55,7 @@
            <th>Actions</th>
          </tr>
        </thead>
-       <tbody>
+       <tbody id="commandesTableBody">
          <!-- Les commandes s’ajouteront ici dynamiquement -->
        </tbody>
      </table>
@@ -64,44 +64,41 @@
    <div id="orderForm" class="order-form hidden">
      <h2>Nouvelle Commande</h2>
 
-     <!-- Ajout Client -->
+      <!-- Ajout Client -->
      <fieldset>
        <legend>Ajouter un nouveau client</legend>
        <label for="newClientName">Nom :</label>
-       <input type="text" id="newClientName" placeholder="Nom du client">
+       <input type="text" id="newClientName" placeholder="Nom du client" />
 
        <label for="newClientEmail">Email :</label>
-       <input type="email" id="newClientEmail" placeholder="exemple@mail.com">
+       <input type="email" id="newClientEmail" placeholder="exemple@mail.com" />
 
        <label for="newClientPhone">Téléphone :</label>
-       <input type="text" id="newClientPhone" placeholder="06...">
-
+       <input type="text" id="newClientPhone" placeholder="06..." />
 
        <button id="saveClientBtn" type="button">Enregistrer le client</button>
-     </fieldset>
+      </fieldset>
 
-     
-     <label for="clientSearch">Rechercher un client par ID :</label>
-     <input type="text" id="clientSearch" placeholder="Ex : 00123" autocomplete="off" />
-     <select id="clientSelect" size="5">
-     </select>
+      <label for="clientSearch">Rechercher un client par son nom :</label>
+      <input type="text" id="clientSearch" placeholder="Ex : 00123" autocomplete="off" />
+      <select id="clientSelect" size="5"></select>
 
-     <!-- Ajout Lots -->
-     <div id="lotsContainer"></div>
-     <button type="button" id="addLotBtn">Ajouter un lot</button>
+      <!-- Ajout Lots -->
+      <div id="lotsContainer"></div>
+      <button type="button" id="addLotBtn">Ajouter un lot</button>
 
-     <label for="orderStatus">Statut de la commande :</label>
-     <select id="orderStatus">
-     <option value="en_attente">En attente</option>
-     <option value="valide">Validé</option>
-     <option value="annule">Annulé</option>
-     </select>
+      <label for="orderStatus">Statut de la commande :</label>
+      <select id="orderStatus">
+       <option value="en_attente">En attente</option>
+       <option value="valide">Validé</option>
+       <option value="annule">Annulé</option>
+      </select>
 
-
-     <!-- Soumission Commande -->
+      <!-- Soumission Commande -->
      <button type="button" id="submitOrderBtn">Valider la commande</button>
-   </div>
- </main>
+    </div>
+
+  </main>
 
  <script src="../JS/commande.js"></script>
 </body>
