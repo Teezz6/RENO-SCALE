@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function fetchCommandes() {
    const token = localStorage.getItem("jwtToken");
-   const res = await fetch("${window.location.origin}/Dev_project/RENO-SCALE-1/Back-end/Routes/API/commande_liste.php", {
+   const res = await fetch("192.168.1.10/var/www/html/Back-end/Routes/API/commande_liste.php", {
      method: "GET",
      headers: { "Authorization": "Bearer " + token }
    });
