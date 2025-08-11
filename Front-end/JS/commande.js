@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function fetchCommandes() {
    const token = localStorage.getItem("jwtToken");
-   const res = await fetch("http://web.fashionchic.local/Back-end/Routes/API/commande_liste.php", {
+   const res = await fetch("http://web/RENO-SCALE-1/Back-end/Routes/API/commande_liste.php", {
      method: "GET",
      headers: { "Authorization": "Bearer " + token }
    });

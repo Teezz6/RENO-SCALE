@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const API_BASE = "http://web.fashionchic.local/Back-end/Routes/API/entite.php?url=";
+  const API_BASE = "http://web/RENO-SCALE-1/Back-end/Routes/API/entite.php?url=";
 
   const stockBody = document.getElementById("stock-body");
   const lotBody = document.getElementById("lot-body");

@@ -11,13 +11,13 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
   try {
     // Envoi des données login
-    const response = await fetch('http://web.fashionchic.local/Back-end/Routes/API/login.php', {
+    const response = await fetch('http://web/RENO-SCALE-1/Back-end/Routes/API/login.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-      
+      // PAS besoin de credentials ici, car pas de session
     });
 
     const result = await response.json();
@@ -56,7 +56,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
           break;
         case 'livreur':
           window.location.href = '../pages/pagelivraison.html';
-        case 'préparateur de commande':
+        case 'preparateur de commande':
           window.location.href = '../pages/pagecommande.html';
           break;
         case 'commercial':
